@@ -2,23 +2,16 @@ import { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
+import { chatStore, ChatActionType, IMessage } from '../../state/chat.state';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotPage.css';
 
-interface Message {
-    id: string;
-    text: string;
-    sender: 'user' | 'bot';
-}
-
 function ChatbotPage(): JSX.Element {
-    const [messages, setMessages] = useState<Message[]>([
-        { id: 'welcome', text: "Hi! I'm GuitarBot. Ask me anything about guitars, gear, or playing technique!", sender: 'bot' },
-    ]);
+    const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
 
     const userAvatar = user?.profileImage
@@ -26,22 +19,30 @@ function ChatbotPage(): JSX.Element {
         : defaultAvatar;
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        const unsubscribe = chatStore.subscribe(() => {
+            setMessages(chatStore.getState().messages);
+        });
+        return unsubscribe;
+    }, []);
+
+    useEffect(() => {
+        const el = messagesContainerRef.current;
+        if (el) el.scrollTop = el.scrollHeight;
     }, [messages]);
 
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
-        const userMessage: Message = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
-        setMessages(prev => [...prev, userMessage]);
+        const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
+        chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
         setIsLoading(true);
 
         try {
             const reply = await chatService.sendMessage(inputText);
-            setMessages(prev => [...prev, { id: crypto.randomUUID(), text: reply, sender: 'bot' }]);
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
         } catch {
-            setMessages(prev => [...prev, { id: crypto.randomUUID(), text: 'Sorry, something went wrong. Please try again.', sender: 'bot' }]);
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong. Please try again.', sender: 'bot' } });
         } finally {
             setIsLoading(false);
         }
@@ -58,7 +59,7 @@ function ChatbotPage(): JSX.Element {
                 <h1>GuitarBot</h1>
                 <p>Your personal guitar assistant</p>
             </div>
-            <div className="chatbot-page-messages">
+            <div className="chatbot-page-messages" ref={messagesContainerRef}>
                 {messages.map(msg => (
                     <div key={msg.id} className={`chatbot-msg chatbot-msg--${msg.sender}`}>
                         {msg.sender === 'bot' && (
@@ -75,7 +76,6 @@ function ChatbotPage(): JSX.Element {
                         <div className="chatbot-msg-text chatbot-typing">...</div>
                     </div>
                 )}
-                <div ref={messagesEndRef} />
             </div>
             <div className="chatbot-page-input">
                 <input
@@ -84,10 +84,9 @@ function ChatbotPage(): JSX.Element {
                     value={inputText}
                     onChange={e => setInputText(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    disabled={isLoading}
                     className="chatbot-input-field"
                 />
-                <button onClick={sendMessage} disabled={isLoading} className="chatbot-send-btn">
+                <button onClick={sendMessage} className="chatbot-send-btn">
                     Send
                 </button>
             </div>

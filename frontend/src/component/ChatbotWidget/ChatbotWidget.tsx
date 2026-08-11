@@ -2,25 +2,25 @@ import { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
+import { chatStore, ChatActionType, IMessage } from '../../state/chat.state';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotWidget.css';
 
-interface Message {
-    id: string;
-    text: string;
-    sender: 'user' | 'bot';
-}
-
 function ChatbotWidget(): JSX.Element | null {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([
-        { id: 'welcome', text: 'Hi! Ask me anything about guitars!', sender: 'bot' },
-    ]);
+    const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
+
+    useEffect(() => {
+        const unsubscribe = chatStore.subscribe(() => {
+            setMessages(chatStore.getState().messages);
+        });
+        return unsubscribe;
+    }, []);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -35,16 +35,16 @@ function ChatbotWidget(): JSX.Element | null {
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
-        const userMessage: Message = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
-        setMessages(prev => [...prev, userMessage]);
+        const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
+        chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
         setIsLoading(true);
 
         try {
             const reply = await chatService.sendMessage(inputText);
-            setMessages(prev => [...prev, { id: crypto.randomUUID(), text: reply, sender: 'bot' }]);
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
         } catch {
-            setMessages(prev => [...prev, { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' }]);
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' } });
         } finally {
             setIsLoading(false);
         }
@@ -83,9 +83,8 @@ function ChatbotWidget(): JSX.Element | null {
                             value={inputText}
                             onChange={e => setInputText(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                            disabled={isLoading}
                         />
-                        <button onClick={sendMessage} disabled={isLoading}>Send</button>
+                        <button onClick={sendMessage}>Send</button>
                     </div>
                 </div>
             )}

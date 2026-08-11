@@ -2,6 +2,7 @@ import axios from 'axios';
 import { appConfig } from '../utils/app-config';
 import { ICredentials, IUser, IUserRegister } from '../models/user.model';
 import { authStore, AuthActionType } from '../state/auth.state';
+import { chatStore, ChatActionType } from '../state/chat.state';
 
 class AuthService {
     public async register(userData: IUserRegister): Promise<void> {
@@ -31,6 +32,8 @@ class AuthService {
 
     public logout(): void {
         authStore.dispatch({ type: AuthActionType.Logout });
+        chatStore.dispatch({ type: ChatActionType.ClearMessages });
+        localStorage.removeItem('chatState');
     }
 
     public getLoggedInUser(): IUser | null {
