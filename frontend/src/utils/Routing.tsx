@@ -8,6 +8,7 @@ import EditProfilePage from '../component/EditProfilePage/EditProfilePage';
 import FooterPage from '../component/FooterPage/FooterPage';
 import SearchPage from '../component/SearchPage/SearchPage';
 import GuitarsPage from '../component/GuitarsPage/GuitarsPage';
+import WatchlistPage from '../component/WatchlistPage/WatchlistPage';
 import PrivateRoute from '../component/PrivateRoute';
 
 function Routing(): JSX.Element {
@@ -19,6 +20,7 @@ function Routing(): JSX.Element {
             <Route path="/chatbot" element={<PrivateRoute child={<ChatbotPage />} />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/guitars" element={<GuitarsPage />} />
+            <Route path="/watchlist" element={<PrivateRoute child={<WatchlistPage />} />} />
             <Route path="/edit-profile" element={<PrivateRoute child={<EditProfilePage />} />} />
             <Route path="/about" element={<FooterPage />} />
             <Route path="/contact" element={<FooterPage />} />

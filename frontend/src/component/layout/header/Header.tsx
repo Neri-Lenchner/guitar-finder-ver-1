@@ -35,6 +35,7 @@ function Header(): JSX.Element {
                 <Link to="/guitars">Guitars</Link>
                 <Link to="/search">Find Stores</Link>
                 {user && <Link to="/chatbot">GuitarBot</Link>}
+                {user && <Link to="/watchlist">My Guitars</Link>}
                 {user ? (
                     <button onClick={handleLogout} className="header-logout-btn">Logout</button>
                 ) : (

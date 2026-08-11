@@ -240,8 +240,14 @@
     font-size: 13px;
     font-weight: 600;
     color: #1a1a2e;
+    text-decoration: none;
     margin: 0;
     line-height: 1.4;
+    display: block;
+}
+
+.reverb-card-title:hover {
+    color: #16a34a;
 }
 
 .reverb-card-meta {
@@ -255,6 +261,31 @@
     font-size: 14px;
     font-weight: 700;
     color: #16a34a;
+}
+
+.reverb-follow-btn {
+    margin-top: 4px;
+    padding: 5px 10px;
+    background: transparent;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    color: #888;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.reverb-follow-btn:hover {
+    border-color: #16a34a;
+    color: #16a34a;
+}
+
+.reverb-follow-btn--active {
+    border-color: #16a34a;
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.08);
 }
 
 .reverb-card-condition {

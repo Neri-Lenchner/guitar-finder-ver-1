@@ -10,6 +10,7 @@ import { chatController } from "./controllers/chat.controller";
 import { userController } from "./controllers/user.controller";
 import { storeController } from "./controllers/store.controller";
 import { reverbController } from "./controllers/reverb.controller";
+import { followedController } from "./controllers/followed.controller";
 
 class App {
     public async start(): Promise<void> {
@@ -25,6 +26,7 @@ class App {
         server.use(userController.router);
         server.use(storeController.router);
         server.use(reverbController.router);
+        server.use(followedController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
         server.listen(appConfig.port, () =>

@@ -1,6 +1,8 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { IBrand, IGuitarModel, IReverbListing } from '../../models/guitar.model';
 import { reverbService } from '../../services/reverb.service';
+import { followedService } from '../../services/followed.service';
+import { authService } from '../../services/auth.service';
 import guitarsData from '../../data/guitars.json';
 import superGuitar from '../../assets/super-guitar.png';
 import Spinner from '../Spinner/Spinner';
@@ -24,13 +26,22 @@ function GuitarsPage(): JSX.Element {
     const [listingsError, setListingsError] = useState('');
     const [modelImages, setModelImages] = useState<Record<string, string>>({});
     const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
+    const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
     const reverbSectionRef = useRef<HTMLDivElement>(null);
+    const user = authService.getLoggedInUser();
 
     useEffect(() => {
         if (listings.length > 0 || listingsError) {
             reverbSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [listings, listingsError]);
+
+    useEffect(() => {
+        if (!user) return;
+        followedService.getAll()
+            .then(all => setFollowedIds(new Set(all.map(l => l.listingId))))
+            .catch(() => {});
+    }, []);
 
     async function selectBrand(brand: IBrand): Promise<void> {
         setSelectedBrand(brand);
@@ -52,6 +63,25 @@ function GuitarsPage(): JSX.Element {
                 setLoadingImages(prev => ({ ...prev, [model.name]: false }));
             }
         }));
+    }
+
+    async function toggleFollow(listing: IReverbListing): Promise<void> {
+        if (!user) return;
+        const id = String(listing.id);
+        if (followedIds.has(id)) {
+            await followedService.unfollow(id);
+            setFollowedIds(prev => { const s = new Set(prev); s.delete(id); return s; });
+        } else {
+            await followedService.follow({
+                listingId: id,
+                title: listing.title,
+                price: { amount: listing.price?.amount ?? '', currency: listing.price?.currency ?? '' },
+                condition: listing.condition?.display_name ?? '',
+                imageUrl: listing.photos?.[0]?._links?.large_crop?.href ?? '',
+                reverbUrl: listing._links?.web?.href ?? '',
+            });
+            setFollowedIds(prev => new Set(prev).add(id));
+        }
     }
 
     async function findOnReverb(model: IGuitarModel): Promise<void> {
@@ -139,22 +169,29 @@ function GuitarsPage(): JSX.Element {
                         {!loadingListings && listings.length > 0 && (
                             <div className="reverb-grid">
                                 {listings.map(listing => (
-                                    <a
-                                        key={listing.id}
-                                        href={listing._links?.web?.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="reverb-card"
-                                    >
-                                        {listing.photos?.[0]?._links?.large_crop?.href && (
-                                            <img
-                                                src={listing.photos[0]._links.large_crop.href}
-                                                alt={listing.title}
-                                                className="reverb-card-img"
-                                            />
-                                        )}
+                                    <div key={listing.id} className="reverb-card">
+                                        <a
+                                            href={listing._links?.web?.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {listing.photos?.[0]?._links?.large_crop?.href && (
+                                                <img
+                                                    src={listing.photos[0]._links.large_crop.href}
+                                                    alt={listing.title}
+                                                    className="reverb-card-img"
+                                                />
+                                            )}
+                                        </a>
                                         <div className="reverb-card-body">
-                                            <p className="reverb-card-title">{listing.title}</p>
+                                            <a
+                                                href={listing._links?.web?.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="reverb-card-title"
+                                            >
+                                                {listing.title}
+                                            </a>
                                             <div className="reverb-card-meta">
                                                 <span className="reverb-card-price">
                                                     {listing.price?.currency} {listing.price?.amount}
@@ -163,8 +200,16 @@ function GuitarsPage(): JSX.Element {
                                                     {listing.condition?.display_name}
                                                 </span>
                                             </div>
+                                            {user && (
+                                                <button
+                                                    className={`reverb-follow-btn${followedIds.has(String(listing.id)) ? ' reverb-follow-btn--active' : ''}`}
+                                                    onClick={() => toggleFollow(listing)}
+                                                >
+                                                    {followedIds.has(String(listing.id)) ? '♥ Following' : '♡ Follow'}
+                                                </button>
+                                            )}
                                         </div>
-                                    </a>
+                                    </div>
                                 ))}
                             </div>
                         )}
