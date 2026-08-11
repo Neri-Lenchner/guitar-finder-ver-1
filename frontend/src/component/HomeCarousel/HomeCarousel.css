@@ -32,7 +32,7 @@
     animation: spin3d 20s linear infinite;
 }
 
-.carousel-3d-scene:hover .carousel-3d-slider {
+.carousel-3d-slider:has(.brand-3d-card:hover) {
     animation-play-state: paused;
 }
 
