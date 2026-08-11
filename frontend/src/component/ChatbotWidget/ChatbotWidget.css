@@ -1,0 +1,140 @@
+.chatbot-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.widget-toggle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #d97706;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.widget-toggle-btn:hover {
+    background-color: #b45309;
+}
+
+.widget-panel {
+    width: 320px;
+    height: 420px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.widget-header {
+    background-color: #1a1a2e;
+    color: white;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.widget-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.widget-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scrollbar-width: none;
+}
+
+.widget-msg {
+    display: flex;
+}
+
+.widget-msg--user {
+    justify-content: flex-end;
+}
+
+.widget-msg-text {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: pre-line;
+}
+
+.widget-msg--user .widget-msg-text {
+    background-color: #d97706;
+    color: white;
+}
+
+.widget-msg--bot .widget-msg-text {
+    background-color: #f0f0f0;
+    color: #1a1a2e;
+}
+
+.widget-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    align-self: flex-end;
+}
+
+.widget-user-email {
+    font-size: 10px;
+    color: #999;
+    align-self: flex-end;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+.widget-input {
+    display: flex;
+    border-top: 1px solid #eee;
+    padding: 10px;
+    gap: 8px;
+}
+
+.widget-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.widget-input button {
+    padding: 8px 14px;
+    background-color: #d97706;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.widget-input button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

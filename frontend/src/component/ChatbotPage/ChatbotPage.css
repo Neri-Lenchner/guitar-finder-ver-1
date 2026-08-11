@@ -1,0 +1,117 @@
+.chatbot-page {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: calc(100vh - 105px);
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #1a1a2e 100%);
+}
+
+.chatbot-page-header {
+    background-color: #1a1a2e;
+    color: white;
+    padding: 16px 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.chatbot-page-header h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.chatbot-page-header p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #aaa;
+}
+
+.chatbot-page-messages {
+    flex-grow: 1;
+    margin-top: 20px;
+    overflow: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.chatbot-msg {
+    display: flex;
+    align-items: start;
+}
+
+.chatbot-msg--user {
+    justify-content: end;
+}
+
+.chatbot-msg--bot {
+    justify-content: start;
+}
+
+.chatbot-msg-text {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #e8e8f0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    max-width: 300px;
+    white-space: pre-line;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chatbot-typing {
+    color: #aaa;
+    font-style: italic;
+}
+
+.chatbot-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.chatbot-user-email {
+    font-size: 11px;
+    color: #aaa;
+    align-self: flex-end;
+    margin-bottom: 24px;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+.chatbot-page-input {
+    display: flex;
+    margin-bottom: 60px;
+    padding: 0 0;
+}
+
+.chatbot-input-field {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 15px;
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #e8e8f0;
+}
+
+.chatbot-send-btn {
+    background-color: #d97706;
+    color: white;
+    padding: 12px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.chatbot-send-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
