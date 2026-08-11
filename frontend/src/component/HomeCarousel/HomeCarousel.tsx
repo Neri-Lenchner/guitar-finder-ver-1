@@ -1,10 +1,5 @@
 import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import guitars from '../../data/guitars.json';
 import './HomeCarousel.css';
 
@@ -23,55 +18,45 @@ const BRAND_STYLES: Record<string, { bg: string; text: string; accent: string }>
 
 function HomeCarousel(): JSX.Element {
     const navigate = useNavigate();
+    const quantity = guitars.length;
 
     return (
-        <div className="home-carousel-wrapper">
-            <h2 className="home-carousel-title">Explore Guitar Brands</h2>
-            <Swiper
-                modules={[Autoplay, Navigation, Pagination]}
-                slidesPerView={4}
-                spaceBetween={20}
-                loop={true}
-                autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
-                navigation={true}
-                pagination={{ clickable: true }}
-                breakpoints={{
-                    320:  { slidesPerView: 1 },
-                    640:  { slidesPerView: 2 },
-                    900:  { slidesPerView: 3 },
-                    1200: { slidesPerView: 4 },
-                }}
-                className="home-swiper"
-            >
-                {guitars.map(brand => {
-                    const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#16a34a' };
-                    return (
-                        <SwiperSlide key={brand.id}>
+        <div className="home-carousel-3d">
+            <h2 className="home-carousel-3d-title">Explore Guitar Brands</h2>
+            <div className="carousel-3d-scene">
+                <div
+                    className="carousel-3d-slider"
+                    style={{ '--quantity': quantity } as React.CSSProperties}
+                >
+                    {guitars.map((brand, i) => {
+                        const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#16a34a' };
+                        return (
                             <div
-                                className="brand-slide-card"
-                                style={{ background: style.bg }}
+                                key={brand.id}
+                                className="carousel-3d-item"
+                                style={{ '--position': i + 1 } as React.CSSProperties}
                                 onClick={() => navigate('/guitars')}
                             >
-                                <div className="brand-slide-initial" style={{ color: style.accent }}>
-                                    {brand.name.charAt(0)}
-                                </div>
-                                <div className="brand-slide-info">
-                                    <span className="brand-slide-name" style={{ color: style.text }}>{brand.name}</span>
-                                    <span className="brand-slide-meta" style={{ color: style.accent }}>
+                                <div className="brand-3d-card" style={{ background: style.bg }}>
+                                    <div className="brand-3d-initial" style={{ color: style.accent }}>
+                                        {brand.name.charAt(0)}
+                                    </div>
+                                    <span className="brand-3d-name" style={{ color: style.text }}>{brand.name}</span>
+                                    <span className="brand-3d-meta" style={{ color: style.accent }}>
                                         {brand.country} · Est. {brand.founded}
                                     </span>
-                                    <span className="brand-slide-count" style={{ color: style.text }}>
+                                    <span className="brand-3d-count" style={{ color: style.text }}>
                                         {brand.models.length} Models
                                     </span>
-                                </div>
-                                <div className="brand-slide-cta" style={{ borderColor: style.accent, color: style.accent }}>
-                                    Browse Models
+                                    <span className="brand-3d-cta" style={{ borderColor: style.accent, color: style.accent }}>
+                                        Browse
+                                    </span>
                                 </div>
                             </div>
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 }
