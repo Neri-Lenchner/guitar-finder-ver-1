@@ -16,6 +16,13 @@ export interface IReverbListing {
     title: string;
     price: { amount: string; currency: string };
     condition: { display_name: string };
-    photos: Array<{ href: string }>;
+    photos: Array<{
+        _links: {
+            large_crop: { href: string };
+            small_crop: { href: string };
+            thumbnail: { href: string };
+            full: { href: string };
+        };
+    }>;
     _links: { web: { href: string } };
 }

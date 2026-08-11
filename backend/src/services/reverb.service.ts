@@ -4,13 +4,13 @@ import { appConfig } from "../utils/app-config";
 class ReverbService {
     private readonly baseUrl = "https://api.reverb.com/api";
 
-    public async searchListings(query: string): Promise<any[]> {
+    public async searchListings(query: string, perPage: number = 12): Promise<any[]> {
         if (!appConfig.reverbToken) {
             throw new Error("Reverb API token not configured");
         }
 
         const res = await axios.get(`${this.baseUrl}/listings`, {
-            params: { query, per_page: 12 },
+            params: { query, per_page: perPage },
             headers: {
                 "Authorization": `Bearer ${appConfig.reverbToken}`,
                 "Accept": "application/hal+json",
@@ -21,7 +21,11 @@ class ReverbService {
 
         console.log("[reverb] status:", res.status);
         console.log("[reverb] listings count:", res.data?.listings?.length ?? 0);
-        console.log("[reverb] raw keys:", Object.keys(res.data ?? {}));
+        const first = res.data?.listings?.[0];
+        if (first) {
+            console.log("[reverb] first title:", first.title);
+            console.log("[reverb] first photos:", JSON.stringify(first.photos?.[0]));
+        }
         return res.data.listings ?? [];
     }
 }

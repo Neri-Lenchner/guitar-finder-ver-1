@@ -15,7 +15,8 @@ class ReverbController {
                 response.status(400).json({ message: "query param is required" });
                 return;
             }
-            const listings = await reverbService.searchListings(query.trim());
+            const perPage = Math.min(parseInt(request.query.per_page as string) || 12, 50);
+            const listings = await reverbService.searchListings(query.trim(), perPage);
             response.json(listings);
         } catch (err: any) {
             if (err.message === "Reverb API token not configured") {

@@ -2,6 +2,7 @@ import { JSX, useState, useRef, useEffect } from 'react';
 import { IBrand, IGuitarModel, IReverbListing } from '../../models/guitar.model';
 import { reverbService } from '../../services/reverb.service';
 import guitarsData from '../../data/guitars.json';
+import superGuitar from '../../assets/super-guitar.png';
 import Spinner from '../Spinner/Spinner';
 import './GuitarsPage.css';
 
@@ -21,6 +22,7 @@ function GuitarsPage(): JSX.Element {
     const [listings, setListings] = useState<IReverbListing[]>([]);
     const [loadingListings, setLoadingListings] = useState(false);
     const [listingsError, setListingsError] = useState('');
+    const [modelImages, setModelImages] = useState<Record<string, string>>({});
     const reverbSectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -29,11 +31,25 @@ function GuitarsPage(): JSX.Element {
         }
     }, [listings, listingsError]);
 
-    function selectBrand(brand: IBrand): void {
+    async function selectBrand(brand: IBrand): Promise<void> {
         setSelectedBrand(brand);
         setSelectedModel(null);
         setListings([]);
         setListingsError('');
+        setModelImages({});
+        try {
+            const imageMap: Record<string, string> = {};
+            await Promise.all(brand.models.map(async (model) => {
+                try {
+                    const results = await reverbService.searchListings(brand.name, model.name);
+                    const photo = results[0]?.photos?.[0]?._links?.thumbnail?.href;
+                    if (photo) imageMap[model.name] = photo;
+                } catch { /* ignore */ }
+            }));
+            setModelImages({ ...imageMap });
+        } catch {
+            // images are optional, fail silently
+        }
     }
 
     async function findOnReverb(model: IGuitarModel): Promise<void> {
@@ -82,6 +98,11 @@ function GuitarsPage(): JSX.Element {
                                     key={model.name}
                                     className={`model-card${selectedModel?.name === model.name ? ' model-card--active' : ''}`}
                                 >
+                                    {modelImages[model.name] ? (
+                                        <img src={modelImages[model.name]} alt={model.name} className="model-card-img" />
+                                    ) : (
+                                        <img src={superGuitar} alt="Guitar" className="model-card-img" />
+                                    )}
                                     <span className="model-type-badge" style={{ color: TYPE_COLORS[model.type] ?? '#888' }}>
                                         {model.type}
                                     </span>
@@ -121,9 +142,9 @@ function GuitarsPage(): JSX.Element {
                                         rel="noopener noreferrer"
                                         className="reverb-card"
                                     >
-                                        {listing.photos?.[0]?.href && (
+                                        {listing.photos?.[0]?._links?.large_crop?.href && (
                                             <img
-                                                src={listing.photos[0].href}
+                                                src={listing.photos[0]._links.large_crop.href}
                                                 alt={listing.title}
                                                 className="reverb-card-img"
                                             />
