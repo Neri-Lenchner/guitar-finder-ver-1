@@ -1,7 +1,121 @@
-.footer {
-    background-color: #1a1a2e;
-    color: #aaa;
-    text-align: center;
-    padding: 16px;
+.site-footer {
+    background-color: #0f0f0f;
+    border-top: 1px solid #1e1e1e;
+    padding: 48px 60px 32px;
+}
+
+.footer-top {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+}
+
+.footer-brand {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16a34a;
+    letter-spacing: 1px;
+}
+
+.footer-tagline {
     font-size: 13px;
+    color: #555555;
+    margin: 0;
+}
+
+.footer-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-col-heading {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+.footer-col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-link {
+    font-size: 13px;
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #16a34a;
+}
+
+.footer-divider {
+    height: 1px;
+    background-color: #1e1e1e;
+    margin: 32px 0 24px;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-copy {
+    font-size: 12px;
+    color: #444444;
+}
+
+.footer-payments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.payment-logo {
+    width: 52px;
+    height: 33px;
+    border-radius: 4px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 40px 24px 28px;
+    }
+
+    .footer-top {
+        flex-wrap: wrap;
+        gap: 32px;
+    }
+
+    .footer-brand {
+        flex: 100%;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
 }

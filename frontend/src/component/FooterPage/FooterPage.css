@@ -1,0 +1,58 @@
+.footer-page {
+    min-height: 100vh;
+    background-color: #0f0f0f;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 24px 120px;
+}
+
+.footer-page-content {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.footer-page-back {
+    background: none;
+    border: none;
+    color: #666666;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    width: fit-content;
+    transition: color 0.2s;
+}
+
+.footer-page-back:hover {
+    color: #16a34a;
+}
+
+.footer-page-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #16a34a;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.footer-page-body {
+    font-size: 15px;
+    color: #aaaaaa;
+    line-height: 1.8;
+    margin: 0;
+    white-space: pre-line;
+}
+
+.footer-page-email {
+    font-size: 15px;
+    color: #16a34a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-page-email:hover {
+    color: #15803d;
+}
