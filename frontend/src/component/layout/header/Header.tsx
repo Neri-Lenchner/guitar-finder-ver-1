@@ -32,17 +32,14 @@ function Header(): JSX.Element {
             </div>
             <div className="header-links">
                 <Link to="/home">Home</Link>
-                <Link to="/guitars">Guitars</Link>
-                <Link to="/search">Find Stores</Link>
+                {user && <Link to="/guitars">Guitars</Link>}
+                {user && <Link to="/search">Find Stores</Link>}
                 {user && <Link to="/chatbot">GuitarBot</Link>}
                 {user && <Link to="/watchlist">My Guitars</Link>}
                 {user ? (
                     <button onClick={handleLogout} className="header-logout-btn">Logout</button>
                 ) : (
-                    <>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
-                    </>
+                    <Link to="/login">Login</Link>
                 )}
             </div>
         </nav>

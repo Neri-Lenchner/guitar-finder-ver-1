@@ -18,8 +18,8 @@ function Routing(): JSX.Element {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/chatbot" element={<PrivateRoute child={<ChatbotPage />} />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/guitars" element={<GuitarsPage />} />
+            <Route path="/search" element={<PrivateRoute child={<SearchPage />} />} />
+            <Route path="/guitars" element={<PrivateRoute child={<GuitarsPage />} />} />
             <Route path="/watchlist" element={<PrivateRoute child={<WatchlistPage />} />} />
             <Route path="/edit-profile" element={<PrivateRoute child={<EditProfilePage />} />} />
             <Route path="/about" element={<FooterPage />} />
