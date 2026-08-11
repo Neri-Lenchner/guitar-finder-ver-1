@@ -1,15 +1,24 @@
-● There's no single well-known public API dedicated to guitar manufacturer model catalogs. Here's what exists:
+===================================================
+GUITAR FINDER — NOTES & TODO
+===================================================
 
-  Closest options:
-  - Reverb.com API — marketplace API with make/model data on real listings, requires OAuth approval
-  - Amazon Product Advertising API — has guitar products but requires seller account and approval
-  - Sweetwater / Guitar Center — no public API
+--- MODEL CARD IMAGES (revisit later) ---
 
-  Practical alternatives for this project:
-  1. Static JSON dataset — build a curated guitars.json with manufacturers → models. Totally free, no rate limits, works offline. Fender/Gibson/Taylor/etc. model lists are publicly
-   documented.
-  2. Reverb API — real inventory data, but approval process and rate limits.
-  3. Web scraping — possible but fragile and against most ToS.
+Goal: Show a clean, uniform, full-guitar image for each model card.
 
-  For a portfolio project, a static dataset is the most reliable approach. I can create a well-structured one with the major brands (Fender, Gibson, Taylor, Martin, PRS, Ibanez,
-  Yamaha, etc.) and their popular models.
+What we tried:
+1. Reverb API live fetch — inconsistent (seller photos, wrong angles, bad quality)
+2. Wikipedia REST API (page/summary) — often wrong or same image for all models
+3. Wikipedia MediaWiki search + pageimages API — better but unreliable for many models
+
+Current state: all model cards show super-guitar.png (generic placeholder in frontend/src/assets/)
+
+What to explore next:
+- Manually curate images: save one clean image per model to backend/model-images/
+  Name format: {brandId}-{model-slug}.jpg (e.g. fender-stratocaster.jpg)
+  Backend serves them as static. Infrastructure was built (model-image.controller.ts,
+  now deleted) and can be quickly rebuilt.
+- Bing Image Search API (Azure key) or Google Custom Search Image API:
+  search "{brand} {model} guitar white background" for clean product shots.
+
+===================================================
