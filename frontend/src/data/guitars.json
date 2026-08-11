@@ -223,5 +223,188 @@
       { "name": "Masterbilt DR-500MCE", "type": "Acoustic" },
       { "name": "DR-100", "type": "Acoustic" }
     ]
+  },
+  {
+    "id": "schecter",
+    "name": "Schecter",
+    "country": "USA",
+    "founded": 1976,
+    "models": [
+      { "name": "Hellraiser C-1", "type": "Electric" },
+      { "name": "Hellraiser C-1 FR", "type": "Electric" },
+      { "name": "Omen-6", "type": "Electric" },
+      { "name": "Omen Extreme-6", "type": "Electric" },
+      { "name": "Demon-6", "type": "Electric" },
+      { "name": "C-6 Plus", "type": "Electric" },
+      { "name": "Reaper-6", "type": "Electric" },
+      { "name": "Banshee-6", "type": "Electric" },
+      { "name": "Solo-II Custom", "type": "Electric" },
+      { "name": "PT Standard", "type": "Electric" },
+      { "name": "Stiletto Studio-4", "type": "Bass" },
+      { "name": "Stiletto Extreme-4", "type": "Bass" },
+      { "name": "Diamond Series Baron-4", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "jackson",
+    "name": "Jackson",
+    "country": "USA",
+    "founded": 1980,
+    "models": [
+      { "name": "Soloist SL2", "type": "Electric" },
+      { "name": "Soloist SL3", "type": "Electric" },
+      { "name": "Dinky DK2", "type": "Electric" },
+      { "name": "Dinky JS11", "type": "Electric" },
+      { "name": "King V KV2", "type": "Electric" },
+      { "name": "Rhoads RR24", "type": "Electric" },
+      { "name": "Kelly KE3", "type": "Electric" },
+      { "name": "Stars and Stripes Soloist", "type": "Electric" },
+      { "name": "Pro Series Signature Misha Mansoor", "type": "Electric" },
+      { "name": "X Series Spectra Bass", "type": "Bass" },
+      { "name": "Concert Bass", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "rickenbacker",
+    "name": "Rickenbacker",
+    "country": "USA",
+    "founded": 1931,
+    "models": [
+      { "name": "330", "type": "Semi-Hollow" },
+      { "name": "360", "type": "Semi-Hollow" },
+      { "name": "370", "type": "Semi-Hollow" },
+      { "name": "381", "type": "Semi-Hollow" },
+      { "name": "620", "type": "Electric" },
+      { "name": "650C Colorado", "type": "Electric" },
+      { "name": "4001", "type": "Bass" },
+      { "name": "4003", "type": "Bass" },
+      { "name": "4003S", "type": "Bass" },
+      { "name": "4004L Laredo", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "guild",
+    "name": "Guild",
+    "country": "USA",
+    "founded": 1952,
+    "models": [
+      { "name": "D-40", "type": "Acoustic" },
+      { "name": "D-55", "type": "Acoustic" },
+      { "name": "F-55", "type": "Acoustic" },
+      { "name": "OM-240CE", "type": "Acoustic" },
+      { "name": "M-240E Troubadour", "type": "Acoustic" },
+      { "name": "D-120CE", "type": "Acoustic" },
+      { "name": "Starfire I", "type": "Semi-Hollow" },
+      { "name": "Starfire II ST", "type": "Semi-Hollow" },
+      { "name": "Starfire IV ST", "type": "Semi-Hollow" },
+      { "name": "Newark St. T-Bird ST", "type": "Electric" },
+      { "name": "Jetstar ST", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "takamine",
+    "name": "Takamine",
+    "country": "Japan",
+    "founded": 1962,
+    "models": [
+      { "name": "G Series GD30CE", "type": "Acoustic" },
+      { "name": "G Series GN93CE", "type": "Acoustic" },
+      { "name": "G Series GF30CE", "type": "Acoustic" },
+      { "name": "Pro Series P3D", "type": "Acoustic" },
+      { "name": "Pro Series P5DC", "type": "Acoustic" },
+      { "name": "Pro Series P7D", "type": "Acoustic" },
+      { "name": "EF360SC TT", "type": "Acoustic" },
+      { "name": "EF381SC", "type": "Acoustic" },
+      { "name": "TSF48C", "type": "Acoustic" },
+      { "name": "CP3NY", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "musicman",
+    "name": "Music Man",
+    "country": "USA",
+    "founded": 1974,
+    "models": [
+      { "name": "StingRay", "type": "Bass" },
+      { "name": "StingRay 5", "type": "Bass" },
+      { "name": "StingRay Special", "type": "Bass" },
+      { "name": "Bongo 4", "type": "Bass" },
+      { "name": "Bongo 5", "type": "Bass" },
+      { "name": "Cutlass RS", "type": "Electric" },
+      { "name": "Luke 3 HH", "type": "Electric" },
+      { "name": "John Petrucci JP15", "type": "Electric" },
+      { "name": "St. Vincent", "type": "Electric" },
+      { "name": "Majesty 7", "type": "Electric" },
+      { "name": "Axis", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "charvel",
+    "name": "Charvel",
+    "country": "USA",
+    "founded": 1978,
+    "models": [
+      { "name": "Pro-Mod So-Cal Style 1", "type": "Electric" },
+      { "name": "Pro-Mod So-Cal Style 2", "type": "Electric" },
+      { "name": "Pro-Mod DK24 HH", "type": "Electric" },
+      { "name": "Pro-Mod San Dimas Style 1", "type": "Electric" },
+      { "name": "Pro-Mod San Dimas Style 2", "type": "Electric" },
+      { "name": "USA Select San Dimas Style 1", "type": "Electric" },
+      { "name": "USA Select DK24", "type": "Electric" },
+      { "name": "Guthrie Govan Signature", "type": "Electric" },
+      { "name": "Angel Vivaldi Signature", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "dean",
+    "name": "Dean",
+    "country": "USA",
+    "founded": 1977,
+    "models": [
+      { "name": "ML Standard", "type": "Electric" },
+      { "name": "ML Select", "type": "Electric" },
+      { "name": "Razorback", "type": "Electric" },
+      { "name": "V Standard", "type": "Electric" },
+      { "name": "V Select", "type": "Electric" },
+      { "name": "Exile Select", "type": "Electric" },
+      { "name": "Zero Select", "type": "Electric" },
+      { "name": "Vendetta XM", "type": "Electric" },
+      { "name": "Hillsboro Junior", "type": "Bass" },
+      { "name": "Edge 09", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "bcrich",
+    "name": "BC Rich",
+    "country": "USA",
+    "founded": 1969,
+    "models": [
+      { "name": "Warlock Extreme", "type": "Electric" },
+      { "name": "Warlock Prophecy", "type": "Electric" },
+      { "name": "Mockingbird Extreme", "type": "Electric" },
+      { "name": "Mockingbird Prophecy", "type": "Electric" },
+      { "name": "Bich Extreme", "type": "Electric" },
+      { "name": "Virgin Extreme", "type": "Electric" },
+      { "name": "Wave Extreme", "type": "Electric" },
+      { "name": "Stealth Extreme", "type": "Electric" },
+      { "name": "Heritage Classic Warlock Bass", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "dangelico",
+    "name": "D'Angelico",
+    "country": "USA",
+    "founded": 1932,
+    "models": [
+      { "name": "Excel EX-SS", "type": "Semi-Hollow" },
+      { "name": "Excel DC", "type": "Semi-Hollow" },
+      { "name": "Excel Mini DC", "type": "Semi-Hollow" },
+      { "name": "Premier SS", "type": "Semi-Hollow" },
+      { "name": "Premier DC", "type": "Semi-Hollow" },
+      { "name": "Deluxe Brighton", "type": "Semi-Hollow" },
+      { "name": "Deluxe Atlantic", "type": "Semi-Hollow" },
+      { "name": "Excel Gramercy", "type": "Acoustic" },
+      { "name": "Premier Gramercy", "type": "Acoustic" }
+    ]
   }
 ]
