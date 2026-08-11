@@ -11,25 +11,47 @@ function StoreCard({ store }: StoreCardProps): JSX.Element {
 
     return (
         <div className="store-card">
-            <div className="store-card-icon">🎸</div>
-            <div className="store-card-content">
-                <div className="store-card-top">
-                    <h3 className="store-name">{store.name}</h3>
-                    {store.openingHours && (
-                        <span className="store-hours">{store.openingHours}</span>
-                    )}
-                </div>
-                <p className="store-address">{store.address}</p>
-                <div className="store-card-links">
-                    {store.phone && (
-                        <a href={`tel:${store.phone}`} className="store-link">📞 {store.phone}</a>
-                    )}
-                    {store.website && (
-                        <a href={store.website} target="_blank" rel="noopener noreferrer" className="store-link">🌐 Website</a>
-                    )}
-                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="store-link store-link--map">📍 View on Map</a>
-                </div>
+            <div className="store-card-header">
+                <h3 className="store-name">{store.name}</h3>
             </div>
+
+            <div className="store-card-rows">
+                <div className="store-row">
+                    <span className="store-row-text">{store.address}</span>
+                </div>
+
+                {store.openingHours && (
+                    <div className="store-row store-row--hours">
+                        <span className="store-row-icon">🕐</span>
+                        <span className="store-row-text">{store.openingHours}</span>
+                    </div>
+                )}
+
+                {store.phone && (
+                    <div className="store-row">
+                        <span className="store-row-icon">📞</span>
+                        <a href={`tel:${store.phone}`} className="store-link">{store.phone}</a>
+                    </div>
+                )}
+
+                {store.email && (
+                    <div className="store-row">
+                        <span className="store-row-icon">✉️</span>
+                        <a href={`mailto:${store.email}`} className="store-link">{store.email}</a>
+                    </div>
+                )}
+
+                {store.website && (
+                    <div className="store-row">
+                        <span className="store-row-icon">🌐</span>
+                        <a href={store.website} target="_blank" rel="noopener noreferrer" className="store-link">{store.website.replace(/^https?:\/\//, '')}</a>
+                    </div>
+                )}
+            </div>
+
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="store-map-btn">
+                View on Google Maps
+            </a>
         </div>
     );
 }

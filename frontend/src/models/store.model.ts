@@ -3,6 +3,7 @@ export interface IStore {
     name: string;
     address: string;
     phone?: string;
+    email?: string;
     website?: string;
     openingHours?: string;
     lat: number;

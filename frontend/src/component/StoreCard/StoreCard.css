@@ -1,81 +1,141 @@
 .store-card {
-    background-color: #1a1a1a;
+    background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
     border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 18px;
+    border-top: 2px solid #444;
+    border-radius: 4px;
+    padding: 20px 22px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
     display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    transition: border-color 0.2s;
+    flex-direction: column;
+    height: 300px;
+}
+
+.store-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #888, transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .store-card:hover {
-    border-color: #16a34a;
+    border-color: #555;
+    border-top-color: #c0c0c0;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+
+.store-card:hover::before {
+    opacity: 1;
+}
+
+.store-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #1e1e1e;
 }
 
 .store-card-icon {
-    font-size: 28px;
+    font-size: 20px;
     flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.store-card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 0;
-}
-
-.store-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-    flex-wrap: wrap;
 }
 
 .store-name {
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 800;
     color: #ffffff;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.store-hours {
-    font-size: 11px;
-    color: #aaa;
-    background-color: #2a2a2a;
-    padding: 3px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-}
-
-.store-address {
-    font-size: 13px;
-    color: #888;
-    margin: 0;
-}
-
-.store-card-links {
+.store-card-rows {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 18px;
+}
+
+.store-row {
+    display: flex;
+    align-items: flex-start;
     gap: 12px;
-    margin-top: 4px;
 }
 
-.store-link {
-    font-size: 12px;
-    color: #16a34a;
+.store-row-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.store-row-text {
+    color: #e8e8e8;
+}
+
+/* Address — white */
+.store-row--address .store-row-text {
+    color: #ffffff;
+}
+
+/* Hours — amber */
+.store-row--hours .store-row-text {
+    color: #fbbf24;
+}
+
+/* Phone — blue */
+.store-row--phone .store-link {
+    color: #60a5fa;
+}
+.store-row--phone .store-link:hover {
+    color: #93c5fd;
+}
+
+/* Email — blue */
+.store-row--email .store-link {
+    color: #60a5fa;
+}
+.store-row--email .store-link:hover {
+    color: #93c5fd;
+}
+
+/* Website — blue */
+.store-row--website .store-link {
+    color: #60a5fa;
+    word-break: break-all;
+}
+.store-row--website .store-link:hover {
+    color: #93c5fd;
+}
+
+.store-map-btn {
+    display: block;
+    padding: 8px 18px;
+    background-color: transparent;
+    color: #888;
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     text-decoration: none;
-    transition: color 0.2s;
+    text-align: center;
+    transition: all 0.2s;
 }
 
-.store-link:hover {
-    color: #15803d;
-}
-
-.store-link--map {
-    font-weight: 600;
+.store-map-btn:hover {
+    background-color: #16a34a;
+    color: #fff;
+    border-color: #16a34a;
+    box-shadow: 0 0 12px rgba(22, 163, 74, 0.4);
 }

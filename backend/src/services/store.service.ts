@@ -6,6 +6,7 @@ export interface IStore {
     name: string;
     address: string;
     phone?: string;
+    email?: string;
     website?: string;
     openingHours?: string;
     lat: number;
@@ -53,19 +54,15 @@ class StoreService {
             headers: { "User-Agent": "GuitarFinder/1.0" },
         });
 
-        if (!geoRes.data.length) {
-            console.log("[StoreService] Nominatim found no results for:", city);
-            return [];
-        }
+        if (!geoRes.data.length) return [];
         const { lat, lon } = geoRes.data[0];
-        console.log(`[StoreService] Geocoded "${city}" → lat:${lat} lon:${lon}`);
+        console.log(`[stores] geocoded "${city}" → lat=${lat}, lon=${lon}`);
 
         // 2. Query Overpass via native https (avoids axios encoding issues)
-        const query = `[out:json][timeout:25];(node["shop"="music"](around:15000,${lat},${lon});node["shop"="musical_instrument"](around:15000,${lat},${lon});way["shop"="music"](around:15000,${lat},${lon});way["shop"="musical_instrument"](around:15000,${lat},${lon}););out center;`;
+        const query = `[out:json][timeout:25];(node["shop"="musical_instrument"](around:15000,${lat},${lon});way["shop"="musical_instrument"](around:15000,${lat},${lon}););out center;`;
 
         const json = await overpassPost(query);
-        console.log(`[StoreService] Overpass returned ${json.elements?.length ?? 0} elements`);
-
+        console.log(`[stores] Overpass returned ${json.elements?.length ?? 0} elements`);
         return (json.elements ?? [])
             .map((el: any): IStore | null => {
                 const elLat = el.lat ?? el.center?.lat;
@@ -75,8 +72,9 @@ class StoreService {
                     id: String(el.id),
                     name: el.tags?.name || "Music Store",
                     address: this.buildAddress(el.tags),
-                    phone: el.tags?.phone,
-                    website: el.tags?.website,
+                    phone: el.tags?.phone || el.tags?.["contact:phone"],
+                    email: el.tags?.email || el.tags?.["contact:email"],
+                    website: el.tags?.website || el.tags?.["contact:website"],
                     openingHours: el.tags?.opening_hours,
                     lat: elLat,
                     lon: elLon,

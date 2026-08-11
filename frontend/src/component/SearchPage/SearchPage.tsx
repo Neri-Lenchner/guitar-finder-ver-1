@@ -41,8 +41,9 @@ function SearchPage(): JSX.Element {
 
     return (
         <div className="search-page">
+          <div className="search-page-inner">
             <div className="search-page-header">
-                <h1 className="search-title">Find Guitar Stores</h1>
+                <h1 className="search-title">Find <span>Guitar</span> Stores</h1>
                 <p className="search-subtitle">Search for music stores near you by city</p>
                 <div className="search-bar">
                     <input
@@ -71,12 +72,15 @@ function SearchPage(): JSX.Element {
                 {!loading && stores.length > 0 && (
                     <>
                         <p className="search-count">{stores.length} store{stores.length !== 1 ? 's' : ''} found near <strong>{storeStore.getState().lastCity}</strong></p>
-                        {stores.map(store => (
-                            <StoreCard key={store.id} store={store} />
-                        ))}
+                        <div className="store-grid">
+                            {stores.map(store => (
+                                <StoreCard key={store.id} store={store} />
+                            ))}
+                        </div>
                     </>
                 )}
             </div>
+          </div>
         </div>
     );
 }
