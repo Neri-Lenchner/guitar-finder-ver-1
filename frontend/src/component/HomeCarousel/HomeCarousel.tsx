@@ -3,6 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import guitars from '../../data/guitars.json';
 import './HomeCarousel.css';
 
+const BRAND_LOGOS: Record<string, JSX.Element> = {
+    fender:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#8B0000"/><text x="55" y="31" textAnchor="middle" fill="#FFFFFF" fontSize="22" fontWeight="bold" fontFamily="'Dancing Script', cursive">Fender</text></svg>,
+    gibson:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#1a1a1a"/><text x="55" y="30" textAnchor="middle" fill="#c9a84c" fontSize="18" fontWeight="bold" fontFamily="Georgia, serif" fontStyle="italic" letterSpacing="0.5">Gibson</text></svg>,
+    taylor:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#2c3e50"/><text x="55" y="28" textAnchor="middle" fill="#FFFFFF" fontSize="12" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="2.5">TAYLOR</text></svg>,
+    martin:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#8B0000"/><text x="55" y="28" textAnchor="middle" fill="#FFFFFF" fontSize="12" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2.5">MARTIN</text></svg>,
+    prs:      <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#1a0a2e"/><text x="55" y="30" textAnchor="middle" fill="#c084fc" fontSize="18" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="4">PRS</text></svg>,
+    ibanez:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#000000"/><text x="55" y="28" textAnchor="middle" fill="#e63946" fontSize="12" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">IBANEZ</text></svg>,
+    yamaha:   <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#FFFFFF" stroke="#e0e0e0"/><text x="55" y="28" textAnchor="middle" fill="#4a0080" fontSize="11" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">YAMAHA</text></svg>,
+    gretsch:  <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#f59e0b"/><text x="55" y="28" textAnchor="middle" fill="#111111" fontSize="11" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1.5">GRETSCH</text></svg>,
+    esp:      <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#111111"/><text x="55" y="30" textAnchor="middle" fill="#e63946" fontSize="19" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="5">ESP</text></svg>,
+    epiphone: <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#1a1a1a"/><text x="55" y="28" textAnchor="middle" fill="#c9a84c" fontSize="10" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1.5">EPIPHONE</text></svg>,
+    schecter: <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#111827"/><text x="55" y="28" textAnchor="middle" fill="#60a5fa" fontSize="10" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">SCHECTER</text></svg>,
+    jackson:  <svg viewBox="0 0 110 44"><rect width="110" height="44" rx="6" fill="#000000"/><text x="55" y="28" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">JACKSON</text></svg>,
+};
+
 const BRAND_STYLES: Record<string, { bg: string; text: string; accent: string }> = {
     fender:   { bg: 'linear-gradient(135deg, #7a0000 0%, #111111 100%)', text: '#ffffff', accent: '#ff4444' },
     gibson:   { bg: 'linear-gradient(135deg, #1a1a1a 0%, #2e2200 100%)', text: '#c9a84c', accent: '#e8c46a' },
@@ -41,6 +56,7 @@ function HomeCarousel(): JSX.Element {
                 >
                     {carouselBrands.map((brand, i) => {
                         const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#16a34a' };
+                        const logo = BRAND_LOGOS[brand.id];
                         return (
                             <div
                                 key={brand.id}
@@ -49,10 +65,7 @@ function HomeCarousel(): JSX.Element {
                                 onClick={() => navigate('/guitars')}
                             >
                                 <div className="brand-3d-card" style={{ background: style.bg }}>
-                                    <div className="brand-3d-initial" style={{ color: style.accent }}>
-                                        {brand.name.charAt(0)}
-                                    </div>
-                                    <span className="brand-3d-name" style={{ color: style.text }}>{brand.name}</span>
+                                    <div className="brand-3d-logo">{logo}</div>
                                     <span className="brand-3d-meta" style={{ color: style.accent }}>
                                         {brand.country} · Est. {brand.founded}
                                     </span>

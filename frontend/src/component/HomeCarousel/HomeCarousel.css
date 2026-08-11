@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
 .home-carousel-3d {
     width: 100%;
     padding: 10px 0 30px;
@@ -65,12 +67,16 @@
     overflow: hidden;
 }
 
-.brand-3d-initial {
-    font-size: 30px;
-    font-weight: 900;
-    font-family: Georgia, serif;
-    line-height: 1;
-    opacity: 0.9;
+.brand-3d-logo {
+    width: 100%;
+    padding: 0 4px;
+}
+
+.brand-3d-logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
 }
 
 .brand-3d-name {
