@@ -1,0 +1,15 @@
+● There's no single well-known public API dedicated to guitar manufacturer model catalogs. Here's what exists:
+
+  Closest options:
+  - Reverb.com API — marketplace API with make/model data on real listings, requires OAuth approval
+  - Amazon Product Advertising API — has guitar products but requires seller account and approval
+  - Sweetwater / Guitar Center — no public API
+
+  Practical alternatives for this project:
+  1. Static JSON dataset — build a curated guitars.json with manufacturers → models. Totally free, no rate limits, works offline. Fender/Gibson/Taylor/etc. model lists are publicly
+   documented.
+  2. Reverb API — real inventory data, but approval process and rate limits.
+  3. Web scraping — possible but fragile and against most ToS.
+
+  For a portfolio project, a static dataset is the most reliable approach. I can create a well-structured one with the major brands (Fender, Gibson, Taylor, Martin, PRS, Ibanez,
+  Yamaha, etc.) and their popular models.

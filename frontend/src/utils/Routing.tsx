@@ -7,6 +7,7 @@ import ChatbotPage from '../component/ChatbotPage/ChatbotPage';
 import EditProfilePage from '../component/EditProfilePage/EditProfilePage';
 import FooterPage from '../component/FooterPage/FooterPage';
 import SearchPage from '../component/SearchPage/SearchPage';
+import GuitarsPage from '../component/GuitarsPage/GuitarsPage';
 import PrivateRoute from '../component/PrivateRoute';
 
 function Routing(): JSX.Element {
@@ -17,6 +18,7 @@ function Routing(): JSX.Element {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/chatbot" element={<PrivateRoute child={<ChatbotPage />} />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/guitars" element={<GuitarsPage />} />
             <Route path="/edit-profile" element={<PrivateRoute child={<EditProfilePage />} />} />
             <Route path="/about" element={<FooterPage />} />
             <Route path="/contact" element={<FooterPage />} />

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "fender",
+    "name": "Fender",
+    "country": "USA",
+    "founded": 1946,
+    "models": [
+      { "name": "Stratocaster", "type": "Electric" },
+      { "name": "Telecaster", "type": "Electric" },
+      { "name": "Jazzmaster", "type": "Electric" },
+      { "name": "Jaguar", "type": "Electric" },
+      { "name": "Mustang", "type": "Electric" },
+      { "name": "American Ultra Stratocaster", "type": "Electric" },
+      { "name": "American Professional II Stratocaster", "type": "Electric" },
+      { "name": "Precision Bass", "type": "Bass" },
+      { "name": "Jazz Bass", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "gibson",
+    "name": "Gibson",
+    "country": "USA",
+    "founded": 1902,
+    "models": [
+      { "name": "Les Paul Standard", "type": "Electric" },
+      { "name": "Les Paul Custom", "type": "Electric" },
+      { "name": "SG Standard", "type": "Electric" },
+      { "name": "ES-335", "type": "Semi-Hollow" },
+      { "name": "ES-339", "type": "Semi-Hollow" },
+      { "name": "Flying V", "type": "Electric" },
+      { "name": "Explorer", "type": "Electric" },
+      { "name": "J-45", "type": "Acoustic" },
+      { "name": "J-200", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "taylor",
+    "name": "Taylor",
+    "country": "USA",
+    "founded": 1974,
+    "models": [
+      { "name": "214ce", "type": "Acoustic" },
+      { "name": "314ce", "type": "Acoustic" },
+      { "name": "414ce", "type": "Acoustic" },
+      { "name": "814ce", "type": "Acoustic" },
+      { "name": "GS Mini", "type": "Acoustic" },
+      { "name": "Academy 12", "type": "Acoustic" },
+      { "name": "Builder's Edition 816ce", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "martin",
+    "name": "Martin",
+    "country": "USA",
+    "founded": 1833,
+    "models": [
+      { "name": "D-28", "type": "Acoustic" },
+      { "name": "D-18", "type": "Acoustic" },
+      { "name": "HD-28", "type": "Acoustic" },
+      { "name": "OM-28", "type": "Acoustic" },
+      { "name": "000-15M", "type": "Acoustic" },
+      { "name": "SC-13E", "type": "Acoustic" },
+      { "name": "D-35", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "prs",
+    "name": "PRS",
+    "country": "USA",
+    "founded": 1985,
+    "models": [
+      { "name": "Custom 24", "type": "Electric" },
+      { "name": "Custom 22", "type": "Electric" },
+      { "name": "McCarty 594", "type": "Electric" },
+      { "name": "Silver Sky", "type": "Electric" },
+      { "name": "SE Custom 24", "type": "Electric" },
+      { "name": "SE Mark Holcomb", "type": "Electric" },
+      { "name": "Hollowbody II", "type": "Semi-Hollow" }
+    ]
+  },
+  {
+    "id": "ibanez",
+    "name": "Ibanez",
+    "country": "Japan",
+    "founded": 1957,
+    "models": [
+      { "name": "RG550", "type": "Electric" },
+      { "name": "RG652AHM", "type": "Electric" },
+      { "name": "S Series S670QM", "type": "Electric" },
+      { "name": "AZ2402", "type": "Electric" },
+      { "name": "JEM7VP", "type": "Electric" },
+      { "name": "Artcore AS93", "type": "Semi-Hollow" },
+      { "name": "SR500", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "yamaha",
+    "name": "Yamaha",
+    "country": "Japan",
+    "founded": 1887,
+    "models": [
+      { "name": "Pacifica 112V", "type": "Electric" },
+      { "name": "Pacifica 612VII", "type": "Electric" },
+      { "name": "Revstar RSS20", "type": "Electric" },
+      { "name": "FG800", "type": "Acoustic" },
+      { "name": "FG830", "type": "Acoustic" },
+      { "name": "LL16", "type": "Acoustic" },
+      { "name": "TRBX504", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "gretsch",
+    "name": "Gretsch",
+    "country": "USA",
+    "founded": 1883,
+    "models": [
+      { "name": "White Falcon", "type": "Semi-Hollow" },
+      { "name": "G6120T Nashville", "type": "Semi-Hollow" },
+      { "name": "G5420T Electromatic", "type": "Semi-Hollow" },
+      { "name": "G2622 Streamliner", "type": "Semi-Hollow" },
+      { "name": "G6136T Country Classic", "type": "Semi-Hollow" }
+    ]
+  },
+  {
+    "id": "esp",
+    "name": "ESP",
+    "country": "Japan",
+    "founded": 1975,
+    "models": [
+      { "name": "LTD EC-1000", "type": "Electric" },
+      { "name": "LTD MH-1000", "type": "Electric" },
+      { "name": "Horizon NT-II", "type": "Electric" },
+      { "name": "Eclipse", "type": "Electric" },
+      { "name": "M-II", "type": "Electric" },
+      { "name": "LTD Arrow-1000", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "epiphone",
+    "name": "Epiphone",
+    "country": "USA",
+    "founded": 1873,
+    "models": [
+      { "name": "Les Paul Standard 50s", "type": "Electric" },
+      { "name": "Les Paul Custom", "type": "Electric" },
+      { "name": "SG Standard", "type": "Electric" },
+      { "name": "Casino", "type": "Semi-Hollow" },
+      { "name": "Sheraton II", "type": "Semi-Hollow" },
+      { "name": "EJ-200CE", "type": "Acoustic" }
+    ]
+  }
+]
