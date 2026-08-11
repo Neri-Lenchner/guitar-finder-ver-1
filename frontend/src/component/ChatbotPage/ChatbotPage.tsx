@@ -5,6 +5,7 @@ import { appConfig } from '../../utils/app-config';
 import { chatStore, ChatActionType, IMessage } from '../../state/chat.state';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
+import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
 
 function ChatbotPage(): JSX.Element {
@@ -54,6 +55,7 @@ function ChatbotPage(): JSX.Element {
     }
 
     return (
+        <div className="chatbot-page-wrapper" style={{ backgroundImage: `url(${commandCenter})` }}>
         <div className="chatbot-page">
             <div className="chatbot-page-header">
                 <h1>GuitarBot</h1>
@@ -90,6 +92,7 @@ function ChatbotPage(): JSX.Element {
                     Send
                 </button>
             </div>
+        </div>
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import { JSX, useState, useEffect } from 'react';
+import spaceGuitar from '../../assets/super-guitar-in-space.jpg';
 import { storeService } from '../../services/store.service';
 import { storeStore, StoreActionType } from '../../state/store.state';
 import { IStore } from '../../models/store.model';
@@ -40,7 +41,7 @@ function SearchPage(): JSX.Element {
     }
 
     return (
-        <div className="search-page">
+        <div className="search-page" style={{ backgroundImage: `url(${spaceGuitar})` }}>
           <div className="search-page-inner">
             <div className="search-page-header">
                 <h1 className="search-title">Find <span>Music</span> Stores Worldwide</h1>
