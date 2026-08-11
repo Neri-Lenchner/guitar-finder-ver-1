@@ -1,0 +1,115 @@
+.home-carousel-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.home-carousel-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.home-swiper {
+    width: 100%;
+    padding-bottom: 48px !important;
+}
+
+/* Navigation arrows */
+.home-swiper .swiper-button-next,
+.home-swiper .swiper-button-prev {
+    color: #16a34a;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    top: 42%;
+}
+
+.home-swiper .swiper-button-next::after,
+.home-swiper .swiper-button-prev::after {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Pagination dots */
+.home-swiper .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.home-swiper .swiper-pagination-bullet-active {
+    background: #16a34a;
+}
+
+/* Brand card */
+.brand-slide-card {
+    border-radius: 14px;
+    padding: 28px 20px 22px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 220px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-slide-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+.brand-slide-initial {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    font-family: Georgia, serif;
+    opacity: 0.85;
+}
+
+.brand-slide-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.brand-slide-name {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.brand-slide-meta {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.brand-slide-count {
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+.brand-slide-cta {
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 5px 16px;
+    letter-spacing: 0.5px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.brand-slide-card:hover .brand-slide-cta {
+    background: rgba(255, 255, 255, 0.12);
+}
