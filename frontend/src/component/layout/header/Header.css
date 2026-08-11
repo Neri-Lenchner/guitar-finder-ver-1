@@ -9,7 +9,7 @@
     align-items: center;
     padding: 0 30px;
     height: 60px;
-    background-color: #1a1a2e;
+    background: linear-gradient(to right, #000000, #052e16);
     color: white;
 }
 

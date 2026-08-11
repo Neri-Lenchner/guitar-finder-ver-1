@@ -1,12 +1,26 @@
 .home-page {
     min-height: calc(100vh - 60px);
-    background: linear-gradient(135deg, #000000 0%, #022c22 50%, #0d4f5c 100%);
+    background: radial-gradient(ellipse at top right, #0d4f5c 0%, #022c22 25%, #000000 60%);
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     text-align: center;
     padding: 0;
+}
+
+.home-fender-bg {
+    position: absolute;
+    left: -40px;
+    top: 100px;
+    height: calc(110% - 100px);
+    width: auto;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
+    transform: rotate(-15deg);
+    transform-origin: bottom left;
 }
 
 .home-hero {
@@ -16,6 +30,8 @@
     align-items: center;
     justify-content: center;
     padding: 0 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .home-page h1 {
