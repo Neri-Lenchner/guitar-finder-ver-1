@@ -19,6 +19,7 @@ function Header(): JSX.Element {
             <Link to="/home" className="header-logo">GuitarFinder</Link>
             <div className="header-links">
                 <Link to="/home">Home</Link>
+                <Link to="/search">Find Stores</Link>
                 {user && <Link to="/chatbot">GuitarBot</Link>}
                 {user ? (
                     <>

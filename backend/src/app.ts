@@ -8,6 +8,7 @@ import { appConfig } from "./utils/app-config";
 import { authController } from "./controllers/auth.controller";
 import { chatController } from "./controllers/chat.controller";
 import { userController } from "./controllers/user.controller";
+import { storeController } from "./controllers/store.controller";
 
 class App {
     public async start(): Promise<void> {
@@ -21,6 +22,7 @@ class App {
         server.use(authController.router);
         server.use(chatController.router);
         server.use(userController.router);
+        server.use(storeController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
         server.listen(appConfig.port, () =>

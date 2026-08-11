@@ -1,0 +1,81 @@
+.store-card {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+}
+
+.store-card:hover {
+    border-color: #16a34a;
+}
+
+.store-card-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.store-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.store-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.store-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.store-hours {
+    font-size: 11px;
+    color: #aaa;
+    background-color: #2a2a2a;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.store-address {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+}
+
+.store-card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.store-link {
+    font-size: 12px;
+    color: #16a34a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.store-link:hover {
+    color: #15803d;
+}
+
+.store-link--map {
+    font-weight: 600;
+}
