@@ -23,6 +23,7 @@ function GuitarsPage(): JSX.Element {
     const [loadingListings, setLoadingListings] = useState(false);
     const [listingsError, setListingsError] = useState('');
     const [modelImages, setModelImages] = useState<Record<string, string>>({});
+    const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
     const reverbSectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -37,19 +38,20 @@ function GuitarsPage(): JSX.Element {
         setListings([]);
         setListingsError('');
         setModelImages({});
-        try {
-            const imageMap: Record<string, string> = {};
-            await Promise.all(brand.models.map(async (model) => {
-                try {
-                    const results = await reverbService.searchListings(brand.name, model.name);
-                    const photo = results[0]?.photos?.[0]?._links?.thumbnail?.href;
-                    if (photo) imageMap[model.name] = photo;
-                } catch { /* ignore */ }
-            }));
-            setModelImages({ ...imageMap });
-        } catch {
-            // images are optional, fail silently
-        }
+
+        const initialLoading: Record<string, boolean> = {};
+        brand.models.forEach(m => { initialLoading[m.name] = true; });
+        setLoadingImages(initialLoading);
+
+        await Promise.all(brand.models.map(async (model) => {
+            try {
+                const results = await reverbService.searchListings(brand.name, model.name);
+                const photo = results[0]?.photos?.[0]?._links?.thumbnail?.href;
+                if (photo) setModelImages(prev => ({ ...prev, [model.name]: photo }));
+            } catch { /* ignore */ } finally {
+                setLoadingImages(prev => ({ ...prev, [model.name]: false }));
+            }
+        }));
     }
 
     async function findOnReverb(model: IGuitarModel): Promise<void> {
@@ -98,7 +100,9 @@ function GuitarsPage(): JSX.Element {
                                     key={model.name}
                                     className={`model-card${selectedModel?.name === model.name ? ' model-card--active' : ''}`}
                                 >
-                                    {modelImages[model.name] ? (
+                                    {loadingImages[model.name] ? (
+                                        <div className="model-card-shimmer" />
+                                    ) : modelImages[model.name] ? (
                                         <img src={modelImages[model.name]} alt={model.name} className="model-card-img" />
                                     ) : (
                                         <img src={superGuitar} alt="Guitar" className="model-card-img" />
