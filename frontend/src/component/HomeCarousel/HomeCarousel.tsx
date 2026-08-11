@@ -48,7 +48,6 @@ function HomeCarousel(): JSX.Element {
 
     return (
         <div className="home-carousel-3d">
-            <h2 className="home-carousel-3d-title">Explore Guitar Brands</h2>
             <div className="carousel-3d-scene">
                 <div
                     className="carousel-3d-slider"
