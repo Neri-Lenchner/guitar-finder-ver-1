@@ -16,24 +16,27 @@ function Header(): JSX.Element {
 
     return (
         <nav className="header">
-            <Link to="/home" className="header-logo">GuitarFinder</Link>
+            <div className="header-left">
+                <Link to="/home" className="header-logo">GuitarFinder</Link>
+                {user && (
+                    <Link to="/edit-profile" className="header-avatar-link">
+                        <img
+                            src={user.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : defaultAvatar}
+                            alt={user.firstName}
+                            className="header-avatar"
+                        />
+                        <span className="header-greeting">Hello and Welcome </span>
+                        <span className="header-username">{user.firstName}</span>
+                    </Link>
+                )}
+            </div>
             <div className="header-links">
                 <Link to="/home">Home</Link>
                 <Link to="/guitars">Guitars</Link>
                 <Link to="/search">Find Stores</Link>
                 {user && <Link to="/chatbot">GuitarBot</Link>}
                 {user ? (
-                    <>
-                        <Link to="/edit-profile" className="header-avatar-link">
-                            <img
-                                src={user.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : defaultAvatar}
-                                alt={user.firstName}
-                                className="header-avatar"
-                            />
-                            <span className="header-username">Hey, {user.firstName}</span>
-                        </Link>
-                        <button onClick={handleLogout} className="header-logout-btn">Logout</button>
-                    </>
+                    <button onClick={handleLogout} className="header-logout-btn">Logout</button>
                 ) : (
                     <>
                         <Link to="/login">Login</Link>

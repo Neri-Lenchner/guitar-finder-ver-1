@@ -36,9 +36,15 @@
     color: #16a34a;
 }
 
-.header-username {
-    font-size: 14px;
+.header-greeting {
+    font-size: 15px;
     color: #aaa;
+}
+
+.header-username {
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 .header-logout-btn {
@@ -56,11 +62,18 @@
     color: white;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .header-avatar-link {
     display: flex;
     align-items: center;
     gap: 8px;
     text-decoration: none !important;
+    margin-left: 24px;
 }
 
 .header-avatar-link:hover .header-username {
