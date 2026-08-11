@@ -75,6 +75,10 @@
     flex-shrink: 0;
 }
 
+.chatbot-msg--user .chatbot-avatar {
+    border: 3px solid #16a34a;
+}
+
 .chatbot-user-email {
     font-size: 11px;
     color: #aaa;
@@ -101,7 +105,7 @@
 }
 
 .chatbot-send-btn {
-    background-color: #d97706;
+    background-color: #16a34a;
     color: white;
     padding: 12px 20px;
     margin-left: 10px;

@@ -11,7 +11,7 @@
 .header-logo {
     font-size: 20px;
     font-weight: bold;
-    color: #d97706;
+    color: #16a34a;
     text-decoration: none;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .header-links a:hover {
-    color: #d97706;
+    color: #16a34a;
 }
 
 .header-username {
@@ -38,8 +38,8 @@
 
 .header-logout-btn {
     background: none;
-    border: 1px solid #d97706;
-    color: #d97706;
+    border: 1px solid #16a34a;
+    color: #16a34a;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 .header-logout-btn:hover {
-    background-color: #d97706;
+    background-color: #16a34a;
     color: white;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .header-avatar-link:hover .header-username {
-    color: #d97706;
+    color: #16a34a;
 }
 
 .header-avatar {
@@ -67,5 +67,5 @@
     height: 34px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #d97706;
+    border: 2px solid #16a34a;
 }
