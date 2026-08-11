@@ -1,4 +1,5 @@
 import { JSX, useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
@@ -14,6 +15,7 @@ function ChatbotWidget(): JSX.Element | null {
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
+    const location = useLocation();
 
     useEffect(() => {
         const unsubscribe = chatStore.subscribe(() => {
@@ -26,7 +28,7 @@ function ChatbotWidget(): JSX.Element | null {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    if (!user) return null;
+    if (!user || location.pathname === '/chatbot') return null;
 
     const userAvatar = user.profileImage
         ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
