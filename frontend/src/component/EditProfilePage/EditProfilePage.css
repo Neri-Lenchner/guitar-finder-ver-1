@@ -1,0 +1,94 @@
+.edit-profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.edit-profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-card h2 {
+    margin: 0 0 24px;
+    color: #1a1a2e;
+}
+
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.edit-profile-form input[type="text"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.edit-profile-avatar-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.edit-profile-avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.edit-profile-avatar-label {
+    font-size: 13px;
+    color: #d97706;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.edit-profile-avatar-input {
+    display: none;
+}
+
+.edit-profile-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-profile-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.edit-profile-actions button[type="submit"] {
+    background-color: #d97706;
+    color: white;
+}
+
+.edit-profile-actions button[type="submit"]:hover {
+    background-color: #b45309;
+}
+
+.edit-profile-cancel {
+    background-color: white !important;
+    color: #555 !important;
+    border: 1px solid #ddd !important;
+}
+
+.edit-profile-cancel:hover {
+    border-color: #999 !important;
+    color: #222 !important;
+}

@@ -7,6 +7,7 @@ import { errorMiddleware } from "./middleware/error.middleware";
 import { appConfig } from "./utils/app-config";
 import { authController } from "./controllers/auth.controller";
 import { chatController } from "./controllers/chat.controller";
+import { userController } from "./controllers/user.controller";
 
 class App {
     public async start(): Promise<void> {
@@ -14,10 +15,12 @@ class App {
         server.set("etag", false);
         server.use(cors());
         server.use(express.json());
+        server.use("/uploads", express.static("uploads"));
         await mongoose.connect(appConfig.mongodbConnectionString);
         server.use(loggerMiddleware.consoleLog);
         server.use(authController.router);
         server.use(chatController.router);
+        server.use(userController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
         server.listen(appConfig.port, () =>

@@ -7,6 +7,7 @@ export interface IUserModel extends Document {
     email: string;
     password: string;
     isAdmin: boolean;
+    profileImage: string | null;
 }
 
 export const UserSchema = new Schema<IUserModel>({
@@ -35,6 +36,10 @@ export const UserSchema = new Schema<IUserModel>({
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    profileImage: {
+        type: String,
+        default: null,
     },
 });
 

@@ -1,7 +1,9 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
+import { appConfig } from '../../utils/app-config';
 import RobotImage from '../../assets/Chatbot-img.png';
+import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotWidget.css';
 
 interface Message {
@@ -25,6 +27,10 @@ function ChatbotWidget(): JSX.Element | null {
     }, [messages]);
 
     if (!user) return null;
+
+    const userAvatar = user.profileImage
+        ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
+        : defaultAvatar;
 
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
@@ -60,7 +66,7 @@ function ChatbotWidget(): JSX.Element | null {
                                 )}
                                 <div className="widget-msg-text">{msg.text}</div>
                                 {msg.sender === 'user' && (
-                                    <span className="widget-user-email">{user!.email}</span>
+                                    <img src={userAvatar} className="widget-avatar" alt={user.firstName} />
                                 )}
                             </div>
                         ))}

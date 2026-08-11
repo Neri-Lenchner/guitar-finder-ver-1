@@ -1,7 +1,9 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
+import { appConfig } from '../../utils/app-config';
 import RobotImage from '../../assets/Chatbot-img.png';
+import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotPage.css';
 
 interface Message {
@@ -17,7 +19,11 @@ function ChatbotPage(): JSX.Element {
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const userEmail = authService.getLoggedInUser()?.email ?? '';
+    const user = authService.getLoggedInUser();
+
+    const userAvatar = user?.profileImage
+        ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
+        : defaultAvatar;
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -60,7 +66,7 @@ function ChatbotPage(): JSX.Element {
                         )}
                         <div className="chatbot-msg-text">{msg.text}</div>
                         {msg.sender === 'user' && (
-                            <span className="chatbot-user-email">{userEmail}</span>
+                            <img src={userAvatar} className="chatbot-avatar" alt={user?.firstName} />
                         )}
                     </div>
                 ))}

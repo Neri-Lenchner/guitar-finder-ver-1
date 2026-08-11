@@ -4,6 +4,7 @@ export interface IUser {
     lastName: string;
     email: string;
     isAdmin: boolean;
+    profileImage: string | null;
 }
 
 export interface IUserRegister {
@@ -11,6 +12,7 @@ export interface IUserRegister {
     lastName: string;
     email: string;
     password: string;
+    profileImage?: FileList;
 }
 
 export interface ICredentials {

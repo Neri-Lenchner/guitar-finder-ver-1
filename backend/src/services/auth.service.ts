@@ -15,7 +15,7 @@ class AuthService {
         userData.password = await bcrypt.hash(userData.password, 10);
         const saved = await userData.save();
         return jwt.sign(
-            { _id: saved._id, firstName: saved.firstName, lastName: saved.lastName, email: saved.email, isAdmin: saved.isAdmin },
+            { _id: saved._id, firstName: saved.firstName, lastName: saved.lastName, email: saved.email, isAdmin: saved.isAdmin, profileImage: saved.profileImage },
             appConfig.secretKey,
             { expiresIn: "3h" }
         );
@@ -28,7 +28,7 @@ class AuthService {
         const isCorrect = await bcrypt.compare(credentials.password, user.password);
         if (!isCorrect) throw new AuthorizationError("Incorrect email or password");
         return jwt.sign(
-            { _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, isAdmin: user.isAdmin },
+            { _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, isAdmin: user.isAdmin, profileImage: user.profileImage },
             appConfig.secretKey,
             { expiresIn: "3h" }
         );

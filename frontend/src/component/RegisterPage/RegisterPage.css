@@ -52,3 +52,30 @@
     font-size: 14px;
     color: #555;
 }
+
+.register-avatar-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.register-avatar-preview {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.register-avatar-label {
+    font-size: 13px;
+    color: #d97706;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.register-avatar-input {
+    display: none;
+}

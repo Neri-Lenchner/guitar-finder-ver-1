@@ -21,6 +21,7 @@ export enum AuthActionType {
     Register = 'Register',
     Login = 'Login',
     Logout = 'Logout',
+    UpdateProfile = 'UpdateProfile',
 }
 
 export interface AuthAction {
@@ -33,6 +34,7 @@ export function authReducer(authState: AuthState = new AuthState(), action: Auth
     switch (action.type) {
         case AuthActionType.Register:
         case AuthActionType.Login:
+        case AuthActionType.UpdateProfile:
             newState.token = action.payload!;
             newState.user = jwtDecode<IUser>(action.payload!);
             localStorage.setItem('token', action.payload!);
