@@ -43,7 +43,7 @@ function SearchPage(): JSX.Element {
         <div className="search-page">
           <div className="search-page-inner">
             <div className="search-page-header">
-                <h1 className="search-title">Find <span>Guitar</span> Stores</h1>
+                <h1 className="search-title">Find <span>Music</span> Stores Worldwide</h1>
                 <p className="search-subtitle">Search for music stores near you by city</p>
                 <div className="search-bar">
                     <input

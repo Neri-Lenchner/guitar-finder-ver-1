@@ -65,6 +65,49 @@ function Footer(): JSX.Element {
                         <rect width="80" height="38" rx="5" fill="#FFFFFF" stroke="#e0e0e0"/>
                         <text x="40" y="25" textAnchor="middle" fill="#4a0080" fontSize="11" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">YAMAHA</text>
                     </svg>
+
+                    {/* PRS */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="PRS Guitars">
+                        <rect width="80" height="38" rx="5" fill="#1a0a2e"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#c084fc" fontSize="16" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="3">PRS</text>
+                    </svg>
+
+                    {/* Gretsch */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Gretsch">
+                        <rect width="80" height="38" rx="5" fill="#f59e0b"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#111111" fontSize="11" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1">GRETSCH</text>
+                    </svg>
+
+                    {/* ESP */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="ESP Guitars">
+                        <rect width="80" height="38" rx="5" fill="#111111"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#e63946" fontSize="17" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="4">ESP</text>
+                    </svg>
+
+                    {/* Epiphone */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Epiphone">
+                        <rect width="80" height="38" rx="5" fill="#1a1a1a"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#c9a84c" fontSize="10" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1">EPIPHONE</text>
+                    </svg>
+
+                    {/* Jackson */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Jackson Guitars">
+                        <rect width="80" height="38" rx="5" fill="#000000"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#FFFFFF" fontSize="11" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">JACKSON</text>
+                    </svg>
+
+                    {/* Schecter */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Schecter">
+                        <rect width="80" height="38" rx="5" fill="#111827"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#60a5fa" fontSize="10" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">SCHECTER</text>
+                    </svg>
+
+                    {/* Rickenbacker */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Rickenbacker">
+                        <rect width="80" height="38" rx="5" fill="#7c2d12"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">RICKEN</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">BACKER</text>
+                    </svg>
                 </div>
                 <span className="footer-copy">© {new Date().getFullYear()} GuitarFinder. All rights reserved.</span>
             </div>
