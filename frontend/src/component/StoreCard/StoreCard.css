@@ -1,5 +1,5 @@
 .store-card {
-    background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.90) 0%, rgba(15, 15, 15, 0.90) 100%);
     border: 1px solid #2a2a2a;
     border-top: 2px solid #444;
     border-radius: 4px;
