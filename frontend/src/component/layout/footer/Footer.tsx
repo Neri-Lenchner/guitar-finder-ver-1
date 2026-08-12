@@ -108,6 +108,50 @@ function Footer(): JSX.Element {
                         <text x="40" y="19" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">RICKEN</text>
                         <text x="40" y="30" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">BACKER</text>
                     </svg>
+
+                    {/* Guild */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Guild">
+                        <rect width="80" height="38" rx="5" fill="#14532d"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#4ade80" fontSize="14" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="2">GUILD</text>
+                    </svg>
+
+                    {/* Takamine */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Takamine">
+                        <rect width="80" height="38" rx="5" fill="#2e1a4e"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#c084fc" fontSize="9" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">TAKAMINE</text>
+                    </svg>
+
+                    {/* Music Man */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Music Man">
+                        <rect width="80" height="38" rx="5" fill="#1e3a5f"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#38bdf8" fontSize="9" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">MUSIC</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#38bdf8" fontSize="9" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">MAN</text>
+                    </svg>
+
+                    {/* Charvel */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Charvel">
+                        <rect width="80" height="38" rx="5" fill="#7a0000"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#fca5a5" fontSize="11" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">CHARVEL</text>
+                    </svg>
+
+                    {/* Dean */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Dean Guitars">
+                        <rect width="80" height="38" rx="5" fill="#0a0a0a"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#facc15" fontSize="16" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="3">DEAN</text>
+                    </svg>
+
+                    {/* BC Rich */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="BC Rich">
+                        <rect width="80" height="38" rx="5" fill="#1a0a2e"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#a855f7" fontSize="13" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">B.C.RICH</text>
+                    </svg>
+
+                    {/* D'Angelico */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="D'Angelico">
+                        <rect width="80" height="38" rx="5" fill="#3d2a00"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#fbbf24" fontSize="8" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="0.5">D'ANGELICO</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#fde68a" fontSize="7" fontFamily="Georgia, serif" letterSpacing="0.5">New York</text>
+                    </svg>
                 </div>
                 <span className="footer-copy">© {new Date().getFullYear()} GuitarFinder. All rights reserved.</span>
             </div>
