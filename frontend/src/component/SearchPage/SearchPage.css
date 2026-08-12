@@ -1,6 +1,6 @@
 .search-page {
-    padding: 48px 24px 80px;
-    min-height: calc(100vh - 60px);
+    padding: 108px 24px 80px;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

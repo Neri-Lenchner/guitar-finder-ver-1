@@ -1,5 +1,5 @@
 .chatbot-page-wrapper {
-    min-height: calc(100vh - 60px);
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -12,7 +12,7 @@
 .chatbot-page {
     max-width: 600px;
     width: 100%;
-    height: calc(100vh - 60px);
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background: rgba(10, 8, 30, 0.75);

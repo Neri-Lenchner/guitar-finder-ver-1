@@ -1,6 +1,7 @@
 import { JSX } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { footerColumns } from '../../utils/footer-links';
+import guitarGod from '../../assets/guitar-god.png';
 import './FooterPage.css';
 
 function FooterPage(): JSX.Element {
@@ -17,13 +18,16 @@ function FooterPage(): JSX.Element {
 
     return (
         <div className="footer-page">
-            <div className="footer-page-content">
-                <button className="footer-page-back" onClick={() => navigate(-1)}>&#10094; Back</button>
-                <h1 className="footer-page-title">{page.title}</h1>
-                <p className="footer-page-body">{page.body}</p>
-                {page.contactEmail && (
-                    <a href={`mailto:${page.contactEmail}`} className="footer-page-email">{page.contactEmail}</a>
-                )}
+            <div className="footer-page-inner">
+                <div className="footer-page-content">
+                    <button className="footer-page-back" onClick={() => navigate(-1)}>&#10094; Back</button>
+                    <h1 className="footer-page-title">{page.title}</h1>
+                    <p className="footer-page-body">{page.body}</p>
+                    {page.contactEmail && (
+                        <a href={`mailto:${page.contactEmail}`} className="footer-page-email">{page.contactEmail}</a>
+                    )}
+                </div>
+                <img src={guitarGod} alt="" aria-hidden="true" className="footer-page-guitar" />
             </div>
         </div>
     );
