@@ -2,6 +2,8 @@
     background-color: #0f0f0f;
     border-top: 1px solid #1e1e1e;
     padding: 48px 60px 32px;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-top {

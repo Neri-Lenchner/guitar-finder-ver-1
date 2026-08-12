@@ -1,6 +1,7 @@
 import { JSX, useState, useEffect } from 'react';
 import { followedService, IFollowedListing } from '../../services/followed.service';
 import { authService } from '../../services/auth.service';
+import guitarGod from '../../assets/guitar-god.png';
 import './WatchlistPage.css';
 
 function WatchlistPage(): JSX.Element {
@@ -23,12 +24,14 @@ function WatchlistPage(): JSX.Element {
 
     if (!user) return (
         <div className="watchlist-page">
+            <img src={guitarGod} alt="" aria-hidden="true" className="watchlist-bg-guitar" />
             <p className="watchlist-empty">Please log in to view your watchlist.</p>
         </div>
     );
 
     if (loading) return (
         <div className="watchlist-page">
+            <img src={guitarGod} alt="" aria-hidden="true" className="watchlist-bg-guitar" />
             <div className="watchlist-grid">
                 {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="watchlist-skeleton" />
@@ -39,6 +42,7 @@ function WatchlistPage(): JSX.Element {
 
     return (
         <div className="watchlist-page">
+            <img src={guitarGod} alt="" aria-hidden="true" className="watchlist-bg-guitar" />
             <div className="watchlist-inner">
                 <h1 className="watchlist-title">My <span>Guitars</span></h1>
                 <p className="watchlist-subtitle">

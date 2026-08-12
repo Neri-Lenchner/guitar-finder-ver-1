@@ -5,6 +5,46 @@
     padding: 120px 20px 60px;
 }
 
+.edit-profile-inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.edit-profile-guitar {
+    height: 500px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-left: auto;
+    filter: drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+@media (max-width: 768px) {
+    .edit-profile-inner {
+        position: relative;
+        min-height: 80vh;
+        justify-content: center;
+    }
+
+    .edit-profile-guitar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.3;
+        pointer-events: none;
+        margin-left: 0;
+    }
+
+    .edit-profile-card {
+        position: relative;
+        z-index: 1;
+    }
+}
+
 .edit-profile-card {
     background: white;
     border-radius: 12px;

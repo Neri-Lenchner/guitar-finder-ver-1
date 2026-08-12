@@ -1,10 +1,25 @@
 .watchlist-page {
     padding: 108px 24px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.watchlist-bg-guitar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    object-fit: contain;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .watchlist-inner {
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .watchlist-title {

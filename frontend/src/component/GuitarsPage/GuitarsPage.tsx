@@ -6,6 +6,7 @@ import { followedService } from '../../services/followed.service';
 import { authService } from '../../services/auth.service';
 import guitarsData from '../../data/guitars.json';
 import superGuitar from '../../assets/super-guitar.png';
+import guitarGod from '../../assets/guitar-god.png';
 import Spinner from '../Spinner/Spinner';
 import './GuitarsPage.css';
 
@@ -113,6 +114,7 @@ function GuitarsPage(): JSX.Element {
 
     return (
         <div className="guitars-page">
+            <img src={guitarGod} alt="" aria-hidden="true" className="guitars-bg-guitar" />
             <div className="guitars-inner">
                 <div className="guitars-header">
                     <h1 className="guitars-title">Guitar <span>Catalog</span></h1>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
 import defaultAvatar from '../../assets/default-avatar.png';
+import guitarGod from '../../assets/guitar-god.png';
 import './EditProfilePage.css';
 
 interface IEditProfileForm {
@@ -48,6 +49,7 @@ function EditProfilePage(): JSX.Element {
 
     return (
         <div className="edit-profile-page">
+            <div className="edit-profile-inner">
             <div className="edit-profile-card">
                 <h2>Edit Profile</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="edit-profile-form">
@@ -75,6 +77,8 @@ function EditProfilePage(): JSX.Element {
                         <button type="button" onClick={() => navigate(-1)} className="edit-profile-cancel">Cancel</button>
                     </div>
                 </form>
+            </div>
+            <img src={guitarGod} alt="" aria-hidden="true" className="edit-profile-guitar" />
             </div>
         </div>
     );
