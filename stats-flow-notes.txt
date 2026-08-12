@@ -1,0 +1,74 @@
+STATS FLOW NOTES
+================
+
+ON PAGE LOAD — GET /api/stats
+------------------------------
+
+StatisticsPage.tsx
+  useEffect → statisticService.getStats()
+    → GET /api/stats
+      → StatisticController.getStats()
+        → StatisticService.getStats()
+          → 7 parallel MongoDB aggregations (Promise.all):
+              • countDocuments()           → totalListings
+              • $group by brand            → byBrand (avg/min/max price)
+              • $group by condition        → byCondition
+              • $group by brand+model      → topModels (top 10)
+              • $bucket by price           → priceHistogram (0-500, 500-1k, 1k-2k, 2k+)
+              • $group by brand+condition  → byBrandAndCondition
+              • findOne sort ingestedAt    → lastUpdated
+          ← returns IGuitarStats JSON
+  → setStats(data) → renders charts + table
+
+
+ON "UPDATE DATA" CLICK — POST /api/stats/ingest
+------------------------------------------------
+
+StatisticsPage.tsx
+  handleIngest()
+    → builds payload: all 25 brands from guitars.json
+        [{ brand: "Fender", models: ["Stratocaster", "Telecaster", ...] }, ...]
+    → statisticService.ingest(payload)
+      → POST /api/stats/ingest { brands: [...] }
+        → StatisticController.ingest()
+          → StatisticService.ingest()
+            → Promise.all over 25 brands simultaneously:
+                reverbService.searchListings(brand, per_page=50)
+                  → GET https://api.reverb.com/api/listings?query=Fender&per_page=50
+                  ← returns up to 50 listings per brand
+            → for each listing:
+                • parse price (skip if 0)
+                • match model name by scanning listing title
+                • ListingStatModel.updateOne(
+                    { listingId },
+                    { $setOnInsert: { brand, guitarModel, title, price, ... } },
+                    { upsert: true }        ← skips duplicates, only inserts new
+                  )
+          ← returns count of processed listings
+    → statisticService.getStats()   ← re-fetches fresh data
+    → setStats(fresh) → UI updates
+
+
+KEY DESIGN DECISIONS
+--------------------
+
+Promise.all for 25 brands
+  → Parallel fetching — ~25x faster than sequential
+
+$setOnInsert + upsert
+  → Idempotent — re-running ingest won't duplicate existing listings
+
+Model matched from listing title
+  → Reverb API does not return a structured model field, so we scan the title
+     e.g. title "Fender Stratocaster 1965 Sunburst" matches model "Stratocaster"
+
+{ $literal: "..." } for price range labels
+  → MongoDB treats strings starting with $ as field references in aggregation
+  → "$0-$500" would be read as a field path, returning null
+  → { $literal: "$0-$500" } forces it to be treated as a plain string
+
+7 parallel aggregations on read
+  → All stats are fetched in one Promise.all, so GET /api/stats is fast
+
+Infinity replaced with 1_000_000 in $bucket boundaries
+  → BSON/MongoDB may not handle JS Infinity reliably as a bucket boundary
