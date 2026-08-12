@@ -4,6 +4,8 @@
     width: 100%;
     padding: 10px 0 30px;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .home-carousel-3d-title {
@@ -18,9 +20,26 @@
 /* The scene — clips cards that go beyond left/right edges */
 .carousel-3d-scene {
     width: 100%;
-    height: 500px;
+    height: 1000px;
     position: relative;
     overflow: hidden;
+}
+
+/* Inner 3D context — preserve-3d without overflow:hidden so depth sorting works */
+.carousel-3d-context {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+}
+
+.carousel-guitar-bg {
+    position: absolute;
+    left: 50%;
+    top: 525px;
+    height: 580px;
+    width: auto;
+    transform: translate(-50%, -50%) translateZ(0px) rotate(-15deg);
+    pointer-events: none;
 }
 
 /* The spinning ring of cards */
@@ -28,7 +47,7 @@
     position: absolute;
     width: 140px;
     height: 175px;
-    top: 70px;
+    top: 470px;
     left: calc(50% - 70px);
     transform-style: preserve-3d;
     animation: spin3d 20s linear infinite;

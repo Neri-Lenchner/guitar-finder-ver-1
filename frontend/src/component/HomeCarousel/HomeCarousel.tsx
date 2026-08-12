@@ -1,6 +1,7 @@
 import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 import guitars from '../../data/guitars.json';
+import fenderGuitar from '../../assets/fender-guitar.png';
 import './HomeCarousel.css';
 
 const BRAND_LOGOS: Record<string, JSX.Element> = {
@@ -49,6 +50,8 @@ function HomeCarousel(): JSX.Element {
     return (
         <div className="home-carousel-3d">
             <div className="carousel-3d-scene">
+                <div className="carousel-3d-context">
+                <img src={fenderGuitar} className="carousel-guitar-bg" alt="" aria-hidden="true" />
                 <div
                     className="carousel-3d-slider"
                     style={{ '--quantity': quantity } as React.CSSProperties}
@@ -78,6 +81,7 @@ function HomeCarousel(): JSX.Element {
                             </div>
                         );
                     })}
+                </div>
                 </div>
             </div>
         </div>
