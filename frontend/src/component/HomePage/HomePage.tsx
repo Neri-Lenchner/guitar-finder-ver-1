@@ -6,7 +6,7 @@ function HomePage(): JSX.Element {
     return (
         <div className="home-page">
             <div className="home-hero">
-                <h1>Welcome to GuitarFinder</h1>
+                <h1>Welcome to <span className="home-brand">GuitarFinder</span></h1>
                 <p>Find guitars, gear, and expert advice — all in one place.</p>
             </div>
             <HomeCarousel />
