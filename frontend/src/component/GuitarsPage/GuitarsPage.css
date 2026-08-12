@@ -72,11 +72,25 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.brand-card:hover,
+.brand-card:hover {
+    border-color: #555;
+    border-top-color: #16a34a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
 .brand-card--active {
     border-color: #555;
     border-top-color: #16a34a;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #14532d 0%, #0f3d21 100%);
+}
+
+.brand-card--active .brand-card-name {
+    color: #facc15;
+}
+
+.brand-card--active .brand-card-meta {
+    color: #ffffff;
 }
 
 .brand-card-name {

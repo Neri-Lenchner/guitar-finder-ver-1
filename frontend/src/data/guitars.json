@@ -406,5 +406,98 @@
       { "name": "Excel Gramercy", "type": "Acoustic" },
       { "name": "Premier Gramercy", "type": "Acoustic" }
     ]
+  },
+  {
+    "id": "washburn",
+    "name": "Washburn",
+    "country": "USA",
+    "founded": 1883,
+    "models": [
+      { "name": "D7S", "type": "Acoustic" },
+      { "name": "D10S", "type": "Acoustic" },
+      { "name": "WD7SCE", "type": "Acoustic" },
+      { "name": "EA20 Festival", "type": "Acoustic" },
+      { "name": "Parlor Series R314KK", "type": "Acoustic" },
+      { "name": "HB35", "type": "Semi-Hollow" },
+      { "name": "HB32", "type": "Semi-Hollow" },
+      { "name": "N4", "type": "Electric" },
+      { "name": "Nuno Bettencourt N8", "type": "Electric" },
+      { "name": "WI66PRO", "type": "Electric" },
+      { "name": "T14", "type": "Bass" },
+      { "name": "XB100", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "ovation",
+    "name": "Ovation",
+    "country": "USA",
+    "founded": 1966,
+    "models": [
+      { "name": "Celebrity Standard CS24", "type": "Acoustic" },
+      { "name": "Celebrity Elite CE44", "type": "Acoustic" },
+      { "name": "Celebrity Elite Plus CE48P", "type": "Acoustic" },
+      { "name": "Standard Balladeer 1771", "type": "Acoustic" },
+      { "name": "Custom Legend C2079AX", "type": "Acoustic" },
+      { "name": "Elite 1778TX", "type": "Acoustic" },
+      { "name": "Ultra 1516", "type": "Acoustic" },
+      { "name": "Adamas 1681", "type": "Acoustic" },
+      { "name": "12-String 1756", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "kramer",
+    "name": "Kramer",
+    "country": "USA",
+    "founded": 1976,
+    "models": [
+      { "name": "Baretta", "type": "Electric" },
+      { "name": "Baretta Special", "type": "Electric" },
+      { "name": "Assault 220", "type": "Electric" },
+      { "name": "Pacer Classic", "type": "Electric" },
+      { "name": "Pacer Vintage", "type": "Electric" },
+      { "name": "Focus VT-211S", "type": "Electric" },
+      { "name": "SM-1", "type": "Electric" },
+      { "name": "Striker 200ST", "type": "Electric" },
+      { "name": "Jersey Star", "type": "Electric" },
+      { "name": "Pioneer Bass", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "godin",
+    "name": "Godin",
+    "country": "Canada",
+    "founded": 1987,
+    "models": [
+      { "name": "Session Custom 59", "type": "Electric" },
+      { "name": "Stadium HT", "type": "Electric" },
+      { "name": "Radium", "type": "Electric" },
+      { "name": "LGXT", "type": "Electric" },
+      { "name": "G-Tour", "type": "Electric" },
+      { "name": "5th Avenue Kingpin", "type": "Semi-Hollow" },
+      { "name": "5th Avenue CW Kingpin II", "type": "Semi-Hollow" },
+      { "name": "Multiac Nylon Encore", "type": "Classical" },
+      { "name": "Multiac Steel Duet", "type": "Acoustic" },
+      { "name": "A6 Ultra", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "squier",
+    "name": "Squier",
+    "country": "USA",
+    "founded": 1982,
+    "models": [
+      { "name": "Classic Vibe 50s Stratocaster", "type": "Electric" },
+      { "name": "Classic Vibe 60s Stratocaster", "type": "Electric" },
+      { "name": "Classic Vibe 50s Telecaster", "type": "Electric" },
+      { "name": "Classic Vibe 60s Jazzmaster", "type": "Electric" },
+      { "name": "Bullet Stratocaster", "type": "Electric" },
+      { "name": "Affinity Stratocaster", "type": "Electric" },
+      { "name": "Affinity Telecaster", "type": "Electric" },
+      { "name": "Contemporary Stratocaster HH", "type": "Electric" },
+      { "name": "Mini Stratocaster", "type": "Electric" },
+      { "name": "Classic Vibe 60s Jazz Bass", "type": "Bass" },
+      { "name": "Affinity Precision Bass", "type": "Bass" },
+      { "name": "Bronco Bass", "type": "Bass" }
+    ]
   }
 ]
