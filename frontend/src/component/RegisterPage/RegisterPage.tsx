@@ -37,7 +37,7 @@ function RegisterPage(): JSX.Element {
                 <form onSubmit={handleSubmit(onSubmit)} className="register-form">
                     <div className="register-avatar-picker">
                         <img
-                            src={preview ?? defaultAvatar}
+                            src={preview ?? guitarGod}
                             alt="Profile preview"
                             className="register-avatar-preview"
                         />

@@ -19,7 +19,7 @@
     object-fit: contain;
     flex-shrink: 0;
     margin-left: auto;
-    filter: drop-shadow(0 0 14px rgba(22, 163, 74, 0.8)) drop-shadow(0 0 40px rgba(22, 163, 74, 0.4));
+    filter: drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6));
 }
 
 @media (max-width: 768px) {
@@ -31,6 +31,8 @@
         flex-direction: column;
         gap: 0;
         position: relative;
+        min-height: 80vh;
+        justify-content: center;
     }
 
     .register-guitar {
@@ -39,7 +41,7 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        opacity: 0.15;
+        opacity: 0.3;
         pointer-events: none;
         margin-left: 0;
     }
@@ -56,7 +58,7 @@
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .register-card h2 {

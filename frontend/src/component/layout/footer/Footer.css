@@ -66,6 +66,28 @@
     color: #16a34a;
 }
 
+.footer-guitar {
+    height: 200px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: flex-end;
+    filter: drop-shadow(0 0 14px rgba(22, 163, 74, 0.8)) drop-shadow(0 0 40px rgba(22, 163, 74, 0.4));
+}
+
+@media (max-width: 768px) {
+    .footer-guitar {
+        height: 120px;
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-guitar {
+        display: none;
+    }
+}
+
 .footer-divider {
     height: 1px;
     background-color: #1e1e1e;
@@ -110,6 +132,16 @@
     }
 
     .footer-brand {
+        flex: 1;
+        order: 0;
+    }
+
+    .footer-guitar {
+        order: 0;
+    }
+
+    .footer-col {
+        order: 1;
         flex: 100%;
     }
 

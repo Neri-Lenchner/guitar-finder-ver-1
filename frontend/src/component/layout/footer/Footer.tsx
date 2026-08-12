@@ -1,6 +1,7 @@
 import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { footerColumns } from '../../../utils/footer-links';
+import guitarGod from '../../../assets/guitar-god.png';
 import './Footer.css';
 
 function Footer(): JSX.Element {
@@ -24,6 +25,7 @@ function Footer(): JSX.Element {
                         </ul>
                     </div>
                 ))}
+                <img src={guitarGod} alt="" aria-hidden="true" className="footer-guitar" />
             </div>
 
             <div className="footer-divider" />
