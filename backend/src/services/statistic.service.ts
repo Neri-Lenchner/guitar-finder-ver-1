@@ -10,13 +10,13 @@ class StatisticService {
             )
         );
 
-        let count = 0;
+        let count: number = 0;
         for (const { brand, models, listings } of results) {
             for (const listing of listings) {
                 const price = parseFloat(listing.price?.amount ?? "0");
                 if (!price) continue;
                 const title: string = listing.title ?? "";
-                const guitarModel = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
+                const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
                 await ListingStatModel.updateOne(
                     { listingId: String(listing.id) },
                     {
