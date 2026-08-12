@@ -79,7 +79,7 @@ function WatchlistPage(): JSX.Element {
                                         className="watchlist-unfollow-btn"
                                         onClick={() => handleUnfollow(listing.listingId)}
                                     >
-                                        ♥ Unfollow
+                                        Unfollow
                                     </button>
                                 </div>
                             </div>

@@ -217,7 +217,7 @@ function GuitarsPage(): JSX.Element {
                                                     className={`reverb-follow-btn${followedIds.has(String(listing.id)) ? ' reverb-follow-btn--active' : ''}`}
                                                     onClick={() => toggleFollow(listing)}
                                                 >
-                                                    {followedIds.has(String(listing.id)) ? '♥ Following' : '♡ Follow'}
+                                                    {followedIds.has(String(listing.id)) ? 'Following' : 'Follow'}
                                                 </button>
                                             )}
                                         </div>

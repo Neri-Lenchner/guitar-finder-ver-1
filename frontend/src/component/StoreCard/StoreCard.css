@@ -78,6 +78,15 @@
     margin-top: 1px;
 }
 
+.store-row-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
 .store-row-text {
     color: #e8e8e8;
 }

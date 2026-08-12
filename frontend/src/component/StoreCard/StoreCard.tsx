@@ -22,21 +22,21 @@ function StoreCard({ store }: StoreCardProps): JSX.Element {
 
                 {store.openingHours && (
                     <div className="store-row store-row--hours">
-                        <span className="store-row-icon">🕐</span>
+                        <span className="store-row-label">Hours:</span>
                         <span className="store-row-text">{store.openingHours}</span>
                     </div>
                 )}
 
                 {store.phone && (
                     <div className="store-row">
-                        <span className="store-row-icon">📞</span>
+                        <span className="store-row-label">Phone:</span>
                         <a href={`tel:${store.phone}`} className="store-link">{store.phone}</a>
                     </div>
                 )}
 
                 {store.email && (
                     <div className="store-row">
-                        <span className="store-row-icon">✉️</span>
+                        <span className="store-row-label">Email:</span>
                         <a href={`mailto:${store.email}`} className="store-link">{store.email}</a>
                     </div>
                 )}
