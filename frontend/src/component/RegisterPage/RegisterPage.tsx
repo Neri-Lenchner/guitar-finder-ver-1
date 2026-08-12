@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
 import { IUserRegister } from '../../models/user.model';
 import defaultAvatar from '../../assets/default-avatar.png';
+import guitarGod from '../../assets/guitar-god.png';
 import './RegisterPage.css';
 
 function RegisterPage(): JSX.Element {
@@ -30,6 +31,7 @@ function RegisterPage(): JSX.Element {
 
     return (
         <div className="register-page">
+            <div className="register-inner">
             <div className="register-card">
                 <h2>Register</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="register-form">
@@ -57,6 +59,8 @@ function RegisterPage(): JSX.Element {
                     <button type="submit">Register</button>
                 </form>
                 <p>Already have an account? <Link to="/login">Login</Link></p>
+            </div>
+            <img src={guitarGod} alt="" aria-hidden="true" className="register-guitar" />
             </div>
         </div>
     );
