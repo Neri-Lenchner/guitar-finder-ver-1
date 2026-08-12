@@ -118,4 +118,19 @@
         align-items: flex-start;
         gap: 16px;
     }
+
+    .payment-logo {
+        width: 56px;
+        height: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-col {
+        flex: 100%;
+    }
+
+    .footer-logo {
+        font-size: 20px;
+    }
 }

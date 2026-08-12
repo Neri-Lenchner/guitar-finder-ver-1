@@ -39,3 +39,31 @@
     color: #e0e0e0;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
+
+@media (max-width: 768px) {
+    .home-page h1 {
+        font-size: 32px;
+    }
+
+    .home-page p {
+        font-size: 16px;
+    }
+
+    .home-hero {
+        margin-bottom: -200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-page h1 {
+        font-size: 26px;
+    }
+
+    .home-page p {
+        font-size: 14px;
+    }
+
+    .home-hero {
+        margin-bottom: -150px;
+    }
+}

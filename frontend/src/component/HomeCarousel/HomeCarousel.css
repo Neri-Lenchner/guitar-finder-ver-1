@@ -122,3 +122,25 @@
     padding: 2px 10px;
     letter-spacing: 0.5px;
 }
+
+@media (max-width: 768px) {
+    .carousel-3d-scene {
+        height: 700px;
+    }
+
+    .carousel-3d-context {
+        transform: scale(0.7);
+        transform-origin: top center;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-3d-scene {
+        height: 550px;
+    }
+
+    .carousel-3d-context {
+        transform: scale(0.5);
+        transform-origin: top center;
+    }
+}

@@ -73,3 +73,24 @@
 .footer-page-email:hover {
     color: #15803d;
 }
+
+@media (max-width: 900px) {
+    .footer-page-inner {
+        flex-direction: column;
+    }
+
+    .footer-page-guitar {
+        height: 300px;
+        align-self: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-page {
+        padding: 100px 24px 80px;
+    }
+
+    .footer-page-guitar {
+        display: none;
+    }
+}
