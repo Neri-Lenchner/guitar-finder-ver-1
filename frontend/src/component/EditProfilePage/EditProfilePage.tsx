@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
-import defaultAvatar from '../../assets/default-avatar.png';
 import guitarGod from '../../assets/guitar-god.png';
 import './EditProfilePage.css';
 
@@ -55,7 +54,7 @@ function EditProfilePage(): JSX.Element {
                 <form onSubmit={handleSubmit(onSubmit)} className="edit-profile-form">
                     <div className="edit-profile-avatar-picker">
                         <img
-                            src={preview ?? defaultAvatar}
+                            src={preview ?? guitarGod}
                             alt="Profile"
                             className="edit-profile-avatar-preview"
                         />

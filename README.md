@@ -1,13 +1,13 @@
-# GuitarFinder
+    # GuitarFinder
 
-An AI-powered guitar discovery platform. Browse 20 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
+An AI-powered guitar discovery platform. Browse 25 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
 
 ---
 
 ## Features
 
 - **3D Brand Carousel** — spinning 3D carousel on the home page showcasing guitar brands
-- **Guitar Catalog** — browse 20 brands and their models with live Reverb listing images
+- **Guitar Catalog** — browse 25 brands and their models with live Reverb listing images
 - **Reverb Integration** — real marketplace listings with price, condition, and photos
 - **My Guitars (Watchlist)** — save and manage followed Reverb listings, persisted to MongoDB
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
@@ -153,4 +153,4 @@ The app will be available at `http://localhost:5173`.
 
 ## Guitar Brands
 
-The catalog includes 20 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico.
+The catalog includes 25 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico, Washburn, Ovation, Kramer, Godin, Squier.

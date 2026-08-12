@@ -2,7 +2,7 @@ import { JSX, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { authStore } from '../../state/auth.state';
 import { appConfig } from '../../utils/app-config';
-import defaultAvatar from '../../assets/default-avatar.png';
+import guitarGod from '../../assets/guitar-god.png';
 import './UserAvatar.css';
 
 function UserAvatar(): JSX.Element {
@@ -22,7 +22,7 @@ function UserAvatar(): JSX.Element {
     return (
         <div className={`user-avatar-fixed${user ? ' user-avatar-fixed--visible' : ''}`} onClick={() => user && navigate('/edit-profile')}>
             <img
-                src={user?.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : defaultAvatar}
+                src={user?.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : guitarGod}
                 alt={user?.firstName ?? ''}
             />
         </div>
