@@ -243,7 +243,16 @@
     }
 
     .header-greeting {
-        display: none;
+        font-size: 11px;
+    }
+
+    .header-username {
+        font-size: 13px;
+    }
+
+    .header-avatar {
+        width: 26px;
+        height: 26px;
     }
 
     .header-search-mobile {
