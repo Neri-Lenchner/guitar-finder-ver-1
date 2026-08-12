@@ -1,5 +1,5 @@
 import { JSX, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../../services/auth.service';
 import { appConfig } from '../../../utils/app-config';
 import defaultAvatar from '../../../assets/default-avatar.png';
@@ -9,6 +9,7 @@ function Header(): JSX.Element {
     const navigate = useNavigate();
     const user = authService.getLoggedInUser();
     const [query, setQuery] = useState('');
+    const [menuOpen, setMenuOpen] = useState(false);
 
     function handleLogout(): void {
         authService.logout();
@@ -25,12 +26,14 @@ function Header(): JSX.Element {
         if (e.key === 'Enter') handleSearch();
     }
 
+    function close() { setMenuOpen(false); }
+
     return (
         <nav className="header">
             <div className="header-left">
-                <Link to="/home" className="header-logo">GuitarFinder</Link>
+                <NavLink to="/home" className="header-logo" onClick={close}>GuitarFinder</NavLink>
                 {user && (
-                    <Link to="/edit-profile" className="header-avatar-link">
+                    <NavLink to="/edit-profile" className="header-avatar-link" onClick={close}>
                         <img
                             src={user.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : defaultAvatar}
                             alt={user.firstName}
@@ -38,32 +41,62 @@ function Header(): JSX.Element {
                         />
                         <span className="header-greeting">Hello and Welcome </span>
                         <span className="header-username">{user.firstName}</span>
-                    </Link>
+                    </NavLink>
                 )}
             </div>
             {user && (
                 <div className="header-search">
-                    <input
-                        type="text"
-                        className="header-search-input"
-                        placeholder="Search brand or model..."
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                    />
+                    <div className="header-search-input-wrapper">
+                        <input
+                            type="text"
+                            className="header-search-input"
+                            placeholder="Search brand or model..."
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <svg className="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                    </div>
                     <button className="header-search-btn" onClick={handleSearch}>Search</button>
                 </div>
             )}
-            <div className="header-links">
-                <Link to="/home">Home</Link>
-                {user && <Link to="/guitars">Guitars</Link>}
-                {user && <Link to="/search">Find Stores</Link>}
-                {user && <Link to="/chatbot">GuitarBot</Link>}
-                {user && <Link to="/watchlist">My Guitars</Link>}
+            <button className="header-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div className={`header-links${menuOpen ? ' header-links--open' : ''}`}>
+                {user && (
+                    <div className="header-search-mobile">
+                        <div className="header-search-input-wrapper">
+                            <input
+                                type="text"
+                                className="header-search-input"
+                                placeholder="Search brand or model..."
+                                value={query}
+                                onChange={e => setQuery(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                            />
+                            <svg className="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                        </div>
+                        <button className="header-search-btn" onClick={handleSearch}>Search</button>
+                    </div>
+                )}
+                <NavLink to="/home" onClick={close}>Home</NavLink>
+                {user && <NavLink to="/guitars" onClick={close}>Guitars</NavLink>}
+                {user && <NavLink to="/search" onClick={close}>Find Stores</NavLink>}
+                {user && <NavLink to="/chatbot" onClick={close}>GuitarBot</NavLink>}
+                {user && <NavLink to="/watchlist" onClick={close}>My Guitars</NavLink>}
                 {user ? (
-                    <button onClick={handleLogout} className="header-logout-btn">Logout</button>
+                    <button onClick={() => { handleLogout(); close(); }} className="header-logout-btn">Logout</button>
                 ) : (
-                    <Link to="/login" className="header-login-btn">Login</Link>
+                    <NavLink to="/login" className="header-login-btn" onClick={close}>Login</NavLink>
                 )}
             </div>
         </nav>

@@ -27,8 +27,23 @@
     margin-right: 120px;
 }
 
+.header-search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header-search-icon {
+    position: absolute;
+    right: 12px;
+    width: 14px;
+    height: 14px;
+    color: #888;
+    pointer-events: none;
+}
+
 .header-search-input {
-    padding: 10px 12px;
+    padding: 10px 34px 10px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.08);
@@ -124,6 +139,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    margin-right: 24px;
 }
 
 .header-avatar-link {
@@ -146,45 +162,100 @@
     border: 2px solid #16a34a;
 }
 
+.header-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.header-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.header-hamburger:hover span {
+    background-color: #16a34a;
+}
+
+.header-search-mobile {
+    display: none;
+}
+
+.header-links a.active {
+    color: #16a34a;
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 0 16px;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 60px;
     }
 
     .header-search {
         display: none;
     }
 
-    .header-greeting {
-        display: none;
+    .header-hamburger {
+        display: flex;
     }
 
     .header-links {
-        gap: 10px;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px 0 16px;
+    }
+
+    .header-links--open {
+        display: flex;
     }
 
     .header-links a {
-        font-size: 13px;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .header-logout-btn,
     .header-login-btn {
-        padding: 5px 10px;
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header-avatar {
-        width: 28px;
-        height: 28px;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 14px;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 0;
+        text-align: left;
     }
 
-    .header-links {
+    .header-greeting {
+        display: none;
+    }
+
+    .header-search-mobile {
+        display: flex;
         gap: 6px;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .header-links a {
-        font-size: 11px;
+    .header-search-mobile .header-search-input {
+        flex: 1;
+        width: auto;
     }
 }
