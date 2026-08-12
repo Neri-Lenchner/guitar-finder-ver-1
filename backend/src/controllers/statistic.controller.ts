@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
 import { statisticService } from "../services/statistic.service";
-import { StatusCode } from "../models/enums";
 
 class StatisticController {
     public readonly router = express.Router();

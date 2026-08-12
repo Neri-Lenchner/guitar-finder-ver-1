@@ -3,7 +3,7 @@ import { Document, model, Schema } from "mongoose";
 export interface IListingStat extends Document {
     listingId: string;
     brand: string;
-    model: string;
+    guitarModel: string;
     title: string;
     price: number;
     currency: string;
@@ -15,7 +15,7 @@ export interface IListingStat extends Document {
 const ListingStatSchema = new Schema<IListingStat>({
     listingId: { type: String, required: true, unique: true },
     brand: { type: String, required: true },
-    model: { type: String, required: true },
+    guitarModel: { type: String, required: true },
     title: { type: String, required: true },
     price: { type: Number, required: true },
     currency: { type: String, default: "USD" },

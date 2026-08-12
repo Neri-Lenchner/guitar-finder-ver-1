@@ -1,7 +1,5 @@
-export interface IIngestBrand {
-    brand: string;
-    models: string[];
-}
+import axios from "axios";
+import { appConfig } from "../utils/app-config";
 
 export interface IBrandStat {
     brand: string;
@@ -41,5 +39,18 @@ export interface IGuitarStats {
     topModels: IModelStat[];
     priceHistogram: IPriceHistogramBucket[];
     byBrandAndCondition: IBrandConditionStat[];
-    lastUpdated: Date | null;
+    lastUpdated: string | null;
 }
+
+class StatisticService {
+    public async getStats(): Promise<IGuitarStats> {
+        const res = await axios.get(`${appConfig.apiAddress}/api/stats`);
+        return res.data;
+    }
+
+    public async ingest(brands: { brand: string; models: string[] }[]): Promise<void> {
+        await axios.post(`${appConfig.apiAddress}/api/stats/ingest`, { brands });
+    }
+}
+
+export const statisticService = new StatisticService();

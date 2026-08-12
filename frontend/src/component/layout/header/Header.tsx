@@ -86,6 +86,7 @@ function Header(): JSX.Element {
                 {user && <NavLink to="/search" onClick={close}>Find Stores</NavLink>}
                 {user && <NavLink to="/chatbot" onClick={close}>GuitarBot</NavLink>}
                 {user && <NavLink to="/watchlist" onClick={close}>My Guitars</NavLink>}
+                {user && <NavLink to="/stats" onClick={close}>Statistics</NavLink>}
                 {user ? (
                     <button onClick={() => { handleLogout(); close(); }} className="header-logout-btn">Logout</button>
                 ) : (
