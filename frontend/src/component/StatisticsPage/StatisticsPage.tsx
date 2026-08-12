@@ -17,7 +17,21 @@ import guitarGod from '../../assets/guitar-god.png';
 import Spinner from '../Spinner/Spinner';
 import './StatisticsPage.css';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
+const glowPlugin = {
+    id: 'glowEffect',
+    beforeDatasetDraw(chart: any, args: any) {
+        const bg = chart.data.datasets[args.index].backgroundColor;
+        const color = Array.isArray(bg) ? 'rgba(255,255,255,0.18)' : bg;
+        chart.ctx.save();
+        chart.ctx.shadowBlur = 14;
+        chart.ctx.shadowColor = color;
+    },
+    afterDatasetDraw(chart: any) {
+        chart.ctx.restore();
+    },
+};
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend, glowPlugin);
 
 const brands: IBrand[] = guitarsData as IBrand[];
 
