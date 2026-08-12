@@ -13,6 +13,7 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import { statisticService, IGuitarStats } from '../../services/statistic.service';
 import { IBrand } from '../../models/guitar.model';
 import guitarsData from '../../data/guitars.json';
+import guitarGod from '../../assets/guitar-god.png';
 import Spinner from '../Spinner/Spinner';
 import './StatisticsPage.css';
 
@@ -69,6 +70,7 @@ function StatisticsPage(): JSX.Element {
 
     if (loading) return (
         <div className="stats-page">
+            <img src={guitarGod} className="stats-bg-guitar" alt="" />
             <Spinner text="Loading statistics..." />
         </div>
     );
@@ -79,6 +81,7 @@ function StatisticsPage(): JSX.Element {
 
     return (
         <div className="stats-page">
+            <img src={guitarGod} className="stats-bg-guitar" alt="" />
             <div className="stats-inner">
                 <div className="stats-header">
                     <div>
@@ -171,18 +174,30 @@ function StatisticsPage(): JSX.Element {
                                     options={darkChartOptions('Price Distribution')}
                                 />
                             </div>
-                            <div className="stats-chart-box">
-                                <Bar
-                                    data={{
-                                        labels: stats.topModels.map(m => `${m.brand} ${m.model}`),
-                                        datasets: [{
-                                            label: 'Listings',
-                                            data: stats.topModels.map(m => m.count),
-                                            backgroundColor: '#60a5fa',
-                                        }],
-                                    }}
-                                    options={{ ...darkChartOptions('Top 10 Models'), indexAxis: 'y' as const }}
-                                />
+                            <div className="stats-chart-box stats-models-table-box">
+                                <p className="stats-table-title">Top 10 Popular Models</p>
+                                <table className="stats-models-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Brand</th>
+                                            <th>Model</th>
+                                            <th>Listings</th>
+                                            <th>Avg Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.topModels.map((m, i) => (
+                                            <tr key={i}>
+                                                <td className="stats-table-rank">{i + 1}</td>
+                                                <td>{m.brand}</td>
+                                                <td>{m.model || '—'}</td>
+                                                <td className="stats-table-count">{m.count}</td>
+                                                <td className="stats-table-price">${m.avgPrice.toLocaleString()}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 

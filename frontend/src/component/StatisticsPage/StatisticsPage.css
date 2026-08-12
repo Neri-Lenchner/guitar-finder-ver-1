@@ -1,11 +1,27 @@
 .stats-page {
     padding: 108px 24px 80px;
     min-height: 100vh;
+    background: linear-gradient(160deg, #0a0a0a 0%, #0d1a10 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-bg-guitar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    object-fit: contain;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .stats-inner {
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .stats-header {
@@ -20,7 +36,7 @@
 .stats-title {
     font-size: 32px;
     font-weight: bold;
-    color: #1a1a2e;
+    color: #ffffff;
     margin: 0 0 8px;
 }
 
@@ -30,7 +46,7 @@
 
 .stats-subtitle {
     font-size: 15px;
-    color: #666;
+    color: #aaa;
     margin: 0;
 }
 
@@ -72,7 +88,7 @@
 .stats-empty {
     text-align: center;
     padding: 80px 0 40px;
-    color: #555;
+    color: #aaa;
     font-size: 15px;
 }
 
@@ -90,9 +106,10 @@
 }
 
 .stats-card {
-    background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
+    background: linear-gradient(135deg, rgba(20,20,20,0.75) 0%, rgba(15,15,15,0.75) 100%);
     border: 1px solid #2a2a2a;
     border-top: 2px solid #16a34a;
+    backdrop-filter: blur(4px);
     border-radius: 6px;
     padding: 20px 16px;
     display: flex;
@@ -109,7 +126,7 @@
 
 .stats-card-label {
     font-size: 11px;
-    color: #666;
+    color: #888;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-align: center;
@@ -127,10 +144,72 @@
 }
 
 .stats-chart-box {
-    background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
+    background: linear-gradient(135deg, rgba(20,20,20,0.75) 0%, rgba(15,15,15,0.75) 100%);
     border: 1px solid #2a2a2a;
     border-radius: 8px;
     padding: 24px;
+    backdrop-filter: blur(4px);
+}
+
+.stats-chart-box canvas {
+    filter: drop-shadow(0 0 4px rgba(22, 163, 74, 0.2));
+}
+
+.stats-models-table-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.stats-table-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e8e8f0;
+    margin: 0;
+    text-align: center;
+}
+
+.stats-models-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.stats-models-table th {
+    text-align: left;
+    color: #888;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.stats-models-table td {
+    padding: 10px 12px;
+    color: #e8e8f0;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.stats-models-table tbody tr:hover td {
+    background: rgba(22, 163, 74, 0.07);
+}
+
+.stats-table-rank {
+    color: #555;
+    font-weight: 700;
+    width: 28px;
+}
+
+.stats-table-count {
+    font-weight: 700;
+    color: #60a5fa;
+}
+
+.stats-table-price {
+    font-weight: 700;
+    color: #16a34a;
 }
 
 .stats-chart-doughnut {

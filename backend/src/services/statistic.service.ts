@@ -63,7 +63,7 @@ class StatisticService {
                 {
                     $bucket: {
                         groupBy: "$price",
-                        boundaries: [0, 500, 1000, 2000, Infinity],
+                        boundaries: [0, 500, 1000, 2000, 1_000_000],
                         default: "Other",
                         output: { count: { $sum: 1 } },
                     },
@@ -74,10 +74,10 @@ class StatisticService {
                         range: {
                             $switch: {
                                 branches: [
-                                    { case: { $eq: ["$_id", 0] }, then: "$0–$500" },
-                                    { case: { $eq: ["$_id", 500] }, then: "$500–$1,000" },
-                                    { case: { $eq: ["$_id", 1000] }, then: "$1,000–$2,000" },
-                                    { case: { $eq: ["$_id", 2000] }, then: "$2,000+" },
+                                    { case: { $eq: ["$_id", 0] }, then: { $literal: "$0–$500" } },
+                                    { case: { $eq: ["$_id", 500] }, then: { $literal: "$500–$1,000" } },
+                                    { case: { $eq: ["$_id", 1000] }, then: { $literal: "$1,000–$2,000" } },
+                                    { case: { $eq: ["$_id", 2000] }, then: { $literal: "$2,000+" } },
                                 ],
                                 default: "Other",
                             },
