@@ -1,77 +1,13 @@
-// cspell:ignore housenumber
 import axios from "axios";
-import https from "https";
+import { IStore, IOverpassTags, IOverpassElement, IOverpassResponse } from "../dto/store.dto";
 
-export interface IStore {
-    id: string;
-    name: string;
-    address: string;
-    phone?: string;
-    email?: string;
-    website?: string;
-    openingHours?: string;
-    lat: number;
-    lon: number;
-}
-
-interface IOverpassTags {
-    name?: string;
-    phone?: string;
-    "contact:phone"?: string;
-    email?: string;
-    "contact:email"?: string;
-    website?: string;
-    "contact:website"?: string;
-    opening_hours?: string;
-    "addr:street"?: string;
-    "addr:housenumber"?: string;
-    "addr:city"?: string;
-    "addr:postcode"?: string;
-}
-
-interface IOverpassElement {
-    id: number;
-    lat?: number;
-    lon?: number;
-    center?: { lat: number; lon: number };
-    tags?: IOverpassTags;
-}
-
-interface IOverpassResponse {
-    elements: IOverpassElement[];
-}
-
-function overpassPost(query: string): Promise<IOverpassResponse> {
-    return new Promise((resolve, reject) => {
-        const body = `data=${encodeURIComponent(query)}`;
-        const options = {
-            hostname: "overpass-api.de",
-            path: "/api/interpreter",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Content-Length": Buffer.byteLength(body),
-                "User-Agent": "GuitarFinder/1.0",
-            },
-        };
-
-        const req = https.request(options, (res): void => {
-            let data: string = "";
-            res.on("data", (chunk) => data += chunk);
-            res.on("end", (): void => {
-                if (res.statusCode && res.statusCode >= 400) {
-                    reject(new Error(`Overpass returned ${res.statusCode}: ${data}`));
-                } else {
-                    try { resolve(JSON.parse(data)); }
-                    catch { reject(new Error("Invalid JSON from Overpass")); }
-                }
-            });
-        });
-
-        req.on("error", reject);
-        req.write(body);
-        req.end();
-    });
+async function overpassPost(query: string): Promise<IOverpassResponse> {
+    const res = await axios.post<IOverpassResponse>(
+        "https://overpass-api.de/api/interpreter",
+        `data=${encodeURIComponent(query)}`,
+        { headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "GuitarFinder/1.0" } }
+    );
+    return res.data;
 }
 
 class StoreService {
