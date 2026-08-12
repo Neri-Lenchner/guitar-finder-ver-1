@@ -1,3 +1,4 @@
+// cspell:ignore housenumber
 import axios from "axios";
 import https from "https";
 
@@ -13,7 +14,34 @@ export interface IStore {
     lon: number;
 }
 
-function overpassPost(query: string): Promise<any> {
+interface IOverpassTags {
+    name?: string;
+    phone?: string;
+    "contact:phone"?: string;
+    email?: string;
+    "contact:email"?: string;
+    website?: string;
+    "contact:website"?: string;
+    opening_hours?: string;
+    "addr:street"?: string;
+    "addr:housenumber"?: string;
+    "addr:city"?: string;
+    "addr:postcode"?: string;
+}
+
+interface IOverpassElement {
+    id: number;
+    lat?: number;
+    lon?: number;
+    center?: { lat: number; lon: number };
+    tags?: IOverpassTags;
+}
+
+interface IOverpassResponse {
+    elements: IOverpassElement[];
+}
+
+function overpassPost(query: string): Promise<IOverpassResponse> {
     return new Promise((resolve, reject) => {
         const body = `data=${encodeURIComponent(query)}`;
         const options = {
@@ -27,10 +55,10 @@ function overpassPost(query: string): Promise<any> {
             },
         };
 
-        const req = https.request(options, (res) => {
-            let data = "";
+        const req = https.request(options, (res): void => {
+            let data: string = "";
             res.on("data", (chunk) => data += chunk);
-            res.on("end", () => {
+            res.on("end", (): void => {
                 if (res.statusCode && res.statusCode >= 400) {
                     reject(new Error(`Overpass returned ${res.statusCode}: ${data}`));
                 } else {
@@ -64,9 +92,9 @@ class StoreService {
         const json = await overpassPost(query);
         console.log(`[stores] Overpass returned ${json.elements?.length ?? 0} elements`);
         return (json.elements ?? [])
-            .map((el: any): IStore | null => {
-                const elLat = el.lat ?? el.center?.lat;
-                const elLon = el.lon ?? el.center?.lon;
+            .map((el: IOverpassElement): IStore | null => {
+                const elLat: number | undefined = el.lat ?? el.center?.lat;
+                const elLon: number | undefined = el.lon ?? el.center?.lon;
                 if (!elLat || !elLon) return null;
                 return {
                     id: String(el.id),
@@ -83,15 +111,15 @@ class StoreService {
             .filter(Boolean) as IStore[];
     }
 
-    private buildAddress(tags: any): string {
+    private buildAddress(tags: IOverpassTags | undefined): string {
         if (!tags) return "Address unavailable";
-        const parts = [
+        const parts: string[] = [
             tags["addr:street"] && tags["addr:housenumber"]
                 ? `${tags["addr:street"]} ${tags["addr:housenumber"]}`
                 : tags["addr:street"],
             tags["addr:city"],
             tags["addr:postcode"],
-        ].filter(Boolean);
+        ].filter((p): p is string => Boolean(p));
         return parts.length ? parts.join(", ") : "Address unavailable";
     }
 }

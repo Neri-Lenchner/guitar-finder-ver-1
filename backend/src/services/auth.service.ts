@@ -6,16 +6,25 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class AuthService {
-    public async register(userData: IUserModel): Promise<string> {
-        const error = userData.validateSync();
-        if (error) throw new ValidationError(error.message);
-        const isEmailTaken = await this.isEmailTaken(userData.email);
+    public async register(user: IUserModel): Promise<string> {
+        try {
+            await user.validate();
+        } catch (error: any) {
+            throw new ValidationError(error.message);
+        }
+        const isEmailTaken: boolean = await this.isEmailTaken(user.email);
         if (isEmailTaken) throw new ValidationError("Email already taken");
-        userData.isAdmin = false;
-        userData.password = await bcrypt.hash(userData.password, 10);
-        const saved = await userData.save();
-        return jwt.sign(
-            { _id: saved._id, firstName: saved.firstName, lastName: saved.lastName, email: saved.email, isAdmin: saved.isAdmin, profileImage: saved.profileImage },
+        user.isAdmin = false;
+        user.password = await bcrypt.hash(user.password, 10);
+        const saved = await user.save();
+        return jwt.sign({
+                _id: saved._id,
+                firstName: saved.firstName,
+                lastName: saved.lastName,
+                email: saved.email,
+                isAdmin: saved.isAdmin,
+                profileImage: saved.profileImage
+            },
             appConfig.secretKey,
             { expiresIn: "3h" }
         );
@@ -25,10 +34,16 @@ class AuthService {
         if (!credentials.email || !credentials.password) throw new ValidationError("Email and password are required");
         const user = await UserModel.findOne({ email: credentials.email }).exec();
         if (!user) throw new AuthorizationError("Incorrect email or password");
-        const isCorrect = await bcrypt.compare(credentials.password, user.password);
+        const isCorrect: boolean = await bcrypt.compare(credentials.password, user.password);
         if (!isCorrect) throw new AuthorizationError("Incorrect email or password");
-        return jwt.sign(
-            { _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, isAdmin: user.isAdmin, profileImage: user.profileImage },
+        return jwt.sign({
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                profileImage: user.profileImage
+            },
             appConfig.secretKey,
             { expiresIn: "3h" }
         );
