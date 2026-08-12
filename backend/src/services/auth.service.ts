@@ -1,6 +1,7 @@
 import { UserModel } from "../models/user.model";
 type IUserModel = InstanceType<typeof UserModel>;
 import { ValidationError, AuthorizationError } from "../models/client-error";
+import { ILoginCredentials } from "../dto/auth.dto";
 import { appConfig } from "../utils/app-config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -30,11 +31,11 @@ class AuthService {
         );
     }
 
-    public async login(credentials: { email: string; password: string }): Promise<string> {
-        if (!credentials.email || !credentials.password) throw new ValidationError("Email and password are required");
-        const user = await UserModel.findOne({ email: credentials.email }).exec();
+    public async login(loginCredentials: ILoginCredentials): Promise<string> {
+        if (!loginCredentials.email || !loginCredentials.password) throw new ValidationError("Email and password are required");
+        const user = await UserModel.findOne({ email: loginCredentials.email }).exec();
         if (!user) throw new AuthorizationError("Incorrect email or password");
-        const isCorrect: boolean = await bcrypt.compare(credentials.password, user.password);
+        const isCorrect: boolean = await bcrypt.compare(loginCredentials.password, user.password);
         if (!isCorrect) throw new AuthorizationError("Incorrect email or password");
         return jwt.sign({
                 _id: user._id,
