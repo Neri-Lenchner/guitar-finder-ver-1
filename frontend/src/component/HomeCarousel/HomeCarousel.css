@@ -40,6 +40,7 @@
     width: auto;
     transform: translate(-50%, -50%) translateZ(0px) rotate(-15deg);
     pointer-events: none;
+    filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.7)) drop-shadow(0 0 35px rgba(220, 38, 38, 0.35));
 }
 
 /* The spinning ring of cards */
@@ -78,7 +79,7 @@
     justify-content: center;
     gap: 5px;
     padding: 16px 12px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.12);
     overflow: hidden;
 }
