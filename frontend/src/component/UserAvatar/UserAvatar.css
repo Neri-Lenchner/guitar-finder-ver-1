@@ -1,0 +1,31 @@
+.user-avatar-fixed {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+    cursor: pointer;
+}
+
+.user-avatar-fixed--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.user-avatar-fixed img {
+    width: 120px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #16a34a;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: block;
+}
+
+.user-avatar-fixed:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(22, 163, 74, 0.4);
+}

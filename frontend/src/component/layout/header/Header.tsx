@@ -1,8 +1,6 @@
 import { JSX, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../../services/auth.service';
-import { appConfig } from '../../../utils/app-config';
-import defaultAvatar from '../../../assets/default-avatar.png';
 import './Header.css';
 
 function Header(): JSX.Element {
@@ -34,11 +32,6 @@ function Header(): JSX.Element {
                 <NavLink to="/home" className="header-logo" onClick={close}>GuitarFinder</NavLink>
                 {user && (
                     <NavLink to="/edit-profile" className="header-avatar-link" onClick={close}>
-                        <img
-                            src={user.profileImage ? `${appConfig.apiAddress}/uploads/${user.profileImage}` : defaultAvatar}
-                            alt={user.firstName}
-                            className="header-avatar"
-                        />
                         <span className="header-greeting">Hello and Welcome </span>
                         <span className="header-username">{user.firstName}</span>
                     </NavLink>
