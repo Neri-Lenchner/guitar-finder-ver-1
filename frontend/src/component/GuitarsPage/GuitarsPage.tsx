@@ -1,4 +1,5 @@
 import { JSX, useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IBrand, IGuitarModel, IReverbListing } from '../../models/guitar.model';
 import { reverbService } from '../../services/reverb.service';
 import { followedService } from '../../services/followed.service';
@@ -19,6 +20,16 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 function GuitarsPage(): JSX.Element {
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search')?.toLowerCase().trim() ?? '';
+
+    const filteredBrands = searchQuery
+        ? brands.filter(b =>
+            b.name.toLowerCase().includes(searchQuery) ||
+            b.models.some(m => m.name.toLowerCase().includes(searchQuery))
+          )
+        : brands;
+
     const [selectedBrand, setSelectedBrand] = useState<IBrand | null>(null);
     const [selectedModel, setSelectedModel] = useState<IGuitarModel | null>(null);
     const [listings, setListings] = useState<IReverbListing[]>([]);
@@ -106,10 +117,11 @@ function GuitarsPage(): JSX.Element {
                 <div className="guitars-header">
                     <h1 className="guitars-title">Guitar <span>Catalog</span></h1>
                     <p className="guitars-subtitle">Browse top manufacturers and their models. Click a model to find listings on Reverb.</p>
+                    {searchQuery && <p className="guitars-search-info">Showing results for: <strong>"{searchParams.get('search')}"</strong></p>}
                 </div>
 
                 <div className="brand-grid">
-                    {brands.map(brand => (
+                    {filteredBrands.map(brand => (
                         <button
                             key={brand.id}
                             className={`brand-card${selectedBrand?.id === brand.id ? ' brand-card--active' : ''}`}
