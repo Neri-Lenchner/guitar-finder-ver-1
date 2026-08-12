@@ -2,7 +2,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 120px 20px 60px;
+    padding: 120px 60px 60px;
+    min-height: 100vh;
+}
+
+.login-inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.login-guitar {
+    height: 500px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-left: auto;
+    filter: drop-shadow(0 0 14px rgba(22, 163, 74, 0.8)) drop-shadow(0 0 40px rgba(22, 163, 74, 0.4));
+}
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: 100px 24px 60px;
+    }
+
+    .login-inner {
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+    }
+
+    .login-guitar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.15;
+        pointer-events: none;
+    }
+
+    .login-card {
+        position: relative;
+        z-index: 1;
+    }
 }
 
 .login-card {
