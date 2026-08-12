@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 import guitars from '../../data/guitars.json';
-import fenderGuitar from '../../assets/fender-guitar.png';
+import fenderGuitar from '../../assets/guitar-god.png';
 import './HomeCarousel.css';
 
 const BRAND_LOGOS: Record<string, JSX.Element> = {

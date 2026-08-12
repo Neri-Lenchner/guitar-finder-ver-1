@@ -38,7 +38,7 @@
     top: 525px;
     height: 580px;
     width: auto;
-    transform: translate(-50%, -50%) translateZ(0px) rotate(-15deg);
+    transform: translate(-50%, -50%) translateZ(0px);
     pointer-events: none;
     filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.7)) drop-shadow(0 0 35px rgba(220, 38, 38, 0.35));
 }
