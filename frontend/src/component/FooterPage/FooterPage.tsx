@@ -18,7 +18,7 @@ function FooterPage(): JSX.Element {
     return (
         <div className="footer-page">
             <div className="footer-page-content">
-                <button className="footer-page-back" onClick={() => navigate(-1)}>&#8592; Back</button>
+                <button className="footer-page-back" onClick={() => navigate(-1)}>&#10094; Back</button>
                 <h1 className="footer-page-title">{page.title}</h1>
                 <p className="footer-page-body">{page.body}</p>
                 {page.contactEmail && (

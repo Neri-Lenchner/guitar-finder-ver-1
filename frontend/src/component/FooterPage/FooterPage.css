@@ -17,16 +17,19 @@
 
 .footer-page-back {
     background: none;
-    border: none;
-    color: #666666;
-    font-size: 14px;
+    border: 1px solid #333;
+    color: #aaaaaa;
+    font-size: 13px;
     cursor: pointer;
-    padding: 0;
+    padding: 6px 16px;
+    border-radius: 20px;
     width: fit-content;
-    transition: color 0.2s;
+    letter-spacing: 0.5px;
+    transition: border-color 0.2s, color 0.2s;
 }
 
 .footer-page-back:hover {
+    border-color: #16a34a;
     color: #16a34a;
 }
 
