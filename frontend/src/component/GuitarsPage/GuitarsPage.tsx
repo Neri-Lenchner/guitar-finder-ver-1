@@ -44,6 +44,12 @@ function GuitarsPage(): JSX.Element {
     const user = authService.getLoggedInUser();
 
     useEffect(() => {
+        if (selectedBrand) {
+            modelsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [selectedBrand]);
+
+    useEffect(() => {
         if (listings.length > 0 || listingsError) {
             reverbSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -62,9 +68,6 @@ function GuitarsPage(): JSX.Element {
         setListings([]);
         setListingsError('');
         setModelImages({});
-        if (window.innerWidth <= 768) {
-            setTimeout(() => modelsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-        }
 
         const initialLoading: Record<string, boolean> = {};
         brand.models.forEach(m => { initialLoading[m.name] = true; });
