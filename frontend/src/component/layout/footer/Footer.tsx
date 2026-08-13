@@ -154,6 +154,67 @@ function Footer(): JSX.Element {
                         <text x="40" y="19" textAnchor="middle" fill="#fbbf24" fontSize="8" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="0.5">D'ANGELICO</text>
                         <text x="40" y="30" textAnchor="middle" fill="#fde68a" fontSize="7" fontFamily="Georgia, serif" letterSpacing="0.5">New York</text>
                     </svg>
+
+                    {/* Washburn */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Washburn">
+                        <rect width="80" height="38" rx="5" fill="#0f2744"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#93c5fd" fontSize="9" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">WASHBURN</text>
+                    </svg>
+
+                    {/* Ovation */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Ovation">
+                        <rect width="80" height="38" rx="5" fill="#1c1c1c"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="2">OVATION</text>
+                    </svg>
+
+                    {/* Kramer */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Kramer">
+                        <rect width="80" height="38" rx="5" fill="#000000"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#f97316" fontSize="12" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">KRAMER</text>
+                    </svg>
+
+                    {/* Godin */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Godin">
+                        <rect width="80" height="38" rx="5" fill="#1e3a2f"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#6ee7b7" fontSize="14" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="2">GODIN</text>
+                    </svg>
+
+                    {/* Squier */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Squier">
+                        <rect width="80" height="38" rx="5" fill="#111111"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#fb923c" fontSize="12" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1.5">SQUIER</text>
+                    </svg>
+
+                    {/* Parker */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Parker Guitars">
+                        <rect width="80" height="38" rx="5" fill="#0c0c0c"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#a3e635" fontSize="13" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">PARKER</text>
+                    </svg>
+
+                    {/* Reverend */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Reverend Guitars">
+                        <rect width="80" height="38" rx="5" fill="#2d1a00"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#fdba74" fontSize="9" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">REVEREND</text>
+                    </svg>
+
+                    {/* Collings */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Collings Guitars">
+                        <rect width="80" height="38" rx="5" fill="#3b2a1a"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#fef3c7" fontSize="11" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1.5">COLLINGS</text>
+                    </svg>
+
+                    {/* Duesenberg */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Duesenberg">
+                        <rect width="80" height="38" rx="5" fill="#1a1a2e"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#c084fc" fontSize="8" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="0.5">DUESEN</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#c084fc" fontSize="8" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="0.5">BERG</text>
+                    </svg>
+
+                    {/* Hagstrom */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Hagstrom">
+                        <rect width="80" height="38" rx="5" fill="#003366"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#ffd700" fontSize="10" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">HAGSTROM</text>
+                    </svg>
                 </div>
                 <span className="footer-copy">© {new Date().getFullYear()} GuitarFinder. All rights reserved.</span>
             </div>
