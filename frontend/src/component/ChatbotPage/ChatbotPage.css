@@ -11,7 +11,7 @@
 }
 
 .chatbot-page {
-    max-width: 600px;
+    max-width: 850px;
     width: 100%;
     height: calc(100vh - 100px);
     margin: 20px 0;
@@ -142,10 +142,10 @@
 }
 
 .chatbot-input-field {
-    padding: 12px 15px;
+    padding: 18px 20px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 15px;
+    font-size: 16px;
     flex-grow: 1;
     background-color: rgba(255, 255, 255, 0.08);
     color: #e8e8f0;
