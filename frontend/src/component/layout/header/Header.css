@@ -65,17 +65,18 @@
 .header-search-btn {
     padding: 10px 14px;
     border-radius: 20px;
-    border: 1px solid #16a34a;
+    border: 1px solid #0891b2;
     background: none;
-    color: #16a34a;
+    color: #0891b2;
     font-size: 13px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
 .header-search-btn:hover {
-    background: #16a34a;
-    color: white;
+    box-shadow: 0 0 10px #0891b2, 0 0 20px rgba(8, 145, 178, 0.4);
+    border-color: #22d3ee;
+    color: #22d3ee;
 }
 
 .header-links {
@@ -200,11 +201,18 @@
     font-weight: 900 !important;
     color: #0891b2 !important;
     letter-spacing: 0.5px;
-    margin-right: 8px;
+    margin-left: 8px;
+    text-decoration: none !important;
+}
+
+/* hide chatbot link from nav list on desktop — it lives next to search */
+.header-links .header-chatbot-link {
+    display: none;
 }
 
 .header-chatbot-link:hover {
     color: #22d3ee !important;
+    text-shadow: 0 0 10px #0891b2, 0 0 20px rgba(8, 145, 178, 0.4);
 }
 
 .header-chatbot-link.active {
@@ -283,5 +291,10 @@
     .header-search-mobile .header-search-input {
         flex: 1;
         width: auto;
+    }
+
+    /* show chatbot link inside hamburger menu on mobile */
+    .header-links .header-chatbot-link {
+        display: block;
     }
 }

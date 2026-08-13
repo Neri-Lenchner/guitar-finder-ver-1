@@ -59,6 +59,7 @@ function Header(): JSX.Element {
                         </svg>
                     </div>
                     <button className="header-search-btn" onClick={handleSearch}>Search</button>
+                    <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>
                 </div>
             )}
             <button className="header-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
