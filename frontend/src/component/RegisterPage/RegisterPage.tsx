@@ -5,6 +5,7 @@ import { authService } from '../../services/auth.service';
 import { IUserRegister } from '../../models/user.model';
 import defaultAvatar from '../../assets/default-avatar.png';
 import guitarGod from '../../assets/guitar-god.png';
+import AlertModal from '../AlertModal/AlertModal';
 import './RegisterPage.css';
 
 function RegisterPage(): JSX.Element {
@@ -12,6 +13,7 @@ function RegisterPage(): JSX.Element {
     const navigate = useNavigate();
     const [preview, setPreview] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('');
     const profileImageRegister = register('profileImage');
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -26,11 +28,13 @@ function RegisterPage(): JSX.Element {
             await authService.register(userData);
             navigate('/home');
         } catch (error: any) {
-            alert(error.response?.data?.message || 'Registration failed');
+            setAlertMsg(error.response?.data?.message || 'Registration failed');
         }
     }
 
     return (
+        <>
+        {alertMsg && <AlertModal message={alertMsg} onClose={() => setAlertMsg('')} />}
         <div className="register-page">
             <div className="register-inner">
             <div className="register-card">
@@ -80,6 +84,7 @@ function RegisterPage(): JSX.Element {
             <img src={guitarGod} alt="" aria-hidden="true" className="register-guitar" />
             </div>
         </div>
+        </>
     );
 }
 

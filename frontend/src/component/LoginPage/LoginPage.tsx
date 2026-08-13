@@ -4,23 +4,27 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
 import { ICredentials } from '../../models/user.model';
 import guitarGod from '../../assets/guitar-god.png';
+import AlertModal from '../AlertModal/AlertModal';
 import './LoginPage.css';
 
 function LoginPage(): JSX.Element {
     const { register, handleSubmit } = useForm<ICredentials>();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('');
 
     async function onSubmit(credentials: ICredentials): Promise<void> {
         try {
             await authService.login(credentials);
             navigate('/home');
         } catch (error: any) {
-            alert(error.response?.data?.message || 'Login failed');
+            setAlertMsg(error.response?.data?.message || 'Login failed');
         }
     }
 
     return (
+        <>
+        {alertMsg && <AlertModal message={alertMsg} onClose={() => setAlertMsg('')} />}
         <div className="login-page">
             <div className="login-inner">
                 <div className="login-card">
@@ -51,6 +55,7 @@ function LoginPage(): JSX.Element {
                 <img src={guitarGod} alt="" aria-hidden="true" className="login-guitar" />
             </div>
         </div>
+        </>
     );
 }
 

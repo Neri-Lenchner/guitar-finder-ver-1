@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
 import guitarGod from '../../assets/guitar-god.png';
+import AlertModal from '../AlertModal/AlertModal';
 import './EditProfilePage.css';
 
 interface IEditProfileForm {
@@ -25,6 +26,7 @@ function EditProfilePage(): JSX.Element {
         : null;
 
     const [preview, setPreview] = useState<string | null>(currentImage);
+    const [alertMsg, setAlertMsg] = useState('');
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>): void {
         profileImageRegister.onChange(e);
@@ -42,11 +44,13 @@ function EditProfilePage(): JSX.Element {
             });
             navigate('/home');
         } catch (error: any) {
-            alert(error.response?.data?.message || 'Update failed');
+            setAlertMsg(error.response?.data?.message || 'Update failed');
         }
     }
 
     return (
+        <>
+        {alertMsg && <AlertModal message={alertMsg} onClose={() => setAlertMsg('')} />}
         <div className="edit-profile-page">
             <div className="edit-profile-inner">
             <div className="edit-profile-card">
@@ -80,6 +84,7 @@ function EditProfilePage(): JSX.Element {
             <img src={guitarGod} alt="" aria-hidden="true" className="edit-profile-guitar" />
             </div>
         </div>
+        </>
     );
 }
 
