@@ -231,6 +231,12 @@
     .stats-chart-doughnut {
         max-width: 100%;
     }
+
+    .stats-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-right: 145px;
+    }
 }
 
 @media (max-width: 480px) {

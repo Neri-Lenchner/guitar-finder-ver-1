@@ -3,6 +3,7 @@ import { appConfig } from '../utils/app-config';
 import { ICredentials, IUser, IUserRegister } from '../models/user.model';
 import { authStore, AuthActionType } from '../state/auth.state';
 import { chatStore, ChatActionType } from '../state/chat.state';
+import { storeStore, StoreActionType } from '../state/store.state';
 
 class AuthService {
     public async register(userData: IUserRegister): Promise<void> {
@@ -33,6 +34,7 @@ class AuthService {
     public logout(): void {
         authStore.dispatch({ type: AuthActionType.Logout });
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
+        storeStore.dispatch({ type: StoreActionType.Clear });
         localStorage.removeItem('chatState');
     }
 

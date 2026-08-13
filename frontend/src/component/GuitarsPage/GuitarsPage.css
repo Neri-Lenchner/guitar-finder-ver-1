@@ -343,6 +343,11 @@
     .reverb-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .guitars-header {
+        text-align: left;
+        padding-right: 145px;
+    }
 }
 
 @media (max-width: 600px) {
