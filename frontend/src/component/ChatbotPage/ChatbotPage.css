@@ -90,6 +90,7 @@
 
 .chatbot-msg--user {
     justify-content: end;
+    margin-bottom: 20px;
 }
 
 .chatbot-msg--bot {
