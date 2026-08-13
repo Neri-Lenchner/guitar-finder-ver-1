@@ -499,5 +499,95 @@
       { "name": "Affinity Precision Bass", "type": "Bass" },
       { "name": "Bronco Bass", "type": "Bass" }
     ]
+  },
+  {
+    "id": "parker",
+    "name": "Parker",
+    "country": "USA",
+    "founded": 1992,
+    "models": [
+      { "name": "Fly Deluxe", "type": "Electric" },
+      { "name": "Fly Artist", "type": "Electric" },
+      { "name": "Fly Supreme", "type": "Electric" },
+      { "name": "Fly Mojo", "type": "Electric" },
+      { "name": "Nitefly SA", "type": "Electric" },
+      { "name": "Nitefly Mojo", "type": "Electric" },
+      { "name": "P-38", "type": "Electric" },
+      { "name": "PDF85", "type": "Electric" },
+      { "name": "Maxx Fly", "type": "Electric" },
+      { "name": "Hybrid Fly", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "reverend",
+    "name": "Reverend",
+    "country": "USA",
+    "founded": 1996,
+    "models": [
+      { "name": "Roundhouse", "type": "Electric" },
+      { "name": "Charger 290", "type": "Electric" },
+      { "name": "Double Agent OG", "type": "Electric" },
+      { "name": "Jetstream 390", "type": "Electric" },
+      { "name": "Sensei RA", "type": "Electric" },
+      { "name": "Buckshot", "type": "Electric" },
+      { "name": "Descent RA", "type": "Electric" },
+      { "name": "Club King RT", "type": "Semi-Hollow" },
+      { "name": "Volcano", "type": "Electric" },
+      { "name": "Spacehawk", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "collings",
+    "name": "Collings",
+    "country": "USA",
+    "founded": 1973,
+    "models": [
+      { "name": "D1A", "type": "Acoustic" },
+      { "name": "D2H", "type": "Acoustic" },
+      { "name": "OM1A", "type": "Acoustic" },
+      { "name": "OM2H", "type": "Acoustic" },
+      { "name": "CJ35", "type": "Acoustic" },
+      { "name": "0001A", "type": "Acoustic" },
+      { "name": "SJ", "type": "Acoustic" },
+      { "name": "I-35 LC", "type": "Semi-Hollow" },
+      { "name": "City Limits", "type": "Electric" },
+      { "name": "360 LT M", "type": "Semi-Hollow" }
+    ]
+  },
+  {
+    "id": "duesenberg",
+    "name": "Duesenberg",
+    "country": "Germany",
+    "founded": 1988,
+    "models": [
+      { "name": "Starplayer TV", "type": "Semi-Hollow" },
+      { "name": "Starplayer Special", "type": "Semi-Hollow" },
+      { "name": "Fullerton Elite", "type": "Semi-Hollow" },
+      { "name": "Fullerton Hollow", "type": "Semi-Hollow" },
+      { "name": "Alliance", "type": "Semi-Hollow" },
+      { "name": "Caribou", "type": "Electric" },
+      { "name": "Dragster", "type": "Electric" },
+      { "name": "Paloma", "type": "Electric" },
+      { "name": "Bonneville", "type": "Electric" },
+      { "name": "Gran Majesto", "type": "Semi-Hollow" }
+    ]
+  },
+  {
+    "id": "hagstrom",
+    "name": "Hagstrom",
+    "country": "Sweden",
+    "founded": 1921,
+    "models": [
+      { "name": "Ultra Swede", "type": "Electric" },
+      { "name": "Ultra Max", "type": "Electric" },
+      { "name": "Viking", "type": "Semi-Hollow" },
+      { "name": "Super Viking", "type": "Semi-Hollow" },
+      { "name": "Fantomen", "type": "Electric" },
+      { "name": "HJ-500", "type": "Semi-Hollow" },
+      { "name": "Tremar Viking Deluxe", "type": "Semi-Hollow" },
+      { "name": "Super Swede", "type": "Electric" },
+      { "name": "Alvar", "type": "Acoustic" },
+      { "name": "Siljan", "type": "Acoustic" }
+    ]
   }
 ]
