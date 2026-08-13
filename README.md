@@ -2,6 +2,8 @@
 
 An AI-powered guitar discovery platform. Browse 25 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
 
+**Live:** https://lucid-wholeness-production-0cba.up.railway.app
+
 ---
 
 ## Features
