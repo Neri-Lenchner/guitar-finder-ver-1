@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { JSX, useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../../services/auth.service';
 import './Header.css';
@@ -23,6 +23,11 @@ function Header(): JSX.Element {
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
         if (e.key === 'Enter') handleSearch();
     }
+
+    useEffect(() => {
+        document.body.classList.toggle('menu-open', menuOpen);
+        return () => document.body.classList.remove('menu-open');
+    }, [menuOpen]);
 
     function close() { setMenuOpen(false); }
 
