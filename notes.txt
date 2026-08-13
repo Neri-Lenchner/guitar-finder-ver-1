@@ -49,6 +49,7 @@ What to explore next:
   Note: Render free tier sleeps after inactivity — first request after idle takes ~30s to wake up.
 
   live demo url:
- guitar-finder-ver-1-production-9b4b.up.railway.app
+  https://giutarfinder.up.railway.app/home
 
-change*
+  backend url:
+  https://guitar-finder-ver-1-production-396a.up.railway.app
