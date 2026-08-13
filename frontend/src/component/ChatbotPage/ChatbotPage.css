@@ -36,7 +36,31 @@
     backdrop-filter: blur(8px);
     color: white;
     padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-header-content {
     text-align: center;
+}
+
+.chatbot-clear-btn {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: 1px solid #dc2626;
+    color: #dc2626;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.chatbot-clear-btn:hover {
+    background-color: #dc2626;
+    color: white;
 }
 
 .chatbot-page-header h1 {

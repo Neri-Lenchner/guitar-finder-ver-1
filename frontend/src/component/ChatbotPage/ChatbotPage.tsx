@@ -31,6 +31,11 @@ function ChatbotPage(): JSX.Element {
         if (el) el.scrollTop = el.scrollHeight;
     }, [messages]);
 
+    function clearChat(): void {
+        chatStore.dispatch({ type: ChatActionType.ClearMessages });
+        localStorage.removeItem('chatState');
+    }
+
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
@@ -58,8 +63,13 @@ function ChatbotPage(): JSX.Element {
         <div className="chatbot-page-wrapper" style={{ backgroundImage: `url(${commandCenter})` }}>
         <div className="chatbot-page">
             <div className="chatbot-page-header">
-                <h1>GuitarBot</h1>
-                <p>Your personal guitar assistant</p>
+                <div className="chatbot-header-content">
+                    <h1>GuitarBot</h1>
+                    <p>Your personal guitar assistant</p>
+                </div>
+                {messages.length > 0 && (
+                    <button className="chatbot-clear-btn" onClick={clearChat}>Clear</button>
+                )}
             </div>
             <div className="chatbot-page-messages" ref={messagesContainerRef}>
                 {messages.map(msg => (
