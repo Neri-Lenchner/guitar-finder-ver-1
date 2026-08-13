@@ -1,10 +1,16 @@
 .search-page {
     padding: 108px 24px 80px;
     min-height: 100vh;
+    position: relative;
+}
+
+.search-page-bg {
+    position: fixed;
+    inset: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    z-index: -1;
 }
 
 .search-page-inner {

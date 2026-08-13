@@ -41,7 +41,8 @@ function SearchPage(): JSX.Element {
     }
 
     return (
-        <div className="search-page" style={{ backgroundImage: `url(${spaceGuitar})` }}>
+        <div className="search-page">
+            <div className="search-page-bg" style={{ backgroundImage: `url(${spaceGuitar})` }} />
           <div className="search-page-inner">
             <div className="search-page-header">
                 <h1 className="search-title">Find <span>Music</span> Stores Worldwide</h1>
