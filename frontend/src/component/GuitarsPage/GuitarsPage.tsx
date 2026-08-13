@@ -40,6 +40,7 @@ function GuitarsPage(): JSX.Element {
     const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
     const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
     const reverbSectionRef = useRef<HTMLDivElement>(null);
+    const modelsSectionRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
 
     useEffect(() => {
@@ -61,6 +62,9 @@ function GuitarsPage(): JSX.Element {
         setListings([]);
         setListingsError('');
         setModelImages({});
+        if (window.innerWidth <= 768) {
+            setTimeout(() => modelsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
 
         const initialLoading: Record<string, boolean> = {};
         brand.models.forEach(m => { initialLoading[m.name] = true; });
@@ -136,7 +140,7 @@ function GuitarsPage(): JSX.Element {
                 </div>
 
                 {selectedBrand && (
-                    <div className="models-section">
+                    <div className="models-section" ref={modelsSectionRef}>
                         <h2 className="models-title">{selectedBrand.name} Models</h2>
                         <div className="models-grid">
                             {selectedBrand.models.map(model => (
