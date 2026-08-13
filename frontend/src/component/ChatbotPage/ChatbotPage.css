@@ -107,6 +107,8 @@
     max-width: 300px;
     white-space: pre-line;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .chatbot-typing {
