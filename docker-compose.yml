@@ -1,0 +1,32 @@
+services:
+  mongodb:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      PORT: 4000
+      MONGODB_CONNECTION_STRING: mongodb://mongodb:27017/guitar-finder
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      REVERB_API_TOKEN: ${REVERB_API_TOKEN}
+    volumes:
+      - uploads-data:/app/uploads
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mongo-data:
+  uploads-data:
