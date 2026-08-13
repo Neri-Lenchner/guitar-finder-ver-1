@@ -13,6 +13,7 @@ An AI-powered guitar discovery platform. Browse 25 guitar brands and their model
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
 - **GuitarBot** — floating AI chat assistant powered by OpenAI, with chat history persistence
 - **Authentication** — register, login, profile editing with avatar upload
+- **Market Statistics** — live guitar market data from Reverb with bar/doughnut charts (avg price by brand, price distribution, top models, listings by condition)
 - **Client-side Caching** — 5-minute cache on Reverb and store API calls
 
 ---
@@ -30,6 +31,8 @@ An AI-powered guitar discovery platform. Browse 25 guitar brands and their model
 | AI | OpenAI API |
 | Marketplace | Reverb API |
 | Maps | OpenStreetMap / Overpass API |
+| Charts | Chart.js, react-chartjs-2 |
+| Deployment | Docker, Docker Compose, nginx |
 
 ---
 
@@ -50,7 +53,9 @@ guitar-finder/
 │       │   ├── LoginPage/
 │       │   ├── RegisterPage/
 │       │   ├── SearchPage/
+│       │   ├── StatisticsPage/
 │       │   ├── StoreCard/
+│       │   ├── UserAvatar/
 │       │   ├── WatchlistPage/
 │       │   └── layout/ (Header, Footer)
 │       ├── data/
@@ -59,22 +64,54 @@ guitar-finder/
 │       ├── services/
 │       ├── state/
 │       └── utils/
-└── backend/
-    └── src/
-        ├── controllers/
-        ├── middleware/
-        ├── models/
-        ├── services/
-        └── utils/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── dto/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── services/
+│   │   └── utils/
+│   └── Dockerfile
+├── docker-compose.yml
+└── .env.example
 ```
 
 ---
 
-## Getting Started
+## Docker (Recommended)
+
+The easiest way to run the full stack is with Docker Compose.
 
 ### Prerequisites
 
-- Node.js 18+
+- Docker & Docker Compose
+
+### Setup
+
+```bash
+# Copy and fill in your secrets
+cp .env.example .env
+
+# Build and start all services (frontend, backend, MongoDB)
+docker compose up --build
+```
+
+The app will be available at `http://localhost:80`.
+
+| Service | Role |
+|---|---|
+| `frontend` | nginx serves the Vite build, proxies `/api` to backend |
+| `backend` | compiled Node.js API on port 4000 (internal) |
+| `mongodb` | MongoDB 7, data persisted in a named volume |
+
+---
+
+## Manual Setup
+
+### Prerequisites
+
+- Node.js 20+
 - MongoDB instance (local or Atlas)
 - OpenAI API key
 - Reverb personal access token (optional)
@@ -106,7 +143,7 @@ REVERB_API_TOKEN=your_reverb_token_here
 Start the backend:
 
 ```bash
-npm run dev
+npm start
 ```
 
 ### 3. Frontend setup
@@ -148,6 +185,8 @@ The app will be available at `http://localhost:5173`.
 | GET | `/api/followed` | Yes | Get user's followed listings |
 | POST | `/api/followed` | Yes | Follow a listing |
 | DELETE | `/api/followed/:listingId` | Yes | Unfollow a listing |
+| GET | `/api/stats` | No | Get aggregated market statistics |
+| POST | `/api/stats/ingest` | No | Fetch and store Reverb listings for all brands |
 
 ---
 
