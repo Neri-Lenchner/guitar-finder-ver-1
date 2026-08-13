@@ -41,7 +41,7 @@ function GuitarsPage(): JSX.Element {
     const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
     const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 9;
     const reverbSectionRef = useRef<HTMLDivElement>(null);
     const modelsSectionRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
