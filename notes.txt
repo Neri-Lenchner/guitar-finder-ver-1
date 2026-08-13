@@ -22,3 +22,28 @@ What to explore next:
   search "{brand} {model} guitar white background" for clean product shots.
 
 ===================================================
+  ---
+  Running the Project Without a Domain
+
+  Option 1 — Quick demo (ngrok)
+  Tunnels your local server to a public URL instantly. No deployment needed.
+
+  - Install: npm install -g ngrok
+  - Run backend + frontend, then: ngrok http 3000
+  - You get a URL like https://abc123.ngrok-free.app to share
+  - Works as long as your machine is running (free tier is fine)
+
+  Option 2 — Persistent public URL (free hosting)
+  No domain purchase needed — you get free subdomains.
+
+  - Frontend → Vercel      → yourapp.vercel.app
+  - Backend  → Render      → yourapi.onrender.com
+  - Database → MongoDB Atlas (already cloud-hosted)
+
+  Steps:
+  1. Push code to GitHub
+  2. Connect frontend repo to Vercel, set VITE_API_ADDRESS=https://yourapi.onrender.com
+  3. Connect backend repo to Render, set all .env variables (API keys, MongoDB URI)
+  4. Both stay up 24/7
+
+  Note: Render free tier sleeps after inactivity — first request after idle takes ~30s to wake up.
