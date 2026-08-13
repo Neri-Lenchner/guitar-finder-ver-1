@@ -46,9 +46,9 @@
     padding: 10px 34px 10px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    font-size: 13px;
+    background: rgba(255, 255, 255, 1);
+    color: #111111;
+    font-size: 15px;
     width: 220px;
     outline: none;
     transition: border-color 0.2s;
@@ -65,10 +65,10 @@
 .header-search-btn {
     padding: 10px 14px;
     border-radius: 20px;
-    border: 1px solid #0891b2;
+    border: 2px solid #0891b2;
     background: none;
     color: #0891b2;
-    font-size: 13px;
+    font-size: 15px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
