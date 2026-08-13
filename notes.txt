@@ -47,3 +47,6 @@ What to explore next:
   4. Both stay up 24/7
 
   Note: Render free tier sleeps after inactivity — first request after idle takes ~30s to wake up.
+
+  live demo url:
+  https://lucid-wholeness-production-0cba.up.railway.app/home
