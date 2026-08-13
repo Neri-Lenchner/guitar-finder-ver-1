@@ -15,7 +15,7 @@ class AuthController {
     public async register(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
             const userData = new UserModel(request.body);
-            if (request.file) userData.profileImage = request.file.filename;
+            if (request.file) userData.profileImage = request.file.path;
             const token = await authService.register(userData);
             response.status(StatusCode.Created).json(token);
         } catch (error) { next(error); }

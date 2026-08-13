@@ -1,7 +1,6 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
-import { appConfig } from '../../utils/app-config';
 import { chatStore, ChatActionType, IMessage } from '../../state/chat.state';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
@@ -15,9 +14,7 @@ function ChatbotPage(): JSX.Element {
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
 
-    const userAvatar = user?.profileImage
-        ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
-        : defaultAvatar;
+    const userAvatar = user?.profileImage ?? defaultAvatar;
 
     useEffect(() => {
         const unsubscribe = chatStore.subscribe(() => {

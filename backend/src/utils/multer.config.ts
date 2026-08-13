@@ -1,12 +1,14 @@
 import multer from "multer";
-import path from "path";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { cloudinary } from "./cloudinary.config";
 
-const storage = multer.diskStorage({
-    destination: "uploads/",
-    filename: (_req, file, cb) => {
-        const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        cb(null, `user_${unique}${path.extname(file.originalname)}`);
-    },
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "guitar-finder",
+        allowed_formats: ["jpg", "jpeg", "png", "webp", "gif"],
+        transformation: [{ width: 400, height: 400, crop: "limit" }],
+    } as any,
 });
 
 const fileFilter = (_req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {

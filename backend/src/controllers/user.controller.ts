@@ -4,9 +4,8 @@ import { ValidationError } from "../models/client-error";
 import { authMiddleware } from "../middleware/auth.middleware";
 import { upload } from "../utils/multer.config";
 import { appConfig } from "../utils/app-config";
+import { cloudinary } from "../utils/cloudinary.config";
 import jwt from "jsonwebtoken";
-import fs from "fs";
-import path from "path";
 
 class UserController {
     public readonly router = express.Router();
@@ -25,12 +24,14 @@ class UserController {
             if (request.body.lastName) user.lastName = request.body.lastName;
 
             if (request.file) {
-                // Delete old image if it exists
+                // Delete old image from Cloudinary if it exists
                 if (user.profileImage) {
-                    const oldPath = path.join("uploads", user.profileImage);
-                    if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+                    const parts = user.profileImage.split("/");
+                    const filenameWithExt = parts[parts.length - 1];
+                    const publicId = `guitar-finder/${filenameWithExt.split(".")[0]}`;
+                    await cloudinary.uploader.destroy(publicId).catch(() => {});
                 }
-                user.profileImage = request.file.filename;
+                user.profileImage = request.file.path;
             }
 
             const saved = await user.save();

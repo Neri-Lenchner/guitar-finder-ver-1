@@ -2,7 +2,6 @@ import { JSX, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
-import { appConfig } from '../../utils/app-config';
 import guitarGod from '../../assets/guitar-god.png';
 import './EditProfilePage.css';
 
@@ -20,9 +19,7 @@ function EditProfilePage(): JSX.Element {
     });
     const profileImageRegister = register('profileImage');
 
-    const currentImage = user?.profileImage
-        ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
-        : null;
+    const currentImage = user?.profileImage ?? null;
 
     const [preview, setPreview] = useState<string | null>(currentImage);
 

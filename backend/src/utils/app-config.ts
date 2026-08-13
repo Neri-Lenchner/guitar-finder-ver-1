@@ -4,6 +4,9 @@ class AppConfig {
     public readonly secretKey: string = process.env.JWT_SECRET_KEY!;
     public readonly openAiApiKey: string = process.env.OPENAI_API_KEY!;
     public readonly reverbToken: string = process.env.REVERB_API_TOKEN || "";
+    public readonly cloudinaryCloudName: string = process.env.CLOUDINARY_CLOUD_NAME!;
+    public readonly cloudinaryApiKey: string = process.env.CLOUDINARY_API_KEY!;
+    public readonly cloudinaryApiSecret: string = process.env.CLOUDINARY_API_SECRET!;
 }
 
 export const appConfig = new AppConfig();
