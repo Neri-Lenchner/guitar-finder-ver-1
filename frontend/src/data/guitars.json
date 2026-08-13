@@ -589,5 +589,95 @@
       { "name": "Alvar", "type": "Acoustic" },
       { "name": "Siljan", "type": "Acoustic" }
     ]
+  },
+  {
+    "id": "strandberg",
+    "name": "Strandberg",
+    "country": "Sweden",
+    "founded": 2012,
+    "models": [
+      { "name": "Boden Original NX 6", "type": "Electric" },
+      { "name": "Boden Original NX 7", "type": "Electric" },
+      { "name": "Boden Standard NX 6", "type": "Electric" },
+      { "name": "Boden Metal NX 6", "type": "Electric" },
+      { "name": "Boden Prog NX 6", "type": "Electric" },
+      { "name": "Boden Fusion NX 6", "type": "Electric" },
+      { "name": "Salen Jazz NX 6", "type": "Semi-Hollow" },
+      { "name": "Salen Classic NX 6", "type": "Semi-Hollow" },
+      { "name": "Boden OS 6", "type": "Electric" },
+      { "name": "Boden OS 7", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "suhr",
+    "name": "Suhr",
+    "country": "USA",
+    "founded": 1997,
+    "models": [
+      { "name": "Classic S", "type": "Electric" },
+      { "name": "Classic T", "type": "Electric" },
+      { "name": "Classic JM", "type": "Electric" },
+      { "name": "Modern", "type": "Electric" },
+      { "name": "Modern Plus", "type": "Electric" },
+      { "name": "Modern Terra", "type": "Electric" },
+      { "name": "Standard", "type": "Electric" },
+      { "name": "Pete Thorn Signature", "type": "Electric" },
+      { "name": "Guthrie Govan Signature", "type": "Electric" },
+      { "name": "Alt T Pro", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "anderson",
+    "name": "Tom Anderson",
+    "country": "USA",
+    "founded": 1984,
+    "models": [
+      { "name": "Angel", "type": "Electric" },
+      { "name": "Drop Top", "type": "Electric" },
+      { "name": "Hollow Drop Top", "type": "Semi-Hollow" },
+      { "name": "Cobra", "type": "Electric" },
+      { "name": "Cobra S", "type": "Electric" },
+      { "name": "Classic", "type": "Electric" },
+      { "name": "Raven Classic", "type": "Electric" },
+      { "name": "T Classic", "type": "Electric" },
+      { "name": "Hollow T Classic", "type": "Semi-Hollow" },
+      { "name": "Grand Am", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "kiesel",
+    "name": "Kiesel",
+    "country": "USA",
+    "founded": 1946,
+    "models": [
+      { "name": "Vader", "type": "Electric" },
+      { "name": "Aries", "type": "Electric" },
+      { "name": "Zeus", "type": "Electric" },
+      { "name": "Delos", "type": "Electric" },
+      { "name": "Osiris", "type": "Electric" },
+      { "name": "Lithium", "type": "Electric" },
+      { "name": "Hydra Bass", "type": "Bass" },
+      { "name": "Thanos Bass", "type": "Bass" },
+      { "name": "Multiscale Vader", "type": "Electric" },
+      { "name": "DC600", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "mayones",
+    "name": "Mayones",
+    "country": "Poland",
+    "founded": 1982,
+    "models": [
+      { "name": "Regius 6", "type": "Electric" },
+      { "name": "Regius 7", "type": "Electric" },
+      { "name": "Regius Core 6", "type": "Electric" },
+      { "name": "Duvell 6", "type": "Electric" },
+      { "name": "Duvell Elite 7", "type": "Electric" },
+      { "name": "Setius 6", "type": "Electric" },
+      { "name": "Setius GTM 6", "type": "Electric" },
+      { "name": "Jabba Custom 4", "type": "Bass" },
+      { "name": "Patriot 6", "type": "Electric" },
+      { "name": "Hydra Bass 5", "type": "Bass" }
+    ]
   }
 ]

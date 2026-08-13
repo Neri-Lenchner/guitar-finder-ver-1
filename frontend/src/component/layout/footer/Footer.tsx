@@ -215,6 +215,38 @@ function Footer(): JSX.Element {
                         <rect width="80" height="38" rx="5" fill="#003366"/>
                         <text x="40" y="25" textAnchor="middle" fill="#ffd700" fontSize="10" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="1">HAGSTROM</text>
                     </svg>
+
+                    {/* Strandberg */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Strandberg">
+                        <rect width="80" height="38" rx="5" fill="#0a0a0a"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#e2e8f0" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">STRAND</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#e2e8f0" fontSize="8" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">BERG</text>
+                    </svg>
+
+                    {/* Suhr */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Suhr Guitars">
+                        <rect width="80" height="38" rx="5" fill="#1a1a1a"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#f59e0b" fontSize="18" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="3">SUHR</text>
+                    </svg>
+
+                    {/* Tom Anderson */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Tom Anderson">
+                        <rect width="80" height="38" rx="5" fill="#1e1b4b"/>
+                        <text x="40" y="19" textAnchor="middle" fill="#a5b4fc" fontSize="7" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">TOM</text>
+                        <text x="40" y="30" textAnchor="middle" fill="#a5b4fc" fontSize="7" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="0.5">ANDERSON</text>
+                    </svg>
+
+                    {/* Kiesel */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Kiesel Guitars">
+                        <rect width="80" height="38" rx="5" fill="#0f172a"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#38bdf8" fontSize="13" fontWeight="bold" fontFamily="Arial, sans-serif" letterSpacing="2">KIESEL</text>
+                    </svg>
+
+                    {/* Mayones */}
+                    <svg className="payment-logo" viewBox="0 0 80 38" aria-label="Mayones">
+                        <rect width="80" height="38" rx="5" fill="#1c0a00"/>
+                        <text x="40" y="25" textAnchor="middle" fill="#fb923c" fontSize="11" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="1.5">MAYONES</text>
+                    </svg>
                 </div>
                 <span className="footer-copy">© {new Date().getFullYear()} GuitarFinder. All rights reserved.</span>
             </div>
