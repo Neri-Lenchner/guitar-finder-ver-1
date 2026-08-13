@@ -244,7 +244,10 @@ function GuitarsPage(): JSX.Element {
                                 totalItems={listings.length}
                                 itemsPerPage={itemsPerPage}
                                 currentPage={currentPage}
-                                onPageChange={setCurrentPage}
+                                onPageChange={(page) => {
+                                    setCurrentPage(page);
+                                    reverbSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }}
                             />
                         )}
                     </div>
