@@ -67,3 +67,23 @@
         margin-bottom: -150px;
     }
 }
+
+@media (max-width: 390px) {
+    .home-page {
+        padding-top: 60px;
+        justify-content: flex-start;
+    }
+
+    .home-hero {
+        margin-top: 20px;
+        margin-bottom: -100px;
+    }
+
+    .home-page h1 {
+        font-size: 22px;
+    }
+
+    .home-page p {
+        font-size: 13px;
+    }
+}
