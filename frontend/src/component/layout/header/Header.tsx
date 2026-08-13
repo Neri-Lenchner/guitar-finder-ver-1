@@ -21,7 +21,7 @@ function Header(): JSX.Element {
     }
 
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
-        if (e.key === 'Enter') handleSearch();
+        if (e.key === 'Enter') { handleSearch(); close(); }
     }
 
     useEffect(() => {
@@ -83,7 +83,7 @@ function Header(): JSX.Element {
                                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
                             </svg>
                         </div>
-                        <button className="header-search-btn" onClick={handleSearch}>Search</button>
+                        <button className="header-search-btn" onClick={() => { handleSearch(); close(); }}>Search</button>
                     </div>
                 )}
                 <NavLink to="/home" onClick={close}>Home</NavLink>
