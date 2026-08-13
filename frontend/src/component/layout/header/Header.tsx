@@ -85,9 +85,9 @@ function Header(): JSX.Element {
                             </svg>
                         </div>
                         <button className="header-search-btn" onClick={() => { handleSearch(); close(); }}>Search</button>
+                        <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>
                     </div>
                 )}
-                {user && <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>}
                 <NavLink to="/home" onClick={close}>Home</NavLink>
                 {user && <NavLink to="/guitars" onClick={close}>Guitars</NavLink>}
                 {user && <NavLink to="/search" onClick={close}>Find Stores</NavLink>}

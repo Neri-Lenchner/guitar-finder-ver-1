@@ -225,6 +225,13 @@
         flex-wrap: wrap;
         height: auto;
         min-height: 60px;
+        align-items: flex-start;
+    }
+
+    .header-left,
+    .header-hamburger {
+        height: 60px;
+        min-height: 60px;
     }
 
     .header-search {
@@ -278,6 +285,12 @@
     .header-avatar {
         width: 26px;
         height: 26px;
+    }
+
+    .header-search-mobile .header-search-btn {
+        padding: 10px 8px;
+        font-size: 15px;
+        align-self: center;
     }
 
     .header-search-mobile {
