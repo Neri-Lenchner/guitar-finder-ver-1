@@ -4,8 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-# Empty string makes all API calls use relative URLs (proxied by nginx)
-ENV VITE_API_ADDRESS=""
+ARG VITE_API_ADDRESS
 RUN npm run build
 
 # Stage 2 — serve
