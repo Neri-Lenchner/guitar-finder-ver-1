@@ -169,17 +169,24 @@
 
 @media (max-width: 768px) {
     .chatbot-page {
-        max-width: 100%;
-        height: 100vh;
+        max-width: 94%;
+        height: calc(100vh - 130px);
+        margin: 10px auto;
     }
 
     .chatbot-avatar {
-        width: 50px;
-        height: 50px;
+        width: 38px;
+        height: 38px;
     }
 
     .chatbot-msg-text {
-        max-width: 220px;
+        max-width: 180px;
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    .chatbot-page-header h1 {
+        font-size: 17px;
     }
 }
 
