@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import * as mongoose from "mongoose";
+import { mkdirSync } from "fs";
 import { loggerMiddleware } from "./middleware/logger.middleware";
 import { errorMiddleware } from "./middleware/error.middleware";
 import { appConfig } from "./utils/app-config";
@@ -15,6 +16,7 @@ import { statisticController } from "./controllers/statistic.controller";
 
 class App {
     public async start(): Promise<void> {
+        mkdirSync("uploads", { recursive: true });
         const server = express();
         server.set("etag", false);
         server.use(cors());
