@@ -8,6 +8,7 @@ import guitarsData from '../../data/guitars.json';
 import superGuitar from '../../assets/super-guitar.png';
 import guitarGod from '../../assets/guitar-god.png';
 import Spinner from '../Spinner/Spinner';
+import Pagination from '../Pagination/Pagination';
 import './GuitarsPage.css';
 
 const brands: IBrand[] = guitarsData as IBrand[];
@@ -39,6 +40,8 @@ function GuitarsPage(): JSX.Element {
     const [modelImages, setModelImages] = useState<Record<string, string>>({});
     const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
     const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
     const reverbSectionRef = useRef<HTMLDivElement>(null);
     const modelsSectionRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
@@ -108,6 +111,7 @@ function GuitarsPage(): JSX.Element {
         setSelectedModel(model);
         setListings([]);
         setListingsError('');
+        setCurrentPage(1);
         setLoadingListings(true);
         try {
             const results = await reverbService.searchListings(selectedBrand.name, model.name);
@@ -189,7 +193,7 @@ function GuitarsPage(): JSX.Element {
 
                         {!loadingListings && listings.length > 0 && (
                             <div className="reverb-grid">
-                                {listings.map(listing => (
+                                {listings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(listing => (
                                     <div key={listing.id} className="reverb-card">
                                         <a
                                             href={listing._links?.web?.href}
@@ -233,6 +237,15 @@ function GuitarsPage(): JSX.Element {
                                     </div>
                                 ))}
                             </div>
+                        )}
+
+                        {!loadingListings && listings.length > itemsPerPage && (
+                            <Pagination
+                                totalItems={listings.length}
+                                itemsPerPage={itemsPerPage}
+                                currentPage={currentPage}
+                                onPageChange={setCurrentPage}
+                            />
                         )}
                     </div>
                 )}

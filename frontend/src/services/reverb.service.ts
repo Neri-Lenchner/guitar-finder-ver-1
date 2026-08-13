@@ -22,7 +22,7 @@ class ReverbService {
         const cached = this.get(key);
         if (cached) return cached;
         const res = await axios.get(`${appConfig.apiAddress}/api/reverb`, {
-            params: { query: `${brand} ${model}` },
+            params: { query: `${brand} ${model}`, per_page: 50 },
         });
         const data = Array.isArray(res.data) ? res.data : [];
         this.set(key, data);
