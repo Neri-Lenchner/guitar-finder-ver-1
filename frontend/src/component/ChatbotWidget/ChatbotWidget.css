@@ -13,46 +13,62 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #16a34a;
-    color: white;
-    border: none;
-    font-size: 14px;
-    font-weight: bold;
+    background: none;
+    color: #0891b2;
+    border: 3px solid #0891b2;
+    font-size: 16px;
+    font-weight: 900;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .widget-toggle-btn:hover {
-    background-color: #15803d;
+    color: #22d3ee;
+    border-color: #22d3ee;
+    box-shadow: 0 0 14px #0891b2, 0 0 28px rgba(8, 145, 178, 0.5);
 }
 
 .widget-panel {
     width: 320px;
     height: 420px;
-    background: white;
+    background: rgba(10, 8, 30, 0.65);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 30px rgba(8, 145, 178, 0.2), 0 8px 30px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .widget-header {
-    background-color: #1a1a2e;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
     color: white;
     padding: 14px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .widget-close-btn {
     background: none;
-    border: none;
-    color: white;
+    border: 2px solid #0891b2;
+    color: #0891b2;
     cursor: pointer;
     font-size: 16px;
+    border-radius: 20px;
+    padding: 2px 8px;
+    transition: box-shadow 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.widget-close-btn:hover {
+    color: #22d3ee;
+    border-color: #22d3ee;
+    box-shadow: 0 0 10px #0891b2, 0 0 20px rgba(8, 145, 178, 0.4);
 }
 
 .widget-messages {
@@ -78,18 +94,19 @@
     padding: 8px 12px;
     border-radius: 10px;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.5;
     white-space: pre-line;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e8e8f0;
 }
 
 .widget-msg--user .widget-msg-text {
-    background-color: #16a34a;
-    color: white;
+    background-color: rgba(8, 145, 178, 0.3);
+    border-color: rgba(8, 145, 178, 0.5);
 }
 
 .widget-msg--bot .widget-msg-text {
-    background-color: #f0f0f0;
-    color: #1a1a2e;
+    background-color: rgba(255, 255, 255, 0.07);
 }
 
 .widget-avatar {
@@ -102,12 +119,12 @@
 }
 
 .widget-msg--user .widget-avatar {
-    border: 2px solid #16a34a;
+    border: 2px solid #0891b2;
 }
 
 .widget-user-email {
     font-size: 10px;
-    color: #999;
+    color: #888;
     align-self: flex-end;
     margin-bottom: 2px;
     white-space: nowrap;
@@ -115,27 +132,46 @@
 
 .widget-input {
     display: flex;
-    border-top: 1px solid #eee;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px;
     gap: 8px;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .widget-input input {
     flex: 1;
     padding: 8px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     font-size: 13px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e8e8f0;
+    outline: none;
+}
+
+.widget-input input::placeholder {
+    color: #888;
+}
+
+.widget-input input:focus {
+    border-color: #0891b2;
 }
 
 .widget-input button {
     padding: 8px 14px;
-    background-color: #16a34a;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background: none;
+    color: #0891b2;
+    border: 2px solid #0891b2;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 13px;
+    transition: box-shadow 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.widget-input button:hover:not(:disabled) {
+    color: #22d3ee;
+    border-color: #22d3ee;
+    box-shadow: 0 0 10px #0891b2, 0 0 20px rgba(8, 145, 178, 0.4);
 }
 
 .widget-input button:disabled {
