@@ -11,8 +11,8 @@
 
 .widget-toggle-btn {
     width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    height: 46px;
+    border-radius: 20px;
     background: black;
     color: #0891b2;
     border: 3px solid #0891b2;
