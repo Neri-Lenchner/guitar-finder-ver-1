@@ -50,3 +50,5 @@ What to explore next:
 
   live demo url:
   https://lucid-wholeness-production-0cba.up.railway.app/home
+
+  note*
