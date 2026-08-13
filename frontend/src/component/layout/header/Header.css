@@ -194,6 +194,23 @@
     color: #16a34a;
 }
 
+.header-chatbot-link {
+    font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    color: #0891b2 !important;
+    letter-spacing: 0.5px;
+    margin-right: 8px;
+}
+
+.header-chatbot-link:hover {
+    color: #22d3ee !important;
+}
+
+.header-chatbot-link.active {
+    color: #22d3ee !important;
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 0 16px;

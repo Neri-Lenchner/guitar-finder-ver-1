@@ -86,10 +86,10 @@ function Header(): JSX.Element {
                         <button className="header-search-btn" onClick={() => { handleSearch(); close(); }}>Search</button>
                     </div>
                 )}
+                {user && <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>}
                 <NavLink to="/home" onClick={close}>Home</NavLink>
                 {user && <NavLink to="/guitars" onClick={close}>Guitars</NavLink>}
                 {user && <NavLink to="/search" onClick={close}>Find Stores</NavLink>}
-                {user && <NavLink to="/chatbot" onClick={close}>GuitarBot</NavLink>}
                 {user && <NavLink to="/watchlist" onClick={close}>My Guitars</NavLink>}
                 {user && <NavLink to="/stats" onClick={close}>Statistics</NavLink>}
                 {user ? (
