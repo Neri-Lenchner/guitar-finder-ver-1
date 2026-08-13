@@ -77,7 +77,7 @@ function ChatbotPage(): JSX.Element {
                         {msg.sender === 'bot' && (
                             <img src={RobotImage} className="chatbot-avatar" alt="GuitarBot" />
                         )}
-                        <div className="chatbot-msg-text">{msg.text}</div>
+                        <div className="chatbot-msg-text" dir="auto">{msg.text}</div>
                         {msg.sender === 'user' && (
                             <img src={userAvatar} className="chatbot-avatar" alt={user?.firstName} />
                         )}
@@ -97,6 +97,7 @@ function ChatbotPage(): JSX.Element {
                     onChange={e => setInputText(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className="chatbot-input-field"
+                    dir="auto"
                 />
                 <button onClick={sendMessage} className="chatbot-send-btn">
                     Send

@@ -48,7 +48,7 @@
     color: white;
     padding: 14px 16px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-weight: bold;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -83,6 +83,7 @@
 
 .widget-msg {
     display: flex;
+    gap: 8px;
 }
 
 .widget-msg--user {
@@ -110,8 +111,8 @@
 }
 
 .widget-avatar {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;

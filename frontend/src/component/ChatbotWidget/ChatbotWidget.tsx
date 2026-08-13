@@ -28,10 +28,14 @@ function ChatbotWidget(): JSX.Element | null {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
+    useEffect(() => {
+        if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [isOpen]);
+
     if (!user || location.pathname === '/chatbot') return null;
 
     const userAvatar = user.profileImage
-        ? `${appConfig.apiAddress}/uploads/${user.profileImage}`
+        ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
 
     async function sendMessage(): Promise<void> {
@@ -58,7 +62,6 @@ function ChatbotWidget(): JSX.Element | null {
                 <div className="widget-panel">
                     <div className="widget-header">
                         <span>GuitarBot</span>
-                        <button onClick={() => setIsOpen(false)} className="widget-close-btn">✕</button>
                     </div>
                     <div className="widget-messages">
                         {messages.map(msg => (
@@ -66,7 +69,7 @@ function ChatbotWidget(): JSX.Element | null {
                                 {msg.sender === 'bot' && (
                                     <img src={RobotImage} className="widget-avatar" alt="GuitarBot" />
                                 )}
-                                <div className="widget-msg-text">{msg.text}</div>
+                                <div className="widget-msg-text" dir="auto">{msg.text}</div>
                                 {msg.sender === 'user' && (
                                     <img src={userAvatar} className="widget-avatar" alt={user.firstName} />
                                 )}
@@ -85,6 +88,7 @@ function ChatbotWidget(): JSX.Element | null {
                             value={inputText}
                             onChange={e => setInputText(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && sendMessage()}
+                            dir="auto"
                         />
                         <button onClick={sendMessage}>Send</button>
                     </div>
