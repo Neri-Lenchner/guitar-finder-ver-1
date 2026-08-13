@@ -1,4 +1,4 @@
-import { JSX, useState, useEffect } from 'react';
+import { JSX, useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../../services/auth.service';
 import './Header.css';
@@ -8,6 +8,7 @@ function Header(): JSX.Element {
     const user = authService.getLoggedInUser();
     const [query, setQuery] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
+    const navRef = useRef<HTMLElement>(null);
 
     function handleLogout(): void {
         authService.logout();
@@ -29,10 +30,20 @@ function Header(): JSX.Element {
         return () => document.body.classList.remove('menu-open');
     }, [menuOpen]);
 
+    useEffect(() => {
+        function handleClickOutside(e: MouseEvent) {
+            if (menuOpen && navRef.current && !navRef.current.contains(e.target as Node)) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [menuOpen]);
+
     function close() { setMenuOpen(false); }
 
     return (
-        <nav className="header">
+        <nav className="header" ref={navRef}>
             <div className="header-left">
                 <NavLink to="/home" className="header-logo" onClick={close}>GuitarFinder</NavLink>
                 {user && (

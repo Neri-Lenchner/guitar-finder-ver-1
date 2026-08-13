@@ -123,6 +123,10 @@
     border: 2px solid #0891b2;
 }
 
+.widget-msg--bot .widget-avatar {
+    box-shadow: 0 0 10px #0891b2, 0 0 20px rgba(8, 145, 178, 0.4);
+}
+
 .widget-user-email {
     font-size: 10px;
     color: #888;
@@ -184,6 +188,10 @@
     .chatbot-widget {
         bottom: 16px;
         right: 16px;
+    }
+
+    .menu-open .chatbot-widget {
+        z-index: 99;
     }
 
     .widget-panel {
