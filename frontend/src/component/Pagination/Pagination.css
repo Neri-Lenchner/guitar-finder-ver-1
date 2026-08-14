@@ -64,3 +64,26 @@
     font-size: 15px;
     padding: 0 4px;
 }
+
+@media (max-width: 768px) {
+    .pagination-info {
+        display: none;
+    }
+
+    .pagination-ul {
+        flex-wrap: nowrap;
+        gap: 2px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .pagination-btn {
+        font-size: 15px;
+        padding: 6px 8px;
+    }
+
+    .pagination-btn--nav {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+}

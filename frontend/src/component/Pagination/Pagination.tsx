@@ -1,4 +1,5 @@
-import { JSX } from 'react';
+import { JSX, useMemo } from 'react';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import './Pagination.css';
 
 interface PaginationProps {
@@ -9,9 +10,16 @@ interface PaginationProps {
 }
 
 function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: PaginationProps): JSX.Element {
+    const isMobile = useIsMobile();
     const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
-    function getPageNumbers(): (number | '...')[] {
+    const pageNumbers = useMemo((): (number | '...')[] => {
+        if (isMobile) {
+            const start = Math.max(1, Math.min(currentPage - 1, totalPages - 3));
+            const end = Math.min(totalPages, start + 3);
+            return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        }
+
         if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
 
         const pages: (number | '...')[] = [1];
@@ -24,7 +32,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: Pag
         pages.push(totalPages);
 
         return pages;
-    }
+    }, [isMobile, currentPage, totalPages]);
 
     return (
         <div className="pagination">
@@ -40,7 +48,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: Pag
                     </button>
                 </li>
 
-                {getPageNumbers().map((page, i) =>
+                {pageNumbers.map((page, i) =>
                     page === '...' ? (
                         <li key={`ellipsis-${i}`} className="pagination-ellipsis">...</li>
                     ) : (
