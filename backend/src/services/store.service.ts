@@ -1,13 +1,28 @@
 import axios from "axios";
 import { IStore, IOverpassTags, IOverpassElement, IOverpassResponse } from "../dto/store.dto";
 
+const OVERPASS_MIRRORS = [
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.openstreetmap.fr/api/interpreter",
+    "https://overpass-api.de/api/interpreter",
+];
+
 async function overpassPost(query: string): Promise<IOverpassResponse> {
-    const res = await axios.post<IOverpassResponse>(
-        "https://overpass-api.de/api/interpreter",
-        `data=${encodeURIComponent(query)}`,
-        { headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "GuitarFinder/1.0" } }
-    );
-    return res.data;
+    let lastError: unknown;
+    for (const mirror of OVERPASS_MIRRORS) {
+        try {
+            const res = await axios.post<IOverpassResponse>(
+                mirror,
+                `data=${encodeURIComponent(query)}`,
+                { headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "GuitarFinder/1.0" }, timeout: 20000 }
+            );
+            return res.data;
+        } catch (err) {
+            console.log(`[stores] mirror failed: ${mirror}`);
+            lastError = err;
+        }
+    }
+    throw lastError;
 }
 
 class StoreService {
