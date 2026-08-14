@@ -155,9 +155,9 @@ function StatisticsPage(): JSX.Element {
                             <div className="stats-chart-box stats-chart-doughnut">
                                 <Doughnut
                                     data={{
-                                        labels: stats.byCondition.map(c => c.condition || 'Unknown'),
+                                        labels: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
                                         datasets: [{
-                                            data: stats.byCondition.map(c => c.count),
+                                            data: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => m.count),
                                             backgroundColor: COLORS,
                                             borderColor: 'rgba(0,0,0,0.3)',
                                             borderWidth: 1,
@@ -166,8 +166,8 @@ function StatisticsPage(): JSX.Element {
                                     options={{
                                         responsive: true,
                                         plugins: {
-                                            legend: { position: 'bottom', labels: { color: '#e8e8f0' } },
-                                            title: { display: true, text: 'Listings by Condition', color: '#e8e8f0', font: { size: 14 } },
+                                            legend: { position: 'bottom', labels: { color: '#e8e8f0', boxWidth: 12 } },
+                                            title: { display: true, text: 'Top Sold Guitar Models', color: '#e8e8f0', font: { size: 14 } },
                                         },
                                     }}
                                 />
@@ -188,30 +188,18 @@ function StatisticsPage(): JSX.Element {
                                     options={darkChartOptions('Price Distribution')}
                                 />
                             </div>
-                            <div className="stats-chart-box stats-models-table-box">
-                                <p className="stats-table-title">Top 10 Popular Models</p>
-                                <table className="stats-models-table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Brand</th>
-                                            <th>Model</th>
-                                            <th>Listings</th>
-                                            <th>Avg Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {stats.topModels.map((m, i) => (
-                                            <tr key={i}>
-                                                <td className="stats-table-rank">{i + 1}</td>
-                                                <td>{m.brand}</td>
-                                                <td>{m.model || '—'}</td>
-                                                <td className="stats-table-count">{m.count}</td>
-                                                <td className="stats-table-price">${m.avgPrice.toLocaleString()}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                            <div className="stats-chart-box">
+                                <Bar
+                                    data={{
+                                        labels: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
+                                        datasets: [{
+                                            label: 'Listings',
+                                            data: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => m.count),
+                                            backgroundColor: COLORS,
+                                        }],
+                                    }}
+                                    options={darkChartOptions('Top Sold Guitar Models')}
+                                />
                             </div>
                         </div>
 
