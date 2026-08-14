@@ -32,6 +32,12 @@ function ChatbotWidget(): JSX.Element | null {
         if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [isOpen]);
 
+    useEffect(() => {
+        document.body.classList.toggle('widget-open', isOpen);
+        return () => document.body.classList.remove('widget-open');
+    }, [isOpen]);
+
+
     if (!user || location.pathname === '/chatbot') return null;
 
     const userAvatar = user.profileImage
@@ -57,6 +63,7 @@ function ChatbotWidget(): JSX.Element | null {
     }
 
     return (
+        <>
         <div className="chatbot-widget">
             {isOpen && (
                 <div className="widget-panel">
@@ -98,6 +105,7 @@ function ChatbotWidget(): JSX.Element | null {
                 {isOpen ? '✕' : 'Chat'}
             </button>
         </div>
+        </>
     );
 }
 

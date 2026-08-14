@@ -9,6 +9,20 @@
     gap: 12px;
 }
 
+.widget-scroll-lock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .widget-scroll-lock {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        touch-action: none;
+    }
+}
+
 .widget-toggle-btn {
     width: 60px;
     height: 60px;
@@ -193,6 +207,10 @@
 
     .menu-open .chatbot-widget {
         z-index: 99;
+    }
+
+    body.widget-open {
+        overflow: hidden;
     }
 
     .widget-panel {
