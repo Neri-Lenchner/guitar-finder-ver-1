@@ -160,6 +160,12 @@
         grid-row: 1;
     }
 
+    .footer-logo {
+        height: 55px;
+        margin-top: 0;
+        margin-left: -50px;
+    }
+
     .footer-guitar {
         grid-column: 3;
         grid-row: 1;

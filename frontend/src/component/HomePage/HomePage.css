@@ -22,12 +22,26 @@
     z-index: 2;
 }
 
+.home-tagline {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    opacity: 1;
+    margin-top: -50px;
+    transform: translateY(-70px);
+    position: relative;
+    z-index: 3;
+}
+
 .home-logo {
     height: 220px;
     width: auto;
     object-fit: contain;
     display: block;
     margin-bottom: 0;
+    opacity: 0.68;
+    transform: translateY(0px);
     filter: drop-shadow(0 0 12px rgba(22, 163, 74, 0.6)) drop-shadow(0 0 30px rgba(22, 163, 74, 0.3));
 }
 
@@ -52,6 +66,7 @@
     }
 
     .home-hero {
+        margin-top: 160px;
         margin-bottom: -200px;
     }
 }
