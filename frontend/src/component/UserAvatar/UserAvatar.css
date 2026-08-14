@@ -28,8 +28,19 @@
     transform: scale(1.05);
 }
 
+@media (min-width: 769px) {
+    .user-avatar-fixed {
+        top: 90px;
+    }
+}
+
 @media (max-width: 768px) {
     .menu-open .user-avatar-fixed {
         display: none;
+    }
+
+    .user-avatar-fixed img {
+        width: 80px;
+        height: 74px;
     }
 }
