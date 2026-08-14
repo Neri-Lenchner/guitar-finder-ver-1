@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap');
+
 .site-footer {
     background-color: #0f0f0f;
     border-top: 1px solid #1e1e1e;
@@ -20,14 +22,17 @@
 }
 
 .footer-logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
     color: #16a34a;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
 }
 
 .footer-tagline {
+    font-family: 'Rajdhani', sans-serif;
     font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     color: #555555;
     margin: 0;
 }
@@ -40,12 +45,15 @@
 }
 
 .footer-col-heading {
-    font-size: 12px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
     font-weight: 700;
-    color: #ffffff;
+    color: #22c55e;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2.5px;
     margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1a3a27;
 }
 
 .footer-col-list {
@@ -58,14 +66,33 @@
 }
 
 .footer-link {
-    font-size: 13px;
-    color: #666666;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: #888888;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-link::before {
+    content: '›';
+    color: #16a34a;
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block;
+    transition: transform 0.2s;
 }
 
 .footer-link:hover {
-    color: #16a34a;
+    color: #22c55e;
+}
+
+.footer-link:hover::before {
+    transform: translateX(3px);
 }
 
 .footer-guitar {
@@ -92,7 +119,10 @@
 }
 
 .footer-copy {
-    font-size: 12px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
     color: #444444;
 }
 
