@@ -96,3 +96,5 @@ What to explore next:
 
   ---
   In short: Railway keeps the app running, Cloudinary keeps the images alive across deploys.
+
+  * Find guitars, gear, and expert advice — all in one place.

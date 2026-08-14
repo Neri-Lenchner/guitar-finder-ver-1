@@ -2,6 +2,7 @@ import { JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { footerColumns } from '../../../utils/footer-links';
 import guitarGod from '../../../assets/guitar-god.png';
+import footerLogo from '../../../assets/guitar-finder-logo-1-Photoroom.png';
 import './Footer.css';
 
 function Footer(): JSX.Element {
@@ -9,7 +10,7 @@ function Footer(): JSX.Element {
         <footer className="site-footer">
             <div className="footer-top">
                 <div className="footer-brand">
-                    <span className="footer-logo">GuitarFinder</span>
+                    <img src={footerLogo} alt="GuitarFinder" className="footer-logo" />
                     <p className="footer-tagline">Your AI-powered guitar discovery platform.</p>
                 </div>
 

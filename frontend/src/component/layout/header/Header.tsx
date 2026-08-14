@@ -1,6 +1,7 @@
 import { JSX, useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../../services/auth.service';
+import headerLogo from '../../../assets/guitar-finder-logo-1-Photoroom.png';
 import './Header.css';
 
 function Header(): JSX.Element {
@@ -45,7 +46,9 @@ function Header(): JSX.Element {
     return (
         <nav className="header" ref={navRef}>
             <div className="header-left">
-                <NavLink to="/home" className="header-logo" onClick={close}>GuitarFinder</NavLink>
+                <NavLink to="/home" className="header-logo" onClick={close}>
+                    <img src={headerLogo} alt="GuitarFinder" className="header-logo-img" />
+                </NavLink>
                 {user && (
                     <NavLink to="/edit-profile" className="header-avatar-link" onClick={close}>
                         <span className="header-greeting">Hello and Welcome </span>

@@ -1,13 +1,13 @@
 import { JSX } from 'react';
 import HomeCarousel from '../HomeCarousel/HomeCarousel';
+import homeLogo from '../../assets/guitar-finder-welcome-logo-1-Photoroom.png';
 import './HomePage.css';
 
 function HomePage(): JSX.Element {
     return (
         <div className="home-page">
             <div className="home-hero">
-                <h1>Welcome to <span className="home-brand">GuitarFinder</span></h1>
-                <p>Find guitars, gear, and expert advice — all in one place.</p>
+                <img src={homeLogo} alt="Welcome to GuitarFinder" className="home-logo" />
             </div>
             <HomeCarousel />
         </div>
