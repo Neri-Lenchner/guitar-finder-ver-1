@@ -23,14 +23,14 @@
 }
 
 .home-tagline {
-    height: 200px;
+    height: 240px;
     width: auto;
     object-fit: contain;
     display: block;
     opacity: 1;
     margin-top: -50px;
     transform: translateY(-70px);
-    filter: drop-shadow(0 0 8px rgb(220, 38, 38)) drop-shadow(0 0 20px rgb(220, 38, 38)) drop-shadow(0 0 50px rgba(220, 38, 38, 0.8));
+    filter: drop-shadow(0 0 6px rgba(234, 179, 8, 0.7)) drop-shadow(0 0 18px rgba(234, 179, 8, 0.4));
     position: relative;
     z-index: 3;
 }
