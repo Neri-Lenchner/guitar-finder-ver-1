@@ -53,3 +53,46 @@ What to explore next:
 
   backend url:
   https://guitar-finder-ver-1-production-396a.up.railway.app
+
+  -------------------------------------------------------------------------------------------------------------------------
+
+● How the project runs live
+
+  Railway
+
+  Railway is a cloud hosting platform — think of it as a computer in the cloud that never turns off.
+
+  Your project has two services running on Railway:
+
+  1. Backend (Node.js/Express)
+  - Railway runs your backend/src/app.ts server 24/7
+  - It connects to a MongoDB database (also hosted on Railway or Atlas)
+  - Handles all API requests: login, register, reverb search, chatbot, store search, followed guitars
+
+  2. Frontend (Nginx)
+  - Railway builds your React app with Vite (npm run build) → produces static HTML/CSS/JS files
+  - Nginx serves those static files to anyone who visits the URL
+  - Nginx also proxies /api/ requests to the backend — so the frontend doesn't need to know the backend's URL, it just sends to /api/... and nginx forwards it
+
+  User's Browser
+        ↓
+    Railway Frontend (Nginx)
+        ├── serves static files (HTML/CSS/JS)
+        └── /api/* → forwards to → Railway Backend (Node.js)
+                                          └── MongoDB
+
+  ---
+  Cloudinary
+
+  Cloudinary is a cloud image storage service. The problem it solves:
+
+  Railway's filesystem is ephemeral — if the backend restarts or redeploys, any uploaded files (profile images) are deleted. So instead of saving images to the server's disk:
+
+  1. User uploads a profile photo
+  2. Backend sends it to Cloudinary's servers
+  3. Cloudinary stores it permanently and returns a public URL (e.g. https://res.cloudinary.com/...)
+  4. That URL is saved in MongoDB
+  5. Anywhere the profile image is needed, it loads directly from Cloudinary's CDN — fast, permanent, no backend involved
+
+  ---
+  In short: Railway keeps the app running, Cloudinary keeps the images alive across deploys.
