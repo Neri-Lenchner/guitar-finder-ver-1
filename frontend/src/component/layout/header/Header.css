@@ -24,6 +24,7 @@
     width: auto;
     object-fit: contain;
     display: block;
+    filter: drop-shadow(0 0 8px rgba(22, 163, 74, 0.7)) drop-shadow(0 0 20px rgba(22, 163, 74, 0.35));
 }
 
 .header-search {

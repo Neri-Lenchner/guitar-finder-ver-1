@@ -28,6 +28,7 @@
     display: block;
     margin-top: -45px;
     margin-left: -140px;
+    filter: drop-shadow(0 0 8px rgba(22, 163, 74, 0.7)) drop-shadow(0 0 20px rgba(22, 163, 74, 0.35));
 }
 
 .footer-tagline {
