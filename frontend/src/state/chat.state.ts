@@ -8,7 +8,7 @@ export interface IMessage {
 
 export class ChatState {
     messages: IMessage[] = [
-        { id: 'welcome', text: "Hi! I'm GuitarBot. Ask me anything about guitars, gear, or playing technique!", sender: 'bot' },
+        { id: 'welcome', text: "Hi! I'm GuitarBot. Ask me anything about guitars, gear, or playing technique!\n\nשלום! אני גיטרבוט. שאל אותי כל שאלה על גיטרות, ציוד או טכניקת נגינה!", sender: 'bot' },
     ];
 }
 
