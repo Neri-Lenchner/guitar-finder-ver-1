@@ -13,6 +13,7 @@ function ChatbotPage(): JSX.Element {
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
     const user = authService.getLoggedInUser();
 
     const userAvatar = user?.profileImage
@@ -42,6 +43,7 @@ function ChatbotPage(): JSX.Element {
         const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
         chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
+        if (textareaRef.current) { textareaRef.current.style.height = 'auto'; }
         setIsLoading(true);
 
         try {
@@ -54,9 +56,15 @@ function ChatbotPage(): JSX.Element {
         }
     }
 
-    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
-        if (event.key === 'Enter') sendMessage();
+    function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {
+        if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }
         if (event.key === 'Escape') setInputText('');
+    }
+
+    function handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>): void {
+        setInputText(e.target.value);
+        e.target.style.height = 'auto';
+        e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
     return (
@@ -90,11 +98,12 @@ function ChatbotPage(): JSX.Element {
                 )}
             </div>
             <div className="chatbot-page-input">
-                <input
-                    type="text"
+                <textarea
+                    ref={textareaRef}
+                    rows={1}
                     placeholder="Ask about guitars, gear, technique..."
                     value={inputText}
-                    onChange={e => setInputText(e.target.value)}
+                    onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     className="chatbot-input-field"
                     dir="auto"

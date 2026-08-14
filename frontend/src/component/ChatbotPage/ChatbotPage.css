@@ -145,6 +145,7 @@
 
 .chatbot-page-input {
     display: flex;
+    align-items: flex-end;
     margin-bottom: 60px;
     padding: 0 16px;
 }
@@ -158,6 +159,12 @@
     flex-grow: 1;
     background-color: rgba(255, 255, 255, 0.08);
     color: #e8e8f0;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: inherit;
 }
 
 .chatbot-send-btn {
