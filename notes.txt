@@ -86,7 +86,8 @@ What to explore next:
 
   Cloudinary is a cloud image storage service. The problem it solves:
 
-  Railway's filesystem is ephemeral — if the backend restarts or redeploys, any uploaded files (profile images) are deleted. So instead of saving images to the server's disk:
+  Railway's filesystem is ephemeral — if the backend restarts or redeploys, any uploaded files (profile images) are deleted.
+  So instead of saving images to the server's disk:
 
   1. User uploads a profile photo
   2. Backend sends it to Cloudinary's servers
@@ -97,4 +98,3 @@ What to explore next:
   ---
   In short: Railway keeps the app running, Cloudinary keeps the images alive across deploys.
 
-  * Find guitars, gear, and expert advice — all in one place.

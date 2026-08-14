@@ -43,7 +43,7 @@
     margin-bottom: 0;
     opacity: 0.68;
     transform: translateY(0px);
-    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.6)) drop-shadow(0 0 30px rgba(220, 38, 38, 0.3));
+    filter: drop-shadow(0 0 12px rgba(22, 163, 74, 0.8)) drop-shadow(0 0 30px rgba(22, 163, 74, 0.4));
 }
 
 .home-page p {
