@@ -140,23 +140,23 @@
 
 @media (max-width: 768px) {
     .carousel-3d-scene {
-        height: 700px;
+        height: 600px;
         margin-top: 0;
     }
 
     .carousel-3d-context {
-        transform: scale(0.7);
+        transform: scale(0.6);
         transform-origin: top center;
     }
 }
 
 @media (max-width: 480px) {
     .carousel-3d-scene {
-        height: 550px;
+        height: 460px;
     }
 
     .carousel-3d-context {
-        transform: scale(0.5);
+        transform: scale(0.45);
         transform-origin: top center;
     }
 }

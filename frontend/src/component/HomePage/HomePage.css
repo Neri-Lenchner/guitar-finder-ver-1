@@ -80,7 +80,8 @@
     }
 
     .home-page {
-        min-height: auto;
+        height: 100vh;
+        overflow: hidden;
     }
 }
 
