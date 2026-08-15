@@ -91,8 +91,8 @@ function ChatbotWidget(): JSX.Element | null {
                         <input
                             placeholder="Ask about guitars..."
                             value={inputText}
-                            onChange={e => setInputText(e.target.value)}
-                            onKeyDown={e => { if (e.key === 'Enter') void sendMessage(); }}
+                            onChange={event => setInputText(event.target.value)}
+                            onKeyDown={event => { if (event.key === 'Enter') void sendMessage(); }}
                             dir="auto"
                         />
                         <button onClick={(): undefined => void sendMessage()}>
@@ -104,7 +104,10 @@ function ChatbotWidget(): JSX.Element | null {
             <button
                 className="widget-toggle-btn"
                 onClick={(): void => setIsOpen(!isOpen)}>
-                {isOpen ? '✕' : 'Chat'}
+                {isOpen
+                    ? '✕'
+                    : 'Chat'
+                }
             </button>
         </div>
         </>

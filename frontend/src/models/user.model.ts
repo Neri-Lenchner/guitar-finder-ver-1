@@ -19,3 +19,9 @@ export interface ICredentials {
     email: string;
     password: string;
 }
+
+export interface IEditProfileForm {
+    firstName: string;
+    lastName: string;
+    profileImage: FileList;
+}

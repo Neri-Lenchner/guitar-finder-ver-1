@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import React, { JSX, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
@@ -6,31 +6,28 @@ import { appConfig } from '../../utils/app-config';
 import guitarGod from '../../assets/guitar-god.png';
 import AlertModal from '../AlertModal/AlertModal';
 import './EditProfilePage.css';
-
-interface IEditProfileForm {
-    firstName: string;
-    lastName: string;
-    profileImage: FileList;
-}
+import { IUser, IEditProfileForm } from "../../models/user.model.ts";
 
 function EditProfilePage(): JSX.Element {
-    const user = authService.getLoggedInUser();
+    const user: IUser | null = authService.getLoggedInUser();
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<IEditProfileForm>({
         defaultValues: { firstName: user?.firstName ?? '', lastName: user?.lastName ?? '' },
     });
     const profileImageRegister = register('profileImage');
 
-    const currentImage = user?.profileImage
-        ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
+    const currentImage: string | null = user?.profileImage
+        ? (user.profileImage.startsWith('http')
+            ? user.profileImage
+            : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : null;
 
     const [preview, setPreview] = useState<string | null>(currentImage);
     const [alertMsg, setAlertMsg] = useState('');
 
-    function handleImageChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        profileImageRegister.onChange(e);
-        const file = e.target.files?.[0];
+    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>): void {
+       void profileImageRegister.onChange(event);
+        const file: File | undefined = event.target.files?.[0];
         if (file) setPreview(URL.createObjectURL(file));
         else setPreview(currentImage);
     }
@@ -50,12 +47,21 @@ function EditProfilePage(): JSX.Element {
 
     return (
         <>
-        {alertMsg && <AlertModal message={alertMsg} onClose={() => setAlertMsg('')} />}
+        {alertMsg && (
+            <AlertModal
+                message={alertMsg}
+                onClose={(): void => setAlertMsg('')}
+            />)
+        }
         <div className="edit-profile-page">
             <div className="edit-profile-inner">
             <div className="edit-profile-card">
-                <h2>Edit Profile</h2>
-                <form onSubmit={handleSubmit(onSubmit)} className="edit-profile-form">
+                <h2>
+                    Edit Profile
+                </h2>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="edit-profile-form">
                     <div className="edit-profile-avatar-picker">
                         <img
                             src={preview ?? guitarGod}
@@ -73,15 +79,33 @@ function EditProfilePage(): JSX.Element {
                             />
                         </label>
                     </div>
-                    <input type="text" placeholder="First Name" {...register('firstName', { required: true })} />
-                    <input type="text" placeholder="Last Name" {...register('lastName', { required: true })} />
+                    <input
+                        type="text"
+                        placeholder="First Name" {...register('firstName', { required: true })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Last Name" {...register('lastName', { required: true })}
+                    />
                     <div className="edit-profile-actions">
-                        <button type="submit">Save Changes</button>
-                        <button type="button" onClick={() => navigate(-1)} className="edit-profile-cancel">Cancel</button>
+                        <button type="submit">
+                            Save Changes
+                        </button>
+                        <button
+                            type="button"
+                            onClick={(): void | Promise<void> => navigate(-1)}
+                            className="edit-profile-cancel">
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
-            <img src={guitarGod} alt="" aria-hidden="true" className="edit-profile-guitar" />
+            <img
+                src={guitarGod}
+                alt=""
+                aria-hidden="true"
+                className="edit-profile-guitar"
+            />
             </div>
         </div>
         </>
