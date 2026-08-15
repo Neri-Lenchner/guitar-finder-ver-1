@@ -8,6 +8,8 @@ import { IMessage } from '../../models/message.model';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotWidget.css';
+import {IUser} from "../../models/user.model.ts";
+import {Unsubscribe} from "@reduxjs/toolkit";
 
 function ChatbotWidget(): JSX.Element | null {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,47 +17,41 @@ function ChatbotWidget(): JSX.Element | null {
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const user = authService.getLoggedInUser();
+    const user: IUser | null = authService.getLoggedInUser();
     const location = useLocation();
 
-    useEffect(() => {
-        const unsubscribe = chatStore.subscribe(() => {
-            setMessages(chatStore.getState().messages);
-        });
-        return unsubscribe;
+    useEffect((): Unsubscribe => {
+        return chatStore.subscribe((): void => setMessages(chatStore.getState().messages));
     }, []);
 
-    useEffect(() => {
+    useEffect((): void => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
     useEffect(() => {
-        if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [isOpen]);
-
-    useEffect(() => {
         document.body.classList.toggle('widget-open', isOpen);
+        if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         return () => document.body.classList.remove('widget-open');
     }, [isOpen]);
 
 
     if (!user || location.pathname === '/chatbot') return null;
 
-    const userAvatar = user.profileImage
+    const userAvatar: string = user.profileImage
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
 
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
-        const history = chatStore.getState().messages;
+        const history: IMessage[] = chatStore.getState().messages;
         const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
         chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
         setIsLoading(true);
 
         try {
-            const reply = await chatService.sendMessage(inputText, history);
+            const reply: string = await chatService.sendMessage(inputText, history);
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
         } catch {
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' } });
