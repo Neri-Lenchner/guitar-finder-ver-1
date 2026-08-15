@@ -1,6 +1,6 @@
 import axios from "axios";
 import { appConfig } from "../utils/app-config";
-import { IHistoryMessage } from "../models/history-message.model";
+import { IHistoryMessage } from "../dto/chat.dto";
 
 class ChatService {
     public async getResponse(userMessage: string, history: IHistoryMessage[] = []): Promise<string> {
