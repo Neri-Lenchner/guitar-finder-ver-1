@@ -8,7 +8,6 @@ import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
-import {Unsubscribe} from "@reduxjs/toolkit";
 
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
@@ -23,15 +22,9 @@ function ChatbotPage(): JSX.Element {
         : defaultAvatar;
 
     useEffect(() => {
-        return authStore.subscribe(() => {
-            setUser(authStore.getState().user);
-        });
-    }, []);
-
-    useEffect((): Unsubscribe => {
-        return chatStore.subscribe(() => {
-            setMessages(chatStore.getState().messages);
-        });
+        const unsubAuth = authStore.subscribe(() => setUser(authStore.getState().user));
+        const unsubChat = chatStore.subscribe(() => setMessages(chatStore.getState().messages));
+        return () => { unsubAuth(); unsubChat(); };
     }, []);
 
     useEffect((): void => {
