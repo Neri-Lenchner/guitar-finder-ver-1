@@ -30,14 +30,16 @@ function ChatbotWidget(): JSX.Element | null {
     useEffect(() => {
         document.body.classList.toggle('widget-open', isOpen);
         if (isOpen) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        return () => document.body.classList.remove('widget-open');
+        return (): void => document.body.classList.remove('widget-open');
     }, [isOpen]);
 
 
     if (!user || location.pathname === '/chatbot') return null;
 
     const userAvatar: string = user.profileImage
-        ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
+        ? (user.profileImage.startsWith('http')
+            ? user.profileImage
+            : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
 
     return (
@@ -46,23 +48,41 @@ function ChatbotWidget(): JSX.Element | null {
             {isOpen && (
                 <div className="widget-panel">
                     <div className="widget-header">
-                        <span>GuitarBot</span>
+                        <span>
+                            GuitarBot
+                        </span>
                     </div>
                     <div className="widget-messages">
                         {messages.map(msg => (
-                            <div key={msg.id} className={`widget-msg widget-msg--${msg.sender}`}>
+                            <div
+                                key={msg.id}
+                                className={`widget-msg widget-msg--${msg.sender}`}>
                                 {msg.sender === 'bot' && (
-                                    <img src={RobotImage} className="widget-avatar" alt="GuitarBot" />
+                                    <img
+                                        src={RobotImage}
+                                        className="widget-avatar"
+                                        alt="GuitarBot"
+                                    />
                                 )}
-                                <div className="widget-msg-text" dir="auto">{msg.text}</div>
+                                <div
+                                    className="widget-msg-text"
+                                    dir="auto">
+                                    {msg.text}
+                                </div>
                                 {msg.sender === 'user' && (
-                                    <img src={userAvatar} className="widget-avatar" alt={user.firstName} />
+                                    <img
+                                        src={userAvatar}
+                                        className="widget-avatar"
+                                        alt={user.firstName}
+                                    />
                                 )}
                             </div>
                         ))}
                         {isLoading && (
                             <div className="widget-msg widget-msg--bot">
-                                <div className="widget-msg-text">...</div>
+                                <div className="widget-msg-text">
+                                    ...
+                                </div>
                             </div>
                         )}
                         <div ref={messagesEndRef} />
@@ -75,11 +95,15 @@ function ChatbotWidget(): JSX.Element | null {
                             onKeyDown={e => { if (e.key === 'Enter') void sendMessage(); }}
                             dir="auto"
                         />
-                        <button onClick={() => void sendMessage()}>Send</button>
+                        <button onClick={(): undefined => void sendMessage()}>
+                            Send
+                        </button>
                     </div>
                 </div>
             )}
-            <button className="widget-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
+            <button
+                className="widget-toggle-btn"
+                onClick={(): void => setIsOpen(!isOpen)}>
                 {isOpen ? '✕' : 'Chat'}
             </button>
         </div>
