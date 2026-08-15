@@ -56,6 +56,20 @@ What to explore next:
 
   -------------------------------------------------------------------------------------------------------------------------
 
+--- GOOGLE SOCIAL LOGIN (implement later) ---
+
+Add "Continue with Google" button to login/register pages.
+Agreed approach:
+- Provider: Google OAuth 2.0 only (GitHub can be added later)
+- Same-email linking: if a user already has an account with the same email, link them (no duplicate accounts)
+- Password becomes optional in the User model (Google users won't have one)
+- Flow: frontend → /api/auth/google → Google consent → /api/auth/google/callback → JWT → redirect to /home
+- Backend: passport + passport-google-oauth20
+- Needs: Google Cloud project with OAuth 2.0 credentials (Client ID + Secret)
+  and http://localhost:4000/api/auth/google/callback added as authorized redirect URI
+
+===================================================
+
 ● How the project runs live
 
   Railway
