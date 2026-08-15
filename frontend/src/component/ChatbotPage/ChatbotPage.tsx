@@ -7,6 +7,7 @@ import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
+import {Unsubscribe} from "@reduxjs/toolkit";
 
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
@@ -20,13 +21,13 @@ function ChatbotPage(): JSX.Element {
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
 
-    useEffect(() => {
+    useEffect((): Unsubscribe => {
         return chatStore.subscribe(() => {
             setMessages(chatStore.getState().messages);
         });
     }, []);
 
-    useEffect(() => {
+    useEffect((): void => {
         if (messagesContainerRef.current) {
             messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
         }
@@ -34,7 +35,6 @@ function ChatbotPage(): JSX.Element {
 
     function clearChat(): void {
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
-        localStorage.removeItem('chatState');
     }
 
     async function sendMessage(): Promise<void> {
@@ -109,7 +109,7 @@ function ChatbotPage(): JSX.Element {
                     className="chatbot-input-field"
                     dir="auto"
                 />
-                <button onClick={() => void sendMessage()} className="chatbot-send-btn">
+                <button onClick={(): undefined => void sendMessage()} className="chatbot-send-btn">
                     Send
                 </button>
             </div>

@@ -10,6 +10,13 @@ export class ChatState {
     messages: IMessage[] = [
         { id: 'welcome', text: "Hi! I'm GuitarBot. Ask me anything about guitars, gear, or playing technique!\n\nשלום! אני גיטרבוט. שאל אותי כל שאלה על גיטרות, ציוד או טכניקת נגינה!", sender: 'bot' },
     ];
+
+    constructor() {
+        try {
+            const saved = localStorage.getItem('chatState');
+            if (saved) this.messages = JSON.parse(saved).messages;
+        } catch {}
+    }
 }
 
 export enum ChatActionType {
@@ -28,23 +35,14 @@ export function chatReducer(chatState: ChatState = new ChatState(), action: Chat
     switch (action.type) {
         case ChatActionType.AddMessage:
             newState.messages = [...newState.messages, action.payload!];
+            try { localStorage.setItem('chatState', JSON.stringify(newState)); } catch {}
             break;
         case ChatActionType.ClearMessages:
+            localStorage.removeItem('chatState');
             return new ChatState();
     }
 
     return newState;
 }
 
-const _savedChat = (() => {
-    try {
-        const s = localStorage.getItem('chatState');
-        return s ? JSON.parse(s) : undefined;
-    } catch { return undefined; }
-})();
-
-export const chatStore = configureStore({ reducer: chatReducer, preloadedState: _savedChat });
-
-chatStore.subscribe(() => {
-    try { localStorage.setItem('chatState', JSON.stringify(chatStore.getState())); } catch {}
-});
+export const chatStore = configureStore({ reducer: chatReducer });

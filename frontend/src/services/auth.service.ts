@@ -35,7 +35,6 @@ class AuthService {
         authStore.dispatch({ type: AuthActionType.Logout });
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
         storeStore.dispatch({ type: StoreActionType.Clear });
-        localStorage.removeItem('chatState');
     }
 
     public getLoggedInUser(): IUser | null {
