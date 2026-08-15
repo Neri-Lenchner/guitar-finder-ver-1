@@ -56,12 +56,12 @@
 
 @media (max-width: 768px) {
     .home-logo {
-        height: 160px;
+        height: 210px;
         transform: translateY(0px);
     }
 
     .home-tagline {
-        height: 140px;
+        height: 190px;
         margin-top: -30px;
         transform: translateY(-20px);
     }
@@ -76,7 +76,7 @@
 
     .home-hero {
         margin-top: 60px;
-        margin-bottom: -200px;
+        margin-bottom: -300px;
     }
 
     .home-page {
@@ -87,12 +87,12 @@
 
 @media (max-width: 480px) {
     .home-logo {
-        height: 110px;
+        height: 170px;
         transform: translateY(0px);
     }
 
     .home-tagline {
-        height: 100px;
+        height: 155px;
         margin-top: -20px;
         transform: translateY(0px);
     }
@@ -106,7 +106,7 @@
     }
 
     .home-hero {
-        margin-bottom: -150px;
+        margin-bottom: -250px;
     }
 }
 
@@ -117,17 +117,17 @@
     }
 
     .home-logo {
-        height: 90px;
+        height: 145px;
     }
 
     .home-tagline {
-        height: 80px;
+        height: 130px;
         margin-top: -15px;
     }
 
     .home-hero {
         margin-top: 20px;
-        margin-bottom: -100px;
+        margin-bottom: -200px;
     }
 
     .home-page h1 {

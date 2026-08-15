@@ -47,13 +47,14 @@ function ChatbotWidget(): JSX.Element | null {
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
+        const history = chatStore.getState().messages;
         const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
         chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
         setIsLoading(true);
 
         try {
-            const reply = await chatService.sendMessage(inputText);
+            const reply = await chatService.sendMessage(inputText, history);
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
         } catch {
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' } });

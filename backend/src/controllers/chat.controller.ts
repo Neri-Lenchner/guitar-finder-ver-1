@@ -11,8 +11,8 @@ class ChatController {
 
     public async chat(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
-            const { message } = request.body;
-            const reply = await chatService.getResponse(message);
+            const { message, history } = request.body;
+            const reply = await chatService.getResponse(message, history);
             response.json({ reply });
         } catch (error) { next(error); }
     }
