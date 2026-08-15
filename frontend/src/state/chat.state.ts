@@ -9,7 +9,7 @@ export class ChatState {
 
     constructor() {
         try {
-            const saved = localStorage.getItem('chatState');
+            const saved: string | null = localStorage.getItem('chatState');
             if (saved) this.messages = JSON.parse(saved).messages;
         } catch {}
     }

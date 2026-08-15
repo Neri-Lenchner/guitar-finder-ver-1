@@ -1,8 +1,8 @@
 import React, { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
-import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
 import { chatStore, ChatActionType } from '../../state/chat.state';
+import { authStore } from '../../state/auth.state';
 import { IMessage } from '../../models/message.model';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
@@ -16,11 +16,17 @@ function ChatbotPage(): JSX.Element {
     const [isLoading, setIsLoading] = useState(false);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const user = authService.getLoggedInUser();
+    const [user, setUser] = useState(authStore.getState().user);
 
     const userAvatar: string = user?.profileImage
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
+
+    useEffect(() => {
+        return authStore.subscribe(() => {
+            setUser(authStore.getState().user);
+        });
+    }, []);
 
     useEffect((): Unsubscribe => {
         return chatStore.subscribe(() => {
