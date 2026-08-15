@@ -1,9 +1,9 @@
 import React, { JSX, useState, useRef, useEffect } from 'react';
-import { chatService } from '../../services/chat.service';
 import { appConfig } from '../../utils/app-config';
 import { chatStore, ChatActionType } from '../../state/chat.state';
 import { authStore } from '../../state/auth.state';
 import { IMessage } from '../../models/message.model';
+import { useSendMessage } from '../../hooks/useSendMessage';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
@@ -12,11 +12,12 @@ import {Unsubscribe} from "@reduxjs/toolkit";
 
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
-    const [inputText, setInputText] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [user, setUser] = useState(authStore.getState().user);
+    const { inputText, setInputText, isLoading, sendMessage } = useSendMessage(
+        () => { if (textareaRef.current) textareaRef.current.style.height = 'auto'; }
+    );
 
     const userAvatar: string = user?.profileImage
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
@@ -38,26 +39,6 @@ function ChatbotPage(): JSX.Element {
 
     function clearChat(): void {
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
-    }
-
-    async function sendMessage(): Promise<void> {
-        if (!inputText.trim() || isLoading) return;
-
-        const history: IMessage[] = chatStore.getState().messages;
-        const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
-        chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
-        setInputText('');
-        if (textareaRef.current) { textareaRef.current.style.height = 'auto'; }
-        setIsLoading(true);
-
-        try {
-            const reply: string = await chatService.sendMessage(inputText, history);
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
-        } catch {
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong. Please try again.', sender: 'bot' } });
-        } finally {
-            setIsLoading(false);
-        }
     }
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {

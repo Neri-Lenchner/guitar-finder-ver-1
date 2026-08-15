@@ -1,10 +1,10 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
-import { chatStore, ChatActionType } from '../../state/chat.state';
+import { chatStore } from '../../state/chat.state';
 import { IMessage } from '../../models/message.model';
+import { useSendMessage } from '../../hooks/useSendMessage';
 import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotWidget.css';
@@ -14,9 +14,8 @@ import {Unsubscribe} from "@reduxjs/toolkit";
 function ChatbotWidget(): JSX.Element | null {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
-    const [inputText, setInputText] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const { inputText, setInputText, isLoading, sendMessage } = useSendMessage();
     const user: IUser | null = authService.getLoggedInUser();
     const location = useLocation();
 
@@ -40,25 +39,6 @@ function ChatbotWidget(): JSX.Element | null {
     const userAvatar: string = user.profileImage
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
-
-    async function sendMessage(): Promise<void> {
-        if (!inputText.trim() || isLoading) return;
-
-        const history: IMessage[] = chatStore.getState().messages;
-        const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
-        chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
-        setInputText('');
-        setIsLoading(true);
-
-        try {
-            const reply: string = await chatService.sendMessage(inputText, history);
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
-        } catch {
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' } });
-        } finally {
-            setIsLoading(false);
-        }
-    }
 
     return (
         <>
