@@ -1,6 +1,6 @@
     # GuitarFinder
 
-An AI-powered guitar discovery platform. Browse 25 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
+An AI-powered guitar discovery platform. Browse 35 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
 
 **Live:** https://lucid-wholeness-production-0cba.up.railway.app
 
@@ -9,11 +9,11 @@ An AI-powered guitar discovery platform. Browse 25 guitar brands and their model
 ## Features
 
 - **3D Brand Carousel** — spinning 3D carousel on the home page showcasing guitar brands
-- **Guitar Catalog** — browse 25 brands and their models with live Reverb listing images
+- **Guitar Catalog** — browse 35 brands and their models with live Reverb listing images
 - **Reverb Integration** — real marketplace listings with price, condition, and photos
 - **My Guitars (Watchlist)** — save and manage followed Reverb listings, persisted to MongoDB
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
-- **GuitarBot** — floating AI chat assistant powered by OpenAI, with chat history persistence
+- **GuitarBot** — floating AI chat assistant powered by OpenAI, with full conversation context and chat history persistence
 - **Authentication** — register, login, profile editing with avatar upload
 - **Market Statistics** — live guitar market data from Reverb with bar/doughnut charts (avg price by brand, price distribution, top models, listings by condition)
 - **Client-side Caching** — 5-minute cache on Reverb and store API calls
@@ -183,7 +183,7 @@ The app will be available at `http://localhost:5173`.
 | PUT | `/api/users/:id` | Yes | Update profile |
 | GET | `/api/stores?city=...` | No | Find music stores by city |
 | GET | `/api/reverb?query=...` | No | Search Reverb listings |
-| POST | `/api/chat` | No | Send message to GuitarBot |
+| POST | `/api/chat` | Yes | Send message to GuitarBot |
 | GET | `/api/followed` | Yes | Get user's followed listings |
 | POST | `/api/followed` | Yes | Follow a listing |
 | DELETE | `/api/followed/:listingId` | Yes | Unfollow a listing |
@@ -194,4 +194,4 @@ The app will be available at `http://localhost:5173`.
 
 ## Guitar Brands
 
-The catalog includes 25 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico, Washburn, Ovation, Kramer, Godin, Squier.
+The catalog includes 35 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico, Washburn, Ovation, Kramer, Godin, Squier, Parker, Reverend, Collings, Duesenberg, Hagstrom, Strandberg, Suhr, Tom Anderson, Kiesel, Mayones.
