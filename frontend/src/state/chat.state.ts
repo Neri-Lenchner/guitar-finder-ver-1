@@ -1,10 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { IMessage } from '../models/message.model';
 
-export interface IMessage {
-    id: string;
-    text: string;
-    sender: 'user' | 'bot';
-}
 
 export class ChatState {
     messages: IMessage[] = [

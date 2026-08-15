@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { appConfig } from '../utils/app-config';
-import { IMessage } from '../state/chat.state';
+import { IMessage } from '../models/message.model';
 
 class ChatService {
     public async sendMessage(message: string, history: IMessage[]): Promise<string> {
