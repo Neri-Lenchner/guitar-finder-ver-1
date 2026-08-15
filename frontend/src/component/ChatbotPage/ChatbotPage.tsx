@@ -8,6 +8,7 @@ import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
+import {Unsubscribe} from "@reduxjs/toolkit";
 
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
@@ -22,9 +23,11 @@ function ChatbotPage(): JSX.Element {
         : defaultAvatar;
 
     useEffect(() => {
-        const unsubAuth = authStore.subscribe(() => setUser(authStore.getState().user));
-        const unsubChat = chatStore.subscribe(() => setMessages(chatStore.getState().messages));
-        return () => { unsubAuth(); unsubChat(); };
+        const unsubscribeAuth: Unsubscribe = authStore.subscribe((): void => setUser(authStore.getState().user));
+        const unsubscribeChat: Unsubscribe = chatStore.subscribe((): void => setMessages(chatStore.getState().messages));
+        return (): void => {
+            unsubscribeAuth();
+            unsubscribeChat(); };
     }, []);
 
     useEffect((): void => {
@@ -58,37 +61,66 @@ function ChatbotPage(): JSX.Element {
     }
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {
-        if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void sendMessage(); }
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            void sendMessage();
+        }
         if (event.key === 'Escape') setInputText('');
     }
 
-    function handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>): void {
-        setInputText(e.target.value);
-        e.target.style.height = 'auto';
-        e.target.style.height = `${e.target.scrollHeight}px`;
+    function handleInputChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
+        setInputText(event.target.value);
+        event.target.style.height = 'auto';
+        event.target.style.height = `${event.target.scrollHeight}px`;
     }
 
     return (
-        <div className="chatbot-page-wrapper" style={{ backgroundImage: `url(${commandCenter})` }}>
+        <div
+            className="chatbot-page-wrapper"
+            style={{ backgroundImage: `url(${commandCenter})` }}>
         <div className="chatbot-page">
             <div className="chatbot-page-header">
                 <div className="chatbot-header-content">
-                    <h1>GuitarBot</h1>
-                    <p>Your personal guitar assistant</p>
+                    <h1>
+                        GuitarBot
+                    </h1>
+                    <p>
+                        Your personal guitar assistant
+                    </p>
                 </div>
                 {messages.length > 0 && (
-                    <button className="chatbot-clear-btn" onClick={clearChat}>Clear</button>
+                    <button
+                        className="chatbot-clear-btn"
+                        onClick={clearChat}>
+                        Clear
+                    </button>
                 )}
             </div>
-            <div className="chatbot-page-messages" ref={messagesContainerRef}>
+            <div
+                className="chatbot-page-messages"
+                ref={messagesContainerRef}>
                 {messages.map(msg => (
-                    <div key={msg.id} className={`chatbot-msg chatbot-msg--${msg.sender}`}>
+                    <div
+                        key={msg.id}
+                        className={`chatbot-msg chatbot-msg--${msg.sender}`}>
                         {msg.sender === 'bot' && (
-                            <img src={RobotImage} className="chatbot-avatar" alt="GuitarBot" />
+                            <img
+                                src={RobotImage}
+                                className="chatbot-avatar"
+                                alt="GuitarBot"
+                            />
                         )}
-                        <div className="chatbot-msg-text" dir="auto">{msg.text}</div>
+                        <div
+                            className="chatbot-msg-text"
+                            dir="auto">
+                            {msg.text}
+                        </div>
                         {msg.sender === 'user' && (
-                            <img src={userAvatar} className="chatbot-avatar" alt={user?.firstName} />
+                            <img
+                                src={userAvatar}
+                                className="chatbot-avatar"
+                                alt={user?.firstName}
+                            />
                         )}
                     </div>
                 ))}
@@ -109,7 +141,9 @@ function ChatbotPage(): JSX.Element {
                     className="chatbot-input-field"
                     dir="auto"
                 />
-                <button onClick={(): undefined => void sendMessage()} className="chatbot-send-btn">
+                <button
+                    onClick={(): undefined => void sendMessage()}
+                    className="chatbot-send-btn">
                     Send
                 </button>
             </div>
