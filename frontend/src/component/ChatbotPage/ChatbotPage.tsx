@@ -1,4 +1,4 @@
-import { JSX, useState, useRef, useEffect } from 'react';
+import React, { JSX, useState, useRef, useEffect } from 'react';
 import { chatService } from '../../services/chat.service';
 import { authService } from '../../services/auth.service';
 import { appConfig } from '../../utils/app-config';
@@ -40,7 +40,7 @@ function ChatbotPage(): JSX.Element {
     async function sendMessage(): Promise<void> {
         if (!inputText.trim() || isLoading) return;
 
-        const history = chatStore.getState().messages;
+        const history: IMessage[] = chatStore.getState().messages;
         const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
         chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
         setInputText('');
@@ -48,7 +48,7 @@ function ChatbotPage(): JSX.Element {
         setIsLoading(true);
 
         try {
-            const reply = await chatService.sendMessage(inputText, history);
+            const reply: string = await chatService.sendMessage(inputText, history);
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
         } catch {
             chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong. Please try again.', sender: 'bot' } });
@@ -58,7 +58,7 @@ function ChatbotPage(): JSX.Element {
     }
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {
-        if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }
+        if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void sendMessage(); }
         if (event.key === 'Escape') setInputText('');
     }
 
@@ -109,7 +109,7 @@ function ChatbotPage(): JSX.Element {
                     className="chatbot-input-field"
                     dir="auto"
                 />
-                <button onClick={sendMessage} className="chatbot-send-btn">
+                <button onClick={() => void sendMessage()} className="chatbot-send-btn">
                     Send
                 </button>
             </div>

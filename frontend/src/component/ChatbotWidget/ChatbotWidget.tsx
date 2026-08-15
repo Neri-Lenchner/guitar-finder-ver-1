@@ -95,10 +95,10 @@ function ChatbotWidget(): JSX.Element | null {
                             placeholder="Ask about guitars..."
                             value={inputText}
                             onChange={e => setInputText(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && sendMessage()}
+                            onKeyDown={e => { if (e.key === 'Enter') void sendMessage(); }}
                             dir="auto"
                         />
-                        <button onClick={sendMessage}>Send</button>
+                        <button onClick={() => void sendMessage()}>Send</button>
                     </div>
                 </div>
             )}
