@@ -24,6 +24,12 @@ const ListingStatSchema = new Schema<IListingStat>({
     ingestedAt: { type: Date, default: () => new Date() },
 });
 
+ListingStatSchema.index({ brand: 1 });
+ListingStatSchema.index({ condition: 1 });
+ListingStatSchema.index({ brand: 1, guitarModel: 1 });
+ListingStatSchema.index({ price: 1 });
+ListingStatSchema.index({ ingestedAt: -1 });
+
 export const ListingStatModel = model<IListingStat>(
     "ListingStatModel",
     ListingStatSchema,
