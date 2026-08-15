@@ -7,7 +7,6 @@ import RobotImage from '../../assets/Chatbot-img.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
-
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
     const [inputText, setInputText] = useState('');
@@ -16,21 +15,23 @@ function ChatbotPage(): JSX.Element {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const user = authService.getLoggedInUser();
 
-    const userAvatar = user?.profileImage
+    const userAvatar: string = user?.profileImage
         ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`)
         : defaultAvatar;
 
     useEffect(() => {
-        const unsubscribe = chatStore.subscribe(() => {
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
+        return chatStore.subscribe(() => {
             setMessages(chatStore.getState().messages);
+            requestAnimationFrame(() => {
+                if (messagesContainerRef.current) {
+                    messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+                }
+            });
         });
-        return unsubscribe;
     }, []);
-
-    useEffect(() => {
-        const el = messagesContainerRef.current;
-        if (el) el.scrollTop = el.scrollHeight;
-    }, [messages]);
 
     function clearChat(): void {
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
