@@ -1,0 +1,3 @@
+next component check:
+
+FooterPage.txt
