@@ -1,6 +1,6 @@
     # GuitarFinder
 
-An AI-powered guitar discovery platform. Browse 35 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
+An AI-powered guitar discovery platform. Browse 40 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
 
 **Live:** https://lucid-wholeness-production-0cba.up.railway.app
 
@@ -9,7 +9,7 @@ An AI-powered guitar discovery platform. Browse 35 guitar brands and their model
 ## Features
 
 - **3D Brand Carousel** — spinning 3D carousel on the home page showcasing guitar brands
-- **Guitar Catalog** — browse 35 brands and their models with live Reverb listing images
+- **Guitar Catalog** — browse 40 brands and their models with live Reverb listing images
 - **Reverb Integration** — real marketplace listings with price, condition, and photos
 - **My Guitars (Watchlist)** — save and manage followed Reverb listings, persisted to MongoDB
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
@@ -194,4 +194,4 @@ The app will be available at `http://localhost:5173`.
 
 ## Guitar Brands
 
-The catalog includes 35 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico, Washburn, Ovation, Kramer, Godin, Squier, Parker, Reverend, Collings, Duesenberg, Hagstrom, Strandberg, Suhr, Tom Anderson, Kiesel, Mayones.
+The catalog includes 40 brands: Fender, Gibson, Taylor, Martin, PRS, Ibanez, Yamaha, Gretsch, ESP, Epiphone, Schecter, Jackson, Rickenbacker, Guild, Takamine, Music Man, Charvel, Dean, BC Rich, D'Angelico, Washburn, Ovation, Kramer, Godin, Squier, Parker, Reverend, Collings, Duesenberg, Hagstrom, Strandberg, Suhr, Tom Anderson, Kiesel, Mayones, Ormsby, Solar, Eastman, Breedlove, Cort.

@@ -679,5 +679,95 @@
       { "name": "Patriot 6", "type": "Electric" },
       { "name": "Hydra Bass 5", "type": "Bass" }
     ]
+  },
+  {
+    "id": "ormsby",
+    "name": "Ormsby",
+    "country": "Australia",
+    "founded": 2004,
+    "models": [
+      { "name": "Hype GTR 6", "type": "Electric" },
+      { "name": "Hype GTR 7", "type": "Electric" },
+      { "name": "Hype GTR 8", "type": "Electric" },
+      { "name": "TX GTR 6", "type": "Electric" },
+      { "name": "TX GTR 7", "type": "Electric" },
+      { "name": "SX GTR 6", "type": "Electric" },
+      { "name": "Goliath GTR 6", "type": "Electric" },
+      { "name": "Goliath GTR 7", "type": "Electric" },
+      { "name": "Metal X GTR 6", "type": "Electric" },
+      { "name": "Hypemachine 6", "type": "Electric" }
+    ]
+  },
+  {
+    "id": "solar",
+    "name": "Solar",
+    "country": "Sweden",
+    "founded": 2017,
+    "models": [
+      { "name": "A1.6", "type": "Electric" },
+      { "name": "A1.7", "type": "Electric" },
+      { "name": "A2.6", "type": "Electric" },
+      { "name": "A2.7", "type": "Electric" },
+      { "name": "T1.6", "type": "Electric" },
+      { "name": "T1.7", "type": "Electric" },
+      { "name": "S1.6", "type": "Electric" },
+      { "name": "GC1.6", "type": "Electric" },
+      { "name": "AB4.5", "type": "Bass" },
+      { "name": "AB1.5", "type": "Bass" }
+    ]
+  },
+  {
+    "id": "eastman",
+    "name": "Eastman",
+    "country": "USA",
+    "founded": 1992,
+    "models": [
+      { "name": "E10D", "type": "Acoustic" },
+      { "name": "E20D", "type": "Acoustic" },
+      { "name": "E6SS", "type": "Acoustic" },
+      { "name": "AR371CE", "type": "Semi-Hollow" },
+      { "name": "AR810CE", "type": "Semi-Hollow" },
+      { "name": "T386", "type": "Semi-Hollow" },
+      { "name": "SB59", "type": "Electric" },
+      { "name": "SB55", "type": "Electric" },
+      { "name": "Romeo", "type": "Semi-Hollow" },
+      { "name": "Juliet", "type": "Semi-Hollow" }
+    ]
+  },
+  {
+    "id": "breedlove",
+    "name": "Breedlove",
+    "country": "USA",
+    "founded": 1990,
+    "models": [
+      { "name": "Signature Concert CE", "type": "Acoustic" },
+      { "name": "Organic Collection Solo CE", "type": "Acoustic" },
+      { "name": "Discovery S Concert CE", "type": "Acoustic" },
+      { "name": "Premier Dreadnought CE", "type": "Acoustic" },
+      { "name": "Pursuit Exotic CE", "type": "Acoustic" },
+      { "name": "Oregon Concert CE", "type": "Acoustic" },
+      { "name": "Artista Concert CE", "type": "Acoustic" },
+      { "name": "Wildwood Concert CE", "type": "Acoustic" },
+      { "name": "Custom Shop Dreadnought", "type": "Acoustic" },
+      { "name": "ECO25 SM E", "type": "Acoustic" }
+    ]
+  },
+  {
+    "id": "cort",
+    "name": "Cort",
+    "country": "South Korea",
+    "founded": 1973,
+    "models": [
+      { "name": "G300 Pro", "type": "Electric" },
+      { "name": "KX500", "type": "Electric" },
+      { "name": "KX507", "type": "Electric" },
+      { "name": "X700 Duality", "type": "Electric" },
+      { "name": "CR250", "type": "Electric" },
+      { "name": "MBM-1", "type": "Electric" },
+      { "name": "AD810", "type": "Acoustic" },
+      { "name": "MR710F", "type": "Acoustic" },
+      { "name": "A5 Plus SCMS", "type": "Bass" },
+      { "name": "B4 Plus AS RM", "type": "Bass" }
+    ]
   }
 ]
