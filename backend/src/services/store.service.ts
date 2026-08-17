@@ -8,25 +8,24 @@ const OVERPASS_MIRRORS = [
 ];
 
 async function overpassPost(query: string): Promise<IOverpassResponse> {
-    let lastError: unknown;
-    for (const mirror of OVERPASS_MIRRORS) {
-        try {
-            const res = await axios.post<IOverpassResponse>(
-                mirror,
-                `data=${encodeURIComponent(query)}`,
-                { headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "GuitarFinder/1.0" }, timeout: 20000 }
-            );
-            return res.data;
-        } catch (err) {
-            console.log(`[stores] mirror failed: ${mirror}`);
-            lastError = err;
-        }
-    }
-    throw lastError;
+    const body = `data=${encodeURIComponent(query)}`;
+    const headers = { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "GuitarFinder/1.0" };
+    return Promise.any(
+        OVERPASS_MIRRORS.map(mirror =>
+            axios.post<IOverpassResponse>(mirror, body, { headers, timeout: 20000 }).then(r => r.data)
+        )
+    );
 }
 
+const STORE_TTL = 10 * 60 * 1000;
+
 class StoreService {
+    private cache = new Map<string, { data: IStore[]; ts: number }>();
+
     public async searchByCity(city: string): Promise<IStore[]> {
+        const key = city.trim().toLowerCase();
+        const entry = this.cache.get(key);
+        if (entry && Date.now() - entry.ts < STORE_TTL) return entry.data;
         // 1. Geocode city to lat/lon via Nominatim
         const geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
             params: { q: city, format: "json", limit: 1 },
@@ -35,14 +34,12 @@ class StoreService {
 
         if (!geoRes.data.length) return [];
         const { lat, lon } = geoRes.data[0];
-        console.log(`[stores] geocoded "${city}" → lat=${lat}, lon=${lon}`);
 
         // 2. Query Overpass via native https (avoids axios encoding issues)
         const query = `[out:json][timeout:25];(node["shop"="musical_instrument"](around:15000,${lat},${lon});way["shop"="musical_instrument"](around:15000,${lat},${lon}););out center;`;
 
         const json = await overpassPost(query);
-        console.log(`[stores] Overpass returned ${json.elements?.length ?? 0} elements`);
-        return (json.elements ?? [])
+        const stores = (json.elements ?? [])
             .map((el: IOverpassElement): IStore | null => {
                 const elLat: number | undefined = el.lat ?? el.center?.lat;
                 const elLon: number | undefined = el.lon ?? el.center?.lon;
@@ -60,6 +57,8 @@ class StoreService {
                 };
             })
             .filter(Boolean) as IStore[];
+        this.cache.set(key, { data: stores, ts: Date.now() });
+        return stores;
     }
 
     private buildAddress(tags: IOverpassTags | undefined): string {

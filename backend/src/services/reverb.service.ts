@@ -19,13 +19,6 @@ class ReverbService {
             },
         });
 
-        console.log("[reverb] status:", res.status);
-        console.log("[reverb] listings count:", res.data?.listings?.length ?? 0);
-        const first = res.data?.listings?.[0];
-        if (first) {
-            console.log("[reverb] first title:", first.title);
-            console.log("[reverb] first photos:", JSON.stringify(first.photos?.[0]));
-        }
         return res.data.listings ?? [];
     }
 }

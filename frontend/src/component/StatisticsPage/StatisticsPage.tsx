@@ -155,9 +155,9 @@ function StatisticsPage(): JSX.Element {
                             <div className="stats-chart-box stats-chart-doughnut">
                                 <Doughnut
                                     data={{
-                                        labels: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
+                                        labels: stats.topModels.slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
                                         datasets: [{
-                                            data: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => m.count),
+                                            data: stats.topModels.slice(0, 10).map(m => m.count),
                                             backgroundColor: COLORS,
                                             borderColor: 'rgba(0,0,0,0.3)',
                                             borderWidth: 1,
@@ -191,10 +191,10 @@ function StatisticsPage(): JSX.Element {
                             <div className="stats-chart-box">
                                 <Bar
                                     data={{
-                                        labels: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
+                                        labels: stats.topModels.slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
                                         datasets: [{
                                             label: 'Listings',
-                                            data: [...stats.topModels].sort((a, b) => b.count - a.count).slice(0, 10).map(m => m.count),
+                                            data: stats.topModels.slice(0, 10).map(m => m.count),
                                             backgroundColor: COLORS,
                                         }],
                                     }}

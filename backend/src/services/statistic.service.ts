@@ -2,47 +2,60 @@ import { reverbService } from "./reverb.service";
 import { ListingStatModel } from "../models/listing-stat.model";
 import { IIngestBrand, IGuitarStats } from "../dto/statistic.dto";
 
-class StatisticService {
-    public async ingest(brands: IIngestBrand[]): Promise<number> {
-        const results = await Promise.all(
-            brands.map(({ brand, models }) =>
-                reverbService.searchListings(brand, 50).then(listings => ({ brand, models, listings }))
-            )
-        );
+const STATS_TTL = 10 * 60 * 1000;
 
-        let count: number = 0;
-        for (const { brand, models, listings } of results) {
-            for (const listing of listings) {
-                const price = parseFloat(listing.price?.amount ?? "0");
-                if (!price) continue;
-                const title: string = listing.title ?? "";
-                const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
-                await ListingStatModel.updateOne(
-                    { listingId: String(listing.id) },
-                    {
-                        $setOnInsert: {
-                            listingId: String(listing.id),
-                            brand,
-                            guitarModel,
-                            title,
-                            price,
-                            currency: listing.price?.currency ?? "USD",
-                            condition: listing.condition?.display_name ?? "",
-                            source: "Reverb",
-                            ingestedAt: new Date(),
+class StatisticService {
+    private statsCache: { data: IGuitarStats; ts: number } | null = null;
+
+    public async ingest(brands: IIngestBrand[]): Promise<number> {
+        this.statsCache = null;
+        let count = 0;
+        for (let i = 0; i < brands.length; i += 10) {
+            const chunk = brands.slice(i, i + 10);
+            const results = await Promise.all(
+                chunk.map(({ brand, models }) =>
+                    reverbService.searchListings(brand, 50).then(listings => ({ brand, models, listings }))
+                )
+            );
+            for (const { brand, models, listings } of results) {
+                const ops = listings.flatMap(listing => {
+                    const price = parseFloat(listing.price?.amount ?? "0");
+                    if (!price) return [];
+                    const title: string = listing.title ?? "";
+                    const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
+                    count++;
+                    return [{
+                        updateOne: {
+                            filter: { listingId: String(listing.id) },
+                            update: {
+                                $setOnInsert: {
+                                    listingId: String(listing.id),
+                                    brand,
+                                    guitarModel,
+                                    title,
+                                    price,
+                                    currency: listing.price?.currency ?? "USD",
+                                    condition: listing.condition?.display_name ?? "",
+                                    source: "Reverb",
+                                    ingestedAt: new Date(),
+                                },
+                            },
+                            upsert: true,
                         },
-                    },
-                    { upsert: true }
-                );
-                count++;
+                    }];
+                });
+                if (ops.length) await ListingStatModel.bulkWrite(ops, { ordered: false });
             }
         }
         return count;
     }
 
     public async getStats(): Promise<IGuitarStats> {
-        const [totalListings, byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, latest] = await Promise.all([
-            ListingStatModel.countDocuments(),
+        if (this.statsCache && Date.now() - this.statsCache.ts < STATS_TTL) {
+            return this.statsCache.data;
+        }
+
+        const [byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, latest] = await Promise.all([
             ListingStatModel.aggregate([
                 { $group: { _id: "$brand", count: { $sum: 1 }, avgPrice: { $avg: "$price" }, minPrice: { $min: "$price" }, maxPrice: { $max: "$price" } } },
                 { $sort: { count: -1 } },
@@ -94,7 +107,10 @@ class StatisticService {
             ListingStatModel.findOne().sort({ ingestedAt: -1 }).select("ingestedAt"),
         ]);
 
-        return { totalListings, byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, lastUpdated: latest?.ingestedAt ?? null };
+        const totalListings = byBrand.reduce((s: number, b: { count: number }) => s + b.count, 0);
+        const data: IGuitarStats = { totalListings, byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, lastUpdated: latest?.ingestedAt ?? null };
+        this.statsCache = { data, ts: Date.now() };
+        return data;
     }
 }
 
