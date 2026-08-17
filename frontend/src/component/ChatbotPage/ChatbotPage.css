@@ -330,14 +330,41 @@
 }
 
 @media (max-width: 768px) {
-    .chatbot-prompts-side {
-        display: none;
+    .chatbot-page-wrapper {
+        flex-direction: column;
+        align-items: center;
     }
 
     .chatbot-page {
         max-width: 94%;
-        height: calc(100vh - 130px);
-        margin: 10px auto;
+        height: calc(100vh - 210px);
+        margin: 10px auto 0;
+    }
+
+    .chatbot-prompts-side {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 94%;
+        padding-bottom: 10px;
+    }
+
+    .chatbot-prompts-inner {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-height: none;
+        gap: 8px;
+        padding: 10px 12px;
+    }
+
+    .chatbot-prompts-title {
+        display: none;
+    }
+
+    .chatbot-prompt-btn {
+        min-width: 170px;
+        flex-shrink: 0;
     }
 
     .chatbot-avatar {
