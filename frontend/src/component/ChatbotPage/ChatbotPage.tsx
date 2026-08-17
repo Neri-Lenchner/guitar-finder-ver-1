@@ -10,14 +10,7 @@ import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
 import {Unsubscribe} from "@reduxjs/toolkit";
 
-const SUGGESTED_PROMPTS: { en: string; he: string }[] = [
-    { en: 'Best guitar for beginners?', he: 'מה הגיטרה הטובה ביותר למתחילים?' },
-    { en: 'Fender vs Gibson — which to choose?', he: 'פנדר או גיבסון — מה לבחור?' },
-    { en: 'Top acoustics under $500?', he: 'גיטרות אקוסטיות מובילות עד $500?' },
-    { en: 'Single coil vs humbucker pickups?', he: 'סינגל קויל או המבאקר?' },
-    { en: 'How to improve fingerpicking technique?', he: 'איך לשפר טכניקת פינגרפיקינג?' },
-    { en: 'Good amp for home practice?', he: 'מגבר טוב לתרגול בבית?' },
-];
+import { SUGGESTED_PROMPTS } from '../../utils/chatbot-prompts';
 
 function formatTime(iso?: string): string {
     if (!iso) return '';
@@ -144,16 +137,6 @@ function ChatbotPage(): JSX.Element {
                         )}
                     </div>
                 ))}
-                {messages.length <= 1 && !isLoading && (
-                    <div className="chatbot-prompts">
-                        {SUGGESTED_PROMPTS.map(p => (
-                            <button key={p.en} className="chatbot-prompt-btn" onClick={() => sendPrompt(`${p.en}\n${p.he}`)}>
-                                <span>{p.en}</span>
-                                <span className="chatbot-prompt-he">{p.he}</span>
-                            </button>
-                        ))}
-                    </div>
-                )}
                 {isLoading && (
                     <div className="chatbot-msg chatbot-msg--bot">
                         <div className="chatbot-msg-text chatbot-typing">...</div>
@@ -176,6 +159,17 @@ function ChatbotPage(): JSX.Element {
                     className="chatbot-send-btn">
                     Send
                 </button>
+            </div>
+        </div>
+        <div className="chatbot-prompts-side">
+            <div className="chatbot-prompts-inner">
+                <h3 className="chatbot-prompts-title">Ask GuitarBot<br /><span>שאל את גיטרבוט</span></h3>
+                {SUGGESTED_PROMPTS.map(p => (
+                    <button key={p.en} className="chatbot-prompt-btn" onClick={() => sendPrompt(`${p.en}\n${p.he}`)}>
+                        <span>{p.en}</span>
+                        <span className="chatbot-prompt-he">{p.he}</span>
+                    </button>
+                ))}
             </div>
         </div>
         </div>
