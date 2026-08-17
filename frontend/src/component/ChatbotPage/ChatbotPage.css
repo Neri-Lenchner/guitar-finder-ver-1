@@ -249,6 +249,10 @@
 .chatbot-prompt-btn:hover {
     background: rgba(8, 145, 178, 0.55);
     border-color: #22d3ee;
+    color: #22d3ee;
+}
+
+.chatbot-prompt-btn:hover .chatbot-prompt-he {
     color: #ffffff;
 }
 
