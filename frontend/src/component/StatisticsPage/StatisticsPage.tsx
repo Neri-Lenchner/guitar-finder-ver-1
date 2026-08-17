@@ -155,9 +155,9 @@ function StatisticsPage(): JSX.Element {
                             <div className="stats-chart-box stats-chart-doughnut">
                                 <Doughnut
                                     data={{
-                                        labels: stats.topModels.slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
+                                        labels: stats.byCondition.map(c => c.condition || 'Unknown'),
                                         datasets: [{
-                                            data: stats.topModels.slice(0, 10).map(m => m.count),
+                                            data: stats.byCondition.map(c => c.count),
                                             backgroundColor: COLORS,
                                             borderColor: 'rgba(0,0,0,0.3)',
                                             borderWidth: 1,
@@ -167,7 +167,7 @@ function StatisticsPage(): JSX.Element {
                                         responsive: true,
                                         plugins: {
                                             legend: { position: 'bottom', labels: { color: '#e8e8f0', boxWidth: 12 } },
-                                            title: { display: true, text: 'Top Sold Guitar Models', color: '#e8e8f0', font: { size: 14 } },
+                                            title: { display: true, text: 'Listings by Condition', color: '#e8e8f0', font: { size: 14 } },
                                         },
                                     }}
                                 />
