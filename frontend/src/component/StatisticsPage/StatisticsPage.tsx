@@ -197,6 +197,7 @@ function StatisticsPage(): JSX.Element {
                                             <th>Brand</th>
                                             <th>Model</th>
                                             <th>Listings</th>
+                                            <th>Avg Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -206,6 +207,7 @@ function StatisticsPage(): JSX.Element {
                                                 <td>{m.brand}</td>
                                                 <td>{m.model || '—'}</td>
                                                 <td className="stats-table-count">{m.count}</td>
+                                                <td className="stats-table-price">${m.avgPrice.toLocaleString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>
