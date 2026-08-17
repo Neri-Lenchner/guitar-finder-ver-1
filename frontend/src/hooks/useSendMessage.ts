@@ -7,21 +7,22 @@ export function useSendMessage(onAfterClear?: () => void) {
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    async function sendMessage(): Promise<void> {
-        if (!inputText.trim() || isLoading) return;
+    async function sendMessage(text?: string): Promise<void> {
+        const messageText = text ?? inputText;
+        if (!messageText.trim() || isLoading) return;
 
         const history: IMessage[] = chatStore.getState().messages;
-        const userMessage: IMessage = { id: crypto.randomUUID(), text: inputText, sender: 'user' };
+        const userMessage: IMessage = { id: crypto.randomUUID(), text: messageText, sender: 'user', timestamp: new Date().toISOString() };
         chatStore.dispatch({ type: ChatActionType.AddMessage, payload: userMessage });
-        setInputText('');
+        if (!text) setInputText('');
         onAfterClear?.();
         setIsLoading(true);
 
         try {
-            const reply: string = await chatService.sendMessage(inputText, history);
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot' } });
+            const reply: string = await chatService.sendMessage(messageText, history);
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: reply, sender: 'bot', timestamp: new Date().toISOString() } });
         } catch {
-            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot' } });
+            chatStore.dispatch({ type: ChatActionType.AddMessage, payload: { id: crypto.randomUUID(), text: 'Sorry, something went wrong.', sender: 'bot', timestamp: new Date().toISOString() } });
         } finally {
             setIsLoading(false);
         }

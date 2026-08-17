@@ -1,4 +1,4 @@
-import React, { JSX, useState, useRef, useEffect } from 'react';
+import React, { JSX, useState, useRef, useEffect, useCallback } from 'react';
 import { appConfig } from '../../utils/app-config';
 import { chatStore, ChatActionType } from '../../state/chat.state';
 import { authStore } from '../../state/auth.state';
@@ -10,11 +10,26 @@ import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
 import {Unsubscribe} from "@reduxjs/toolkit";
 
+const SUGGESTED_PROMPTS: { en: string; he: string }[] = [
+    { en: 'Best guitar for beginners?', he: 'מה הגיטרה הטובה ביותר למתחילים?' },
+    { en: 'Fender vs Gibson — which to choose?', he: 'פנדר או גיבסון — מה לבחור?' },
+    { en: 'Top acoustics under $500?', he: 'גיטרות אקוסטיות מובילות עד $500?' },
+    { en: 'Single coil vs humbucker pickups?', he: 'סינגל קויל או המבאקר?' },
+    { en: 'How to improve fingerpicking technique?', he: 'איך לשפר טכניקת פינגרפיקינג?' },
+    { en: 'Good amp for home practice?', he: 'מגבר טוב לתרגול בבית?' },
+];
+
+function formatTime(iso?: string): string {
+    if (!iso) return '';
+    return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 function ChatbotPage(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(chatStore.getState().messages);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [user, setUser] = useState(authStore.getState().user);
+    const [copiedId, setCopiedId] = useState<string | null>(null);
     const { inputText, setInputText, isLoading, sendMessage } = useSendMessage(
         () => { if (textareaRef.current) textareaRef.current.style.height = 'auto'; }
     );
@@ -40,6 +55,27 @@ function ChatbotPage(): JSX.Element {
     function clearChat(): void {
         chatStore.dispatch({ type: ChatActionType.ClearMessages });
     }
+
+    function copyMessage(msg: IMessage): void {
+        navigator.clipboard.writeText(msg.text);
+        setCopiedId(msg.id);
+        setTimeout(() => setCopiedId(null), 2000);
+    }
+
+    function exportChat(): void {
+        const text = messages
+            .map(m => `[${m.sender === 'bot' ? 'GuitarBot' : 'You'}]${m.timestamp ? ' ' + formatTime(m.timestamp) : ''}\n${m.text}`)
+            .join('\n\n');
+        const blob = new Blob([text], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'guitarbot-chat.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    const sendPrompt = useCallback((prompt: string) => { void sendMessage(prompt); }, [sendMessage]);
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {
         if (event.key === 'Enter' && !event.shiftKey) {
@@ -69,13 +105,14 @@ function ChatbotPage(): JSX.Element {
                         Your personal guitar assistant
                     </p>
                 </div>
-                {messages.length > 0 && (
-                    <button
-                        className="chatbot-clear-btn"
-                        onClick={clearChat}>
-                        Clear
-                    </button>
-                )}
+                <div className="chatbot-header-actions">
+                    {messages.length > 1 && (
+                        <button className="chatbot-export-btn" onClick={exportChat}>Export</button>
+                    )}
+                    {messages.length > 0 && (
+                        <button className="chatbot-clear-btn" onClick={clearChat}>Clear</button>
+                    )}
+                </div>
             </div>
             <div
                 className="chatbot-page-messages"
@@ -85,26 +122,38 @@ function ChatbotPage(): JSX.Element {
                         key={msg.id}
                         className={`chatbot-msg chatbot-msg--${msg.sender}`}>
                         {msg.sender === 'bot' && (
-                            <img
-                                src={RobotImage}
-                                className="chatbot-avatar"
-                                alt="GuitarBot"
-                            />
+                            <img src={RobotImage} className="chatbot-avatar" alt="GuitarBot" />
                         )}
-                        <div
-                            className="chatbot-msg-text"
-                            dir="auto">
-                            {msg.text}
+                        <div className="chatbot-msg-wrapper">
+                            <div className="chatbot-msg-text" dir="auto">{msg.text}</div>
+                            <div className="chatbot-msg-meta">
+                                {msg.sender === 'bot' && (
+                                    <button
+                                        className="chatbot-copy-btn"
+                                        onClick={() => copyMessage(msg)}>
+                                        {copiedId === msg.id ? 'Copied! / הועתק!' : 'Copy / העתק'}
+                                    </button>
+                                )}
+                                {msg.timestamp && (
+                                    <span className="chatbot-timestamp">{formatTime(msg.timestamp)}</span>
+                                )}
+                            </div>
                         </div>
                         {msg.sender === 'user' && (
-                            <img
-                                src={userAvatar}
-                                className="chatbot-avatar"
-                                alt={user?.firstName}
-                            />
+                            <img src={userAvatar} className="chatbot-avatar" alt={user?.firstName} />
                         )}
                     </div>
                 ))}
+                {messages.length <= 1 && !isLoading && (
+                    <div className="chatbot-prompts">
+                        {SUGGESTED_PROMPTS.map(p => (
+                            <button key={p.en} className="chatbot-prompt-btn" onClick={() => sendPrompt(`${p.en}\n${p.he}`)}>
+                                <span>{p.en}</span>
+                                <span className="chatbot-prompt-he">{p.he}</span>
+                            </button>
+                        ))}
+                    </div>
+                )}
                 {isLoading && (
                     <div className="chatbot-msg chatbot-msg--bot">
                         <div className="chatbot-msg-text chatbot-typing">...</div>
