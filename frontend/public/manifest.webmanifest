@@ -1,0 +1,17 @@
+{
+  "name": "Guitar Finder",
+  "short_name": "GuitarFinder",
+  "description": "Find guitars, gear, and expert advice all in one place.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a081e",
+  "theme_color": "#16a34a",
+  "icons": [
+    {
+      "src": "/guitar-pick.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
