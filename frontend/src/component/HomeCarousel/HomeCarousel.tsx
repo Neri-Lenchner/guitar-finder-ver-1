@@ -64,7 +64,7 @@ function HomeCarousel(): JSX.Element {
                                 key={brand.id}
                                 className="carousel-3d-item"
                                 style={{ '--position': i + 1 } as React.CSSProperties}
-                                onClick={() => navigate('/guitars')}
+                                onClick={() => navigate(`/guitars?search=${encodeURIComponent(brand.name)}`)}
                             >
                                 <div className="brand-3d-card" style={{ background: style.bg }}>
                                     <div className="brand-3d-logo">{logo}</div>
