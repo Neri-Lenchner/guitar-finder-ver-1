@@ -7,9 +7,10 @@ const STATS_TTL = 10 * 60 * 1000;
 class StatisticService {
     private statsCache: { data: IGuitarStats; ts: number } | null = null;
 
-    public async ingest(brands: IIngestBrand[]): Promise<number> {
+    public async ingest(brands: IIngestBrand[]): Promise<{ count: number; matched: number }> {
         this.statsCache = null;
         let count = 0;
+        let matched = 0;
         for (let i = 0; i < brands.length; i += 10) {
             const chunk = brands.slice(i, i + 10);
             const results = await Promise.all(
@@ -23,15 +24,16 @@ class StatisticService {
                     if (!price) return [];
                     const title: string = listing.title ?? "";
                     const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
+                    if (guitarModel) matched++;
                     count++;
                     return [{
                         updateOne: {
                             filter: { listingId: String(listing.id) },
                             update: {
+                                $set: { guitarModel },
                                 $setOnInsert: {
                                     listingId: String(listing.id),
                                     brand,
-                                    guitarModel,
                                     title,
                                     price,
                                     currency: listing.price?.currency ?? "USD",
@@ -47,7 +49,7 @@ class StatisticService {
                 if (ops.length) await ListingStatModel.bulkWrite(ops, { ordered: false });
             }
         }
-        return count;
+        return { count, matched };
     }
 
     public async getStats(): Promise<IGuitarStats> {
@@ -67,6 +69,7 @@ class StatisticService {
                 { $project: { _id: 0, condition: "$_id", count: 1 } },
             ]),
             ListingStatModel.aggregate([
+                { $match: { guitarModel: { $ne: "" } } },
                 { $group: { _id: { brand: "$brand", guitarModel: "$guitarModel" }, count: { $sum: 1 }, avgPrice: { $avg: "$price" } } },
                 { $sort: { count: -1 } },
                 { $limit: 10 },

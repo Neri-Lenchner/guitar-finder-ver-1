@@ -188,18 +188,28 @@ function StatisticsPage(): JSX.Element {
                                     options={darkChartOptions('Price Distribution')}
                                 />
                             </div>
-                            <div className="stats-chart-box">
-                                <Bar
-                                    data={{
-                                        labels: stats.topModels.slice(0, 10).map(m => `${m.brand} ${m.model || ''}`.trim()),
-                                        datasets: [{
-                                            label: 'Listings',
-                                            data: stats.topModels.slice(0, 10).map(m => m.count),
-                                            backgroundColor: COLORS,
-                                        }],
-                                    }}
-                                    options={darkChartOptions('Top Sold Guitar Models')}
-                                />
+                            <div className="stats-chart-box stats-models-table-box">
+                                <h3 className="stats-table-title">Top Sold Guitar Models</h3>
+                                <table className="stats-models-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Brand</th>
+                                            <th>Model</th>
+                                            <th>Listings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.topModels.slice(0, 10).map((m, i) => (
+                                            <tr key={i}>
+                                                <td className="stats-table-rank">{i + 1}</td>
+                                                <td>{m.brand}</td>
+                                                <td>{m.model || '—'}</td>
+                                                <td className="stats-table-count">{m.count}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 

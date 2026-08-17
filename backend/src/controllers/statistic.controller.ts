@@ -12,8 +12,8 @@ class StatisticController {
     private ingest = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
         try {
             const { brands } = request.body;
-            const count = await statisticService.ingest(brands);
-            response.json({ message: `Ingested ${count} listings` });
+            const { count, matched } = await statisticService.ingest(brands);
+            response.json({ message: `Ingested ${count} listings`, matched });
         } catch (error) { next(error); }
     };
 
