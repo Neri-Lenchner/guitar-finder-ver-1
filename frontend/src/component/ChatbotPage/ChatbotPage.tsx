@@ -56,11 +56,14 @@ function ChatbotPage(): JSX.Element {
     }
 
     function exportChat(): void {
-        const text = messages
-            .map(m => `[${m.sender === 'bot' ? 'GuitarBot' : 'You'}]${m.timestamp ? ' ' + formatTime(m.timestamp) : ''}\n${m.text}`)
+        const text: string = messages
+            .map((m: IMessage): string => `[${m.sender === 'bot' 
+                ? 'GuitarBot' : 'You'}]${m.timestamp 
+                ? ' ' + formatTime(m.timestamp) 
+                : ''}\n${m.text}`)
             .join('\n\n');
         const blob = new Blob([text], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
+        const url: string = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = 'guitarbot-chat.txt';
