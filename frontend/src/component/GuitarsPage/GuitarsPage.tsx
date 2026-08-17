@@ -46,6 +46,20 @@ function GuitarsPage(): JSX.Element {
     const modelsSectionRef = useRef<HTMLDivElement>(null);
     const user = authService.getLoggedInUser();
 
+    const visibleModels = selectedBrand
+        ? (searchQuery && !selectedBrand.name.toLowerCase().includes(searchQuery)
+            ? selectedBrand.models.filter(m => m.name.toLowerCase().includes(searchQuery))
+            : selectedBrand.models)
+        : [];
+
+    useEffect(() => {
+        setSelectedBrand(null);
+        setSelectedModel(null);
+        setListings([]);
+        setListingsError('');
+        setModelImages({});
+    }, [searchQuery]);
+
     useEffect(() => {
         if (selectedBrand) {
             modelsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -72,11 +86,15 @@ function GuitarsPage(): JSX.Element {
         setListingsError('');
         setModelImages({});
 
+        const modelsToLoad = searchQuery && !brand.name.toLowerCase().includes(searchQuery)
+            ? brand.models.filter(m => m.name.toLowerCase().includes(searchQuery))
+            : brand.models;
+
         const initialLoading: Record<string, boolean> = {};
-        brand.models.forEach(m => { initialLoading[m.name] = true; });
+        modelsToLoad.forEach(m => { initialLoading[m.name] = true; });
         setLoadingImages(initialLoading);
 
-        await Promise.all(brand.models.map(async (model) => {
+        await Promise.all(modelsToLoad.map(async (model) => {
             try {
                 const results = await reverbService.searchListings(brand.name, model.name);
                 const photo = results[0]?.photos?.[0]?._links?.thumbnail?.href;
@@ -150,7 +168,7 @@ function GuitarsPage(): JSX.Element {
                     <div className="models-section" ref={modelsSectionRef}>
                         <h2 className="models-title">{selectedBrand.name} Models</h2>
                         <div className="models-grid">
-                            {selectedBrand.models.map(model => (
+                            {visibleModels.map(model => (
                                 <div
                                     key={model.name}
                                     className={`model-card${selectedModel?.name === model.name ? ' model-card--active' : ''}`}
