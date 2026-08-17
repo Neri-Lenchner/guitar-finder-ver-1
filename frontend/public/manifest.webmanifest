@@ -8,10 +8,10 @@
   "theme_color": "#16a34a",
   "icons": [
     {
-      "src": "/guitar-pick.png",
-      "sizes": "128x128",
+      "src": "/app-icon.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }

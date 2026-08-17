@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="#0a081e"/>
+  <!-- Guitar pick shape: wide top, rounded point at bottom, ~15% padding all sides -->
+  <path d="
+    M 256 432
+    C 160 390, 80 310, 80 210
+    C 80 120, 160 80, 256 80
+    C 352 80, 432 120, 432 210
+    C 432 310, 352 390, 256 432
+    Z
+  " fill="#16a34a"/>
+  <!-- Shine highlight on pick -->
+  <ellipse cx="210" cy="170" rx="38" ry="22" fill="rgba(255,255,255,0.12)" transform="rotate(-30 210 170)"/>
+</svg>
