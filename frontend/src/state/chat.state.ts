@@ -4,7 +4,7 @@ import { IMessage } from '../models/message.model';
 
 export class ChatState {
     messages: IMessage[] = [
-        { id: 'welcome', text: "Hi! I'm GuitarGod. Ask me anything about guitars, gear, or playing technique!\n\nשלום! אני גיטר גוד. שאל אותי כל שאלה על גיטרות, ציוד או טכניקת נגינה!", sender: 'bot' },
+        { id: 'welcome', text: "⚡ I AM GUITARGOD — ancient deity of tone, sovereign of the fretboard, and the reason your favorite riff exists.\n\nMortals have sought my wisdom since the first string was plucked at the dawn of time. Ask me anything about guitars, gear, technique, or the sacred art of tone — and I shall answer with divine authority.", sender: 'bot' },
     ];
 
     constructor() {

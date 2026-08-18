@@ -127,7 +127,7 @@ function ChatbotPage(): JSX.Element {
                                     <button
                                         className="chatbot-copy-btn"
                                         onClick={() => copyMessage(msg)}>
-                                        {copiedId === msg.id ? 'Copied! / הועתק!' : 'Copy / העתק'}
+                                        {copiedId === msg.id ? 'Copied!' : 'Copy'}
                                     </button>
                                 )}
                                 {msg.timestamp && (
