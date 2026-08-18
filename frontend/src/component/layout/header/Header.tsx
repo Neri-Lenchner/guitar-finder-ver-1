@@ -73,7 +73,7 @@ function Header(): JSX.Element {
                         </svg>
                     </div>
                     <button className="header-search-btn" onClick={handleSearch}>Search</button>
-                    <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>
+                    <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarGod</NavLink>
                 </div>
             )}
             <button className="header-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
@@ -101,7 +101,7 @@ function Header(): JSX.Element {
                         <button className="header-search-btn" onClick={() => { handleSearch(); close(); }}>Search</button>
                     </div>
                 )}
-                {user && <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarBot</NavLink>}
+                {user && <NavLink to="/chatbot" className="header-chatbot-link" onClick={close}>GuitarGod</NavLink>}
                 <NavLink to="/home" onClick={close}>Home</NavLink>
                 {user && <NavLink to="/guitars" onClick={close}>Guitars</NavLink>}
                 {user && <NavLink to="/search" onClick={close}>Find Stores</NavLink>}

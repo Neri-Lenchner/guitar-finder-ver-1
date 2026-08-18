@@ -249,7 +249,7 @@
 .chatbot-prompt-btn:hover {
     background: rgba(8, 145, 178, 0.55);
     border-color: #22d3ee;
-    color: #22d3ee;
+    color: #000000;
 }
 
 .chatbot-prompt-btn:hover .chatbot-prompt-he {
@@ -389,8 +389,11 @@
         height: 38px;
     }
 
+    .chatbot-msg-wrapper {
+        max-width: calc(100% - 50px);
+    }
+
     .chatbot-msg-text {
-        max-width: 50%;
         font-size: 19px;
         font-weight: 700;
         padding: 12px 16px;

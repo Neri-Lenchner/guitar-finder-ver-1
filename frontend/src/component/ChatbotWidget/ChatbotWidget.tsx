@@ -5,7 +5,7 @@ import { appConfig } from '../../utils/app-config';
 import { chatStore } from '../../state/chat.state';
 import { IMessage } from '../../models/message.model';
 import { useSendMessage } from '../../hooks/useSendMessage';
-import RobotImage from '../../assets/Chatbot-img.png';
+import guitarGodImage from '../../assets/guitar-god-face.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import './ChatbotWidget.css';
 import {IUser} from "../../models/user.model.ts";
@@ -49,7 +49,7 @@ function ChatbotWidget(): JSX.Element | null {
                 <div className="widget-panel">
                     <div className="widget-header">
                         <span>
-                            GuitarBot
+                            GuitarGod
                         </span>
                     </div>
                     <div className="widget-messages">
@@ -59,9 +59,9 @@ function ChatbotWidget(): JSX.Element | null {
                                 className={`widget-msg widget-msg--${msg.sender}`}>
                                 {msg.sender === 'bot' && (
                                     <img
-                                        src={RobotImage}
+                                        src={guitarGodImage}
                                         className="widget-avatar"
-                                        alt="GuitarBot"
+                                        alt="GuitarGod"
                                     />
                                 )}
                                 <div

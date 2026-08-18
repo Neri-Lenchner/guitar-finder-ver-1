@@ -4,7 +4,7 @@ import { chatStore, ChatActionType } from '../../state/chat.state';
 import { authStore } from '../../state/auth.state';
 import { IMessage } from '../../models/message.model';
 import { useSendMessage } from '../../hooks/useSendMessage';
-import RobotImage from '../../assets/Chatbot-img.png';
+import guitarGodImage from '../../assets/guitar-god-face.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import commandCenter from '../../assets/guitar-command-center.jpg';
 import './ChatbotPage.css';
@@ -58,7 +58,7 @@ function ChatbotPage(): JSX.Element {
     function exportChat(): void {
         const text: string = messages
             .map((m: IMessage): string => `[${m.sender === 'bot' 
-                ? 'GuitarBot' : 'You'}]${m.timestamp 
+                ? 'GuitarGod' : 'You'}]${m.timestamp 
                 ? ' ' + formatTime(m.timestamp) 
                 : ''}\n${m.text}`)
             .join('\n\n');
@@ -66,7 +66,7 @@ function ChatbotPage(): JSX.Element {
         const url: string = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'guitarbot-chat.txt';
+        a.download = 'guitar-god-chat.txt';
         a.click();
         URL.revokeObjectURL(url);
     }
@@ -95,7 +95,7 @@ function ChatbotPage(): JSX.Element {
             <div className="chatbot-page-header">
                 <div className="chatbot-header-content">
                     <h1>
-                        GuitarBot
+                        GuitarGod
                     </h1>
                     <p>
                         Your personal guitar assistant
@@ -118,7 +118,7 @@ function ChatbotPage(): JSX.Element {
                         key={msg.id}
                         className={`chatbot-msg chatbot-msg--${msg.sender}`}>
                         {msg.sender === 'bot' && (
-                            <img src={RobotImage} className="chatbot-avatar" alt="GuitarBot" />
+                            <img src={guitarGodImage} className="chatbot-avatar" alt="GuitarGod" />
                         )}
                         <div className="chatbot-msg-wrapper">
                             <div className="chatbot-msg-text" dir="auto">{msg.text}</div>
@@ -166,7 +166,7 @@ function ChatbotPage(): JSX.Element {
         </div>
         <div className="chatbot-prompts-side">
             <div className="chatbot-prompts-inner">
-                <h3 className="chatbot-prompts-title">Ask GuitarBot<br /><span>שאל את גיטרבוט</span></h3>
+                <h3 className="chatbot-prompts-title">Ask GuitarGod<br /><span>שאל את גיטר גוד</span></h3>
                 {SUGGESTED_PROMPTS.map(p => (
                     <button key={p.en} className="chatbot-prompt-btn" onClick={() => sendPrompt(`${p.en}\n${p.he}`)}>
                         <span>{p.en}</span>
