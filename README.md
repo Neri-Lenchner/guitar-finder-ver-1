@@ -13,10 +13,11 @@ An AI-powered guitar discovery platform. Browse 40 guitar brands and their model
 - **Reverb Integration** — real marketplace listings with price, condition, and photos
 - **My Guitars (Watchlist)** — save and manage followed Reverb listings, persisted to MongoDB
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
-- **GuitarBot** — floating AI chat assistant powered by OpenAI, with full conversation context and chat history persistence
+- **GuitarGod** — floating AI chat assistant powered by OpenAI, with full conversation context and chat history persistence
 - **Authentication** — register, login, profile editing with avatar upload
 - **Market Statistics** — live guitar market data from Reverb with bar/doughnut charts (avg price by brand, price distribution, top models, listings by condition)
 - **Client-side Caching** — 5-minute cache on Reverb and store API calls
+- **PWA Support** — installable as a home screen app on mobile
 
 ---
 
@@ -166,7 +167,7 @@ The app will be available at `http://localhost:5173`.
 |---|---|---|
 | `MONGODB_CONNECTION_STRING` | Yes | MongoDB connection URI |
 | `JWT_SECRET_KEY` | Yes | Secret key for signing JWTs |
-| `OPENAI_API_KEY` | Yes | OpenAI API key for GuitarBot |
+| `OPENAI_API_KEY` | Yes | OpenAI API key for GuitarGod |
 | `REVERB_API_TOKEN` | No | Reverb personal access token for listings |
 | `PORT` | No | Backend port (default: 4000) |
 
@@ -183,7 +184,7 @@ The app will be available at `http://localhost:5173`.
 | PUT | `/api/users/:id` | Yes | Update profile |
 | GET | `/api/stores?city=...` | No | Find music stores by city |
 | GET | `/api/reverb?query=...` | No | Search Reverb listings |
-| POST | `/api/chat` | Yes | Send message to GuitarBot |
+| POST | `/api/chat` | Yes | Send message to GuitarGod |
 | GET | `/api/followed` | Yes | Get user's followed listings |
 | POST | `/api/followed` | Yes | Follow a listing |
 | DELETE | `/api/followed/:listingId` | Yes | Unfollow a listing |
