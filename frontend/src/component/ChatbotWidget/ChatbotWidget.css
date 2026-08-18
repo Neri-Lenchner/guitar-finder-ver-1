@@ -202,7 +202,7 @@
 @media (max-width: 768px) {
     .chatbot-widget {
         bottom: 16px;
-        right: 16px;
+        right: 6px;
     }
 
     .menu-open .chatbot-widget {

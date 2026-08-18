@@ -166,7 +166,7 @@ function ChatbotPage(): JSX.Element {
         </div>
         <div className="chatbot-prompts-side">
             <div className="chatbot-prompts-inner">
-                <h3 className="chatbot-prompts-title">Ask GuitarGod<br /><span>שאל את גיטר גוד</span></h3>
+                <h3 className="chatbot-prompts-title">Ask GuitarGod<br /><span>שאל את גיטראל</span></h3>
                 {SUGGESTED_PROMPTS.map(p => (
                     <button key={p.en} className="chatbot-prompt-btn" onClick={() => sendPrompt(`${p.en}\n${p.he}`)}>
                         <span>{p.en}</span>
