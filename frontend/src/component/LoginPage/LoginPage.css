@@ -107,12 +107,12 @@
 }
 
 .password-toggle:hover {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .login-form button:not(.password-toggle) {
     padding: 12px;
-    background-color: #16a329;
+    background-color: #02a31d;
     color: white;
     border: none;
     border-radius: 8px;
@@ -121,7 +121,7 @@
 }
 
 .login-form button:not(.password-toggle):hover {
-    background-color: #158023;
+    background-color: #028016;
 }
 
 .login-card p {

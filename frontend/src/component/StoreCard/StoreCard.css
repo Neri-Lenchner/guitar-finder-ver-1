@@ -143,8 +143,8 @@
 }
 
 .store-map-btn:hover {
-    background-color: #16a329;
+    background-color: #02a31d;
     color: #fff;
-    border-color: #16a329;
-    box-shadow: 0 0 12px rgba(22, 163, 41, 0.4);
+    border-color: #02a31d;
+    box-shadow: 0 0 12px rgba(2, 163, 29, 0.4);
 }

@@ -24,7 +24,7 @@
     width: auto;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 0 8px rgba(22, 163, 41, 0.7)) drop-shadow(0 0 20px rgba(22, 163, 41, 0.35));
+    filter: drop-shadow(0 0 8px rgba(2, 163, 29, 0.7)) drop-shadow(0 0 20px rgba(2, 163, 29, 0.35));
 }
 
 .header-search {
@@ -66,7 +66,7 @@
 }
 
 .header-search-input:focus {
-    border-color: #16a329;
+    border-color: #02a31d;
 }
 
 .header-search-btn {
@@ -99,7 +99,7 @@
 }
 
 .header-links a:hover {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .header-greeting {
@@ -114,8 +114,8 @@
 }
 
 .header-login-btn {
-    border: 1px solid #16a329;
-    color: #16a329 !important;
+    border: 1px solid #02a31d;
+    color: #02a31d !important;
     padding: 6px 14px;
     border-radius: 6px;
     font-size: 14px;
@@ -124,7 +124,7 @@
 }
 
 .header-login-btn:hover {
-    background-color: #16a329;
+    background-color: #02a31d;
     color: white !important;
 }
 
@@ -159,7 +159,7 @@
 }
 
 .header-avatar-link:hover .header-username {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .header-avatar {
@@ -167,7 +167,7 @@
     height: 34px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #16a329;
+    border: 2px solid #02a31d;
 }
 
 .header-hamburger {
@@ -191,7 +191,7 @@
 }
 
 .header-hamburger:hover span {
-    background-color: #16a329;
+    background-color: #02a31d;
 }
 
 .header-search-mobile {
@@ -199,7 +199,7 @@
 }
 
 .header-links a.active {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .header-chatbot-link {

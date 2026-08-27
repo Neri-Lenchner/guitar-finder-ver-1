@@ -36,12 +36,12 @@
 }
 
 .pagination-btn:hover:not(:disabled) {
-    color: #4ade5e;
+    color: #03de27;
 }
 
 .pagination-btn--active {
     background-color: transparent;
-    color: #166521;
+    color: #016512;
 }
 
 .pagination-btn--nav {
@@ -51,7 +51,7 @@
 }
 
 .pagination-btn--nav:hover:not(:disabled) {
-    color: #4ade5e;
+    color: #03de27;
 }
 
 .pagination-btn:disabled {

@@ -35,7 +35,7 @@
 }
 
 .guitars-title span {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .guitars-subtitle {
@@ -46,7 +46,7 @@
 
 .guitars-search-info {
     font-size: 13px;
-    color: #16a329;
+    color: #02a31d;
     margin: 8px 0 0;
 }
 
@@ -74,15 +74,15 @@
 
 .brand-card:hover {
     border-color: #555;
-    border-top-color: #16a329;
+    border-top-color: #02a31d;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .brand-card--active {
     border-color: #555;
-    border-top-color: #16a329;
+    border-top-color: #02a31d;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(135deg, #14531c 0%, #0f3d15 100%);
+    background: linear-gradient(135deg, #01530f 0%, #013d0b 100%);
 }
 
 .brand-card--active .brand-card-name {
@@ -137,7 +137,7 @@
 }
 
 .model-card--active {
-    border-top-color: #16a329;
+    border-top-color: #02a31d;
 }
 
 .model-card-img {
@@ -205,10 +205,10 @@
 }
 
 .model-reverb-btn:hover {
-    background: #16a329;
-    border-color: #16a329;
+    background: #02a31d;
+    border-color: #02a31d;
     color: #fff;
-    box-shadow: 0 0 10px rgba(22, 163, 41, 0.4);
+    box-shadow: 0 0 10px rgba(2, 163, 29, 0.4);
 }
 
 /* Reverb section */
@@ -282,7 +282,7 @@
 }
 
 .reverb-card-title:hover {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .reverb-card-meta {
@@ -295,7 +295,7 @@
 .reverb-card-price {
     font-size: 14px;
     font-weight: 700;
-    color: #16a329;
+    color: #02a31d;
 }
 
 .reverb-follow-btn {
@@ -313,14 +313,14 @@
 }
 
 .reverb-follow-btn:hover {
-    border-color: #16a329;
-    color: #16a329;
+    border-color: #02a31d;
+    color: #02a31d;
 }
 
 .reverb-follow-btn--active {
-    border-color: #16a329;
-    color: #16a329;
-    background: rgba(22, 163, 41, 0.08);
+    border-color: #02a31d;
+    color: #02a31d;
+    background: rgba(2, 163, 29, 0.08);
 }
 
 .reverb-card-condition {

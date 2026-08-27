@@ -32,7 +32,7 @@
 }
 
 .search-title span {
-    color: #4ade5e;
+    color: #03de27;
 }
 
 .search-subtitle {
@@ -66,12 +66,12 @@
 }
 
 .search-input:focus {
-    border-color: #4ade5e;
+    border-color: #03de27;
 }
 
 .search-btn {
     padding: 12px 24px;
-    background-color: #16a329;
+    background-color: #02a31d;
     color: white;
     border: none;
     border-radius: 8px;
@@ -82,7 +82,7 @@
 }
 
 .search-btn:hover:not(:disabled) {
-    background-color: #158023;
+    background-color: #028016;
 }
 
 .search-btn:disabled {

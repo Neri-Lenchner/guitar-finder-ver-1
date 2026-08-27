@@ -41,7 +41,7 @@
 }
 
 .stats-title span {
-    color: #16a329;
+    color: #02a31d;
 }
 
 .stats-subtitle {
@@ -58,7 +58,7 @@
 
 .stats-ingest-btn {
     padding: 10px 24px;
-    background: #16a329;
+    background: #02a31d;
     color: white;
     border: none;
     border-radius: 6px;
@@ -71,7 +71,7 @@
 }
 
 .stats-ingest-btn:hover:not(:disabled) {
-    background: #158023;
+    background: #028016;
 }
 
 .stats-ingest-btn:disabled {
@@ -81,7 +81,7 @@
 
 .stats-ingest-msg {
     font-size: 13px;
-    color: #16a329;
+    color: #02a31d;
     margin: -16px 0 24px;
 }
 
@@ -191,7 +191,7 @@
 }
 
 .stats-models-table tbody tr:hover td {
-    background: rgba(22, 163, 41, 0.07);
+    background: rgba(2, 163, 29, 0.07);
 }
 
 .stats-table-rank {
@@ -207,7 +207,7 @@
 
 .stats-table-price {
     font-weight: 700;
-    color: #16a329;
+    color: #02a31d;
 }
 
 .stats-chart-doughnut {

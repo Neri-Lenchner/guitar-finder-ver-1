@@ -36,7 +36,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tool
 const brands: IBrand[] = guitarsData as IBrand[];
 
 const COLORS = [
-    '#16a34a', '#60a5fa', '#facc15', '#a78bfa',
+    '#02a31d', '#60a5fa', '#facc15', '#a78bfa',
     '#f472b6', '#fb923c', '#34d399', '#f87171',
     '#38bdf8', '#c084fc', '#4ade80', '#fbbf24',
 ];
@@ -182,7 +182,7 @@ function StatisticsPage(): JSX.Element {
                                         datasets: [{
                                             label: 'Number of Listings',
                                             data: stats.priceHistogram.map(b => b.count),
-                                            backgroundColor: '#16a34a',
+                                            backgroundColor: '#02a31d',
                                         }],
                                     }}
                                     options={darkChartOptions('Price Distribution')}
