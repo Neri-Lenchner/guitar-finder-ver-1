@@ -2,6 +2,8 @@
 
 An AI-powered guitar discovery platform. Browse 40 guitar brands and their models, find real listings on Reverb, save favourites to your personal watchlist, locate music stores near you, and chat with an AI guitar assistant.
 
+What sets GuitarFinder apart is how intuitive it is. Everything sits where you'd expect it to, so finding your way from a brand to the exact listing you want never feels like work. Wander between brands, save the guitars you fall for, and pick your search back up right where you left it. And it's guitars, only guitars. The whole app is built around this one instrument.
+
 **Live:** https://lucid-wholeness-production-0cba.up.railway.app
 
 ---
