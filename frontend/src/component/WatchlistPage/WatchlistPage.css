@@ -30,7 +30,7 @@
 }
 
 .watchlist-title span {
-    color: #16a34a;
+    color: #16a329;
 }
 
 .watchlist-subtitle {
@@ -47,7 +47,7 @@
 }
 
 .watchlist-empty a {
-    color: #16a34a;
+    color: #16a329;
     text-decoration: none;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .watchlist-card-title:hover {
-    color: #16a34a;
+    color: #16a329;
 }
 
 .watchlist-card-meta {
@@ -126,7 +126,7 @@
 .watchlist-card-price {
     font-size: 14px;
     font-weight: 700;
-    color: #16a34a;
+    color: #16a329;
 }
 
 .watchlist-card-condition {

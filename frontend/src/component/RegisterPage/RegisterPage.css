@@ -108,12 +108,12 @@
 }
 
 .password-toggle:hover {
-    color: #16a34a;
+    color: #16a329;
 }
 
 .register-form button:not(.password-toggle) {
     padding: 12px;
-    background-color: #16a34a;
+    background-color: #16a329;
     color: white;
     border: none;
     border-radius: 8px;
@@ -122,7 +122,7 @@
 }
 
 .register-form button:not(.password-toggle):hover {
-    background-color: #15803d;
+    background-color: #158023;
 }
 
 .register-card p {
@@ -150,7 +150,7 @@
 
 .register-avatar-label {
     font-size: 13px;
-    color: #16a34a;
+    color: #16a329;
     cursor: pointer;
     text-decoration: underline;
 }

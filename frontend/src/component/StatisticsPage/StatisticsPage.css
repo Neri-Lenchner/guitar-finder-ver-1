@@ -1,7 +1,7 @@
 .stats-page {
     padding: 108px 24px 80px;
     min-height: 100vh;
-    background: linear-gradient(160deg, #0a0a0a 0%, #0d1a10 100%);
+    background: linear-gradient(160deg, #0a0a0a 0%, #0d1a0f 100%);
     position: relative;
     overflow: hidden;
 }
@@ -41,7 +41,7 @@
 }
 
 .stats-title span {
-    color: #16a34a;
+    color: #16a329;
 }
 
 .stats-subtitle {
@@ -58,7 +58,7 @@
 
 .stats-ingest-btn {
     padding: 10px 24px;
-    background: #16a34a;
+    background: #16a329;
     color: white;
     border: none;
     border-radius: 6px;
@@ -71,7 +71,7 @@
 }
 
 .stats-ingest-btn:hover:not(:disabled) {
-    background: #15803d;
+    background: #158023;
 }
 
 .stats-ingest-btn:disabled {
@@ -81,7 +81,7 @@
 
 .stats-ingest-msg {
     font-size: 13px;
-    color: #16a34a;
+    color: #16a329;
     margin: -16px 0 24px;
 }
 
@@ -191,7 +191,7 @@
 }
 
 .stats-models-table tbody tr:hover td {
-    background: rgba(22, 163, 74, 0.07);
+    background: rgba(22, 163, 41, 0.07);
 }
 
 .stats-table-rank {
@@ -207,7 +207,7 @@
 
 .stats-table-price {
     font-weight: 700;
-    color: #16a34a;
+    color: #16a329;
 }
 
 .stats-chart-doughnut {

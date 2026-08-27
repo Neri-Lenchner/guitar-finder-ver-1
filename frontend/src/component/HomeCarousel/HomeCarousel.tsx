@@ -57,7 +57,7 @@ function HomeCarousel(): JSX.Element {
                     style={{ '--quantity': quantity } as React.CSSProperties}
                 >
                     {carouselBrands.map((brand, i) => {
-                        const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#16a34a' };
+                        const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#16a329' };
                         const logo = BRAND_LOGOS[brand.id];
                         return (
                             <div

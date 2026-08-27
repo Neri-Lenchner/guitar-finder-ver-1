@@ -43,14 +43,14 @@
 }
 
 .footer-page-back:hover {
-    border-color: #16a34a;
-    color: #16a34a;
+    border-color: #16a329;
+    color: #16a329;
 }
 
 .footer-page-title {
     font-size: 36px;
     font-weight: bold;
-    color: #16a34a;
+    color: #16a329;
     margin: 0;
     letter-spacing: 1px;
 }
@@ -65,13 +65,13 @@
 
 .footer-page-email {
     font-size: 15px;
-    color: #16a34a;
+    color: #16a329;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .footer-page-email:hover {
-    color: #15803d;
+    color: #158023;
 }
 
 @media (max-width: 900px) {

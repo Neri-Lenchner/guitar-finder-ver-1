@@ -90,7 +90,7 @@
 
 .edit-profile-avatar-label {
     font-size: 13px;
-    color: #16a34a;
+    color: #16a329;
     cursor: pointer;
     text-decoration: underline;
 }
@@ -114,12 +114,12 @@
 }
 
 .edit-profile-actions button[type="submit"] {
-    background-color: #16a34a;
+    background-color: #16a329;
     color: white;
 }
 
 .edit-profile-actions button[type="submit"]:hover {
-    background-color: #15803d;
+    background-color: #158023;
 }
 
 .edit-profile-cancel {
