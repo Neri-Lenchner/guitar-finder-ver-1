@@ -31,10 +31,7 @@ class ChatService {
             }
         );
         const reply: string = response.data.choices[0].message.content as string;
-        const trimmed = reply.trimEnd();
-        const lastChar = trimmed.slice(-1);
-        const ending = ['.', '!', '?', '…'].includes(lastChar) ? ' my child.' : ', my child.';
-        return trimmed + ending;
+        return reply.trimEnd();
     }
 }
 
