@@ -14,6 +14,11 @@ class AppConfig {
     public readonly authRateLimitMax: number = parseInt(process.env.AUTH_RATE_LIMIT_MAX || "10");
     public readonly chatRateLimitWindowMs: number = parseInt(process.env.CHAT_RATE_LIMIT_WINDOW_MS || "900000");
     public readonly chatRateLimitMax: number = parseInt(process.env.CHAT_RATE_LIMIT_MAX || "20");
+
+    public readonly allowedOrigins: string[] = (
+        process.env.CORS_ALLOWED_ORIGINS ||
+        "https://giutarfinder.up.railway.app,http://localhost:5173,http://localhost"
+    ).split(",").map(origin => origin.trim());
 }
 
 export const appConfig = new AppConfig();

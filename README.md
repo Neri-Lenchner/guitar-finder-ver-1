@@ -7,7 +7,7 @@ guitars to your personal watchlist. Need help along the way? GuitarGod, the buil
 guitar expert, is always there to guide you. Explore 40 iconic guitar brands, discover
 music stores around the world, and dig into live market analytics with interactive charts.
 
-**Live:** https://lucid-wholeness-production-0cba.up.railway.app
+**Live:** https://giutarfinder.up.railway.app
 
 ---
 
@@ -23,7 +23,7 @@ music stores around the world, and dig into live market analytics with interacti
 - **Market Statistics** — live guitar market data from Reverb with bar/doughnut charts (avg price by brand, price distribution, top models, listings by condition)
 - **Client-side Caching** — 5-minute cache on Reverb and store API calls
 - **Rate Limiting** — per-IP request limits on the API, with tighter limits on login/register and GuitarGod chat; thresholds are env-configurable so they can be tightened instantly during an attack, no redeploy needed
-- **Hardened HTTP Layer** — Helmet security headers on every response
+- **Hardened HTTP Layer** — Helmet security headers on every response, plus a CORS allowlist restricting the API to known frontend origins
 - **PWA Support** — installable as a home screen app on mobile
 
 ---
@@ -38,7 +38,7 @@ music stores around the world, and dig into live market analytics with interacti
 | Backend | Node.js, Express, TypeScript |
 | Database | MongoDB, Mongoose |
 | Auth | JWT |
-| Security | Helmet, express-rate-limit |
+| Security | Helmet, CORS allowlist, express-rate-limit |
 | AI | OpenAI API |
 | Marketplace | Reverb API |
 | Maps | OpenStreetMap / Overpass API |
@@ -181,6 +181,7 @@ The app will be available at `http://localhost:5173`.
 | `GENERAL_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Requests per window per IP across the API (default: 300 / 15 min) |
 | `AUTH_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Login/register attempts per window per IP (default: 10 / 15 min) |
 | `CHAT_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | GuitarGod messages per window per IP (default: 20 / 15 min) |
+| `CORS_ALLOWED_ORIGINS` | No | Comma-separated list of origins allowed to call the API |
 
 > **Note:** The `.env` file is in `.gitignore` and should never be committed.
 

@@ -23,7 +23,12 @@ class App {
         server.set("etag", false);
         server.set("trust proxy", 1);
         server.use(helmet());
-        server.use(cors());
+        server.use(cors({
+            origin(origin, callback) {
+                if (!origin || appConfig.allowedOrigins.includes(origin)) callback(null, true);
+                else callback(new Error("Not allowed by CORS"));
+            },
+        }));
         server.use(express.json());
         server.use("/uploads", express.static("uploads"));
         await mongoose.connect(appConfig.mongodbConnectionString);
