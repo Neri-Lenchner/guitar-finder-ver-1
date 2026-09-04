@@ -7,6 +7,18 @@ class AppConfig {
     public readonly cloudinaryCloudName: string = process.env.CLOUDINARY_CLOUD_NAME!;
     public readonly cloudinaryApiKey: string = process.env.CLOUDINARY_API_KEY!;
     public readonly cloudinaryApiSecret: string = process.env.CLOUDINARY_API_SECRET!;
+
+    public readonly generalRateLimitWindowMs: number = parseInt(process.env.GENERAL_RATE_LIMIT_WINDOW_MS || "900000");
+    public readonly generalRateLimitMax: number = parseInt(process.env.GENERAL_RATE_LIMIT_MAX || "300");
+    public readonly authRateLimitWindowMs: number = parseInt(process.env.AUTH_RATE_LIMIT_WINDOW_MS || "900000");
+    public readonly authRateLimitMax: number = parseInt(process.env.AUTH_RATE_LIMIT_MAX || "10");
+    public readonly chatRateLimitWindowMs: number = parseInt(process.env.CHAT_RATE_LIMIT_WINDOW_MS || "900000");
+    public readonly chatRateLimitMax: number = parseInt(process.env.CHAT_RATE_LIMIT_MAX || "20");
+
+    public readonly allowedOrigins: string[] = (
+        process.env.CORS_ALLOWED_ORIGINS ||
+        "https://lucid-wholeness-production-0cba.up.railway.app,http://localhost:5173,http://localhost"
+    ).split(",").map(origin => origin.trim());
 }
 
 export const appConfig = new AppConfig();

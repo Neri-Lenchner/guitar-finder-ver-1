@@ -3,13 +3,14 @@ import { authService } from "../services/auth.service";
 import { UserModel } from "../models/user.model";
 import { StatusCode } from "../models/enums";
 import { upload } from "../utils/multer.config";
+import { rateLimitMiddleware } from "../middleware/rate-limit.middleware";
 
 class AuthController {
     public readonly router = express.Router();
 
     constructor() {
-        this.router.post("/api/auth/register", upload.single("profileImage"), this.register);
-        this.router.post("/api/auth/login", this.login);
+        this.router.post("/api/auth/register", rateLimitMiddleware.auth, upload.single("profileImage"), this.register);
+        this.router.post("/api/auth/login", rateLimitMiddleware.auth, this.login);
     }
 
     public async register(request: Request, response: Response, next: NextFunction): Promise<void> {

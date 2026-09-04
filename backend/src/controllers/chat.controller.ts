@@ -1,12 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 import { chatService } from "../services/chat.service";
 import { authMiddleware } from "../middleware/auth.middleware";
+import { rateLimitMiddleware } from "../middleware/rate-limit.middleware";
 
 class ChatController {
     public readonly router = express.Router();
 
     constructor() {
-        this.router.post("/api/chat", authMiddleware.validateToken, this.chat);
+        this.router.post("/api/chat", authMiddleware.validateToken, rateLimitMiddleware.chat, this.chat);
     }
 
     public async chat(request: Request, response: Response, next: NextFunction): Promise<void> {

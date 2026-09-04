@@ -1,10 +1,12 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import * as mongoose from "mongoose";
 import { mkdirSync } from "fs";
 import { loggerMiddleware } from "./middleware/logger.middleware";
 import { errorMiddleware } from "./middleware/error.middleware";
+import { rateLimitMiddleware } from "./middleware/rate-limit.middleware";
 import { appConfig } from "./utils/app-config";
 import { authController } from "./controllers/auth.controller";
 import { chatController } from "./controllers/chat.controller";
@@ -19,11 +21,18 @@ class App {
         mkdirSync("uploads", { recursive: true });
         const server = express();
         server.set("etag", false);
-        server.use(cors());
+        server.use(helmet());
+        server.use(cors({
+            origin(origin, callback) {
+                if (!origin || appConfig.allowedOrigins.includes(origin)) callback(null, true);
+                else callback(new Error("Not allowed by CORS"));
+            },
+        }));
         server.use(express.json());
         server.use("/uploads", express.static("uploads"));
         await mongoose.connect(appConfig.mongodbConnectionString);
         server.use(loggerMiddleware.consoleLog);
+        server.use("/api", rateLimitMiddleware.general);
         server.use(authController.router);
         server.use(chatController.router);
         server.use(userController.router);
