@@ -8,6 +8,7 @@ export interface IFollowedListing extends Document {
     condition: string;
     imageUrl: string;
     reverbUrl: string;
+    source: "reverb" | "ebay";
     followedAt: Date;
 }
 
@@ -22,6 +23,7 @@ const FollowedListingSchema = new Schema<IFollowedListing>({
     condition: { type: String, default: "" },
     imageUrl: { type: String, default: "" },
     reverbUrl: { type: String, default: "" },
+    source: { type: String, enum: ["reverb", "ebay"], default: "reverb" },
     followedAt: { type: Date, default: () => new Date() },
 });
 

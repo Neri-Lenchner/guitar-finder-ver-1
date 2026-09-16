@@ -30,10 +30,10 @@ class FollowedController {
     private follow = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
         try {
             const userId = getUserId(request);
-            const { listingId, title, price, condition, imageUrl, reverbUrl } = request.body;
+            const { listingId, title, price, condition, imageUrl, reverbUrl, source } = request.body;
             const existing = await FollowedListingModel.findOne({ userId, listingId }).exec();
             if (existing) { response.json(existing); return; }
-            const followed = new FollowedListingModel({ userId, listingId, title, price, condition, imageUrl, reverbUrl });
+            const followed = new FollowedListingModel({ userId, listingId, title, price, condition, imageUrl, reverbUrl, source });
             const saved = await followed.save();
             response.status(StatusCode.Created).json(saved);
         } catch (error) { next(error); }

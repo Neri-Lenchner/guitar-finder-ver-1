@@ -13,6 +13,7 @@ import { chatController } from "./controllers/chat.controller";
 import { userController } from "./controllers/user.controller";
 import { storeController } from "./controllers/store.controller";
 import { reverbController } from "./controllers/reverb.controller";
+import { ebayController } from "./controllers/ebay.controller";
 import { followedController } from "./controllers/followed.controller";
 import { statisticController } from "./controllers/statistic.controller";
 
@@ -39,6 +40,7 @@ class App {
         server.use(userController.router);
         server.use(storeController.router);
         server.use(reverbController.router);
+        server.use(ebayController.router);
         server.use(followedController.router);
         server.use(statisticController.router);
         server.use(errorMiddleware.serverError);

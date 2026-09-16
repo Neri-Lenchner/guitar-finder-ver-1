@@ -63,6 +63,11 @@ function WatchlistPage(): JSX.Element {
                                     </a>
                                 )}
                                 <div className="watchlist-card-body">
+                                    {listing.source && (
+                                        <span className={`watchlist-source-badge watchlist-source-badge--${listing.source}`}>
+                                            {listing.source === 'ebay' ? 'eBay' : 'Reverb'}
+                                        </span>
+                                    )}
                                     <a
                                         href={listing.reverbUrl}
                                         target="_blank"

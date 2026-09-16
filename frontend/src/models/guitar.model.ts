@@ -26,3 +26,15 @@ export interface IReverbListing {
     }>;
     _links: { web: { href: string } };
 }
+
+export type ListingSource = 'reverb' | 'ebay';
+
+export interface IListing {
+    id: string;
+    source: ListingSource;
+    title: string;
+    price: { amount: string; currency: string };
+    condition: string;
+    imageUrl: string;
+    url: string;
+}

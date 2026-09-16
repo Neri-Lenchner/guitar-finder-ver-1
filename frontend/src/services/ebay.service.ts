@@ -1,22 +1,31 @@
 import axios from "axios";
 import { appConfig } from "../utils/app-config";
-import { IListing, IReverbListing } from "../models/guitar.model";
+import { IListing } from "../models/guitar.model";
+
+interface IEbayRawListing {
+    itemId: string;
+    title: string;
+    price?: { value: string; currency: string };
+    condition?: string;
+    image?: { imageUrl: string };
+    itemWebUrl: string;
+}
 
 const TTL = 5 * 60 * 1000;
 
-function toListing(raw: IReverbListing): IListing {
+function toListing(raw: IEbayRawListing): IListing {
     return {
-        id: String(raw.id),
-        source: "reverb",
+        id: raw.itemId,
+        source: "ebay",
         title: raw.title,
-        price: { amount: raw.price?.amount ?? "", currency: raw.price?.currency ?? "" },
-        condition: raw.condition?.display_name ?? "",
-        imageUrl: raw.photos?.[0]?._links?.large_crop?.href ?? "",
-        url: raw._links?.web?.href ?? "",
+        price: { amount: raw.price?.value ?? "", currency: raw.price?.currency ?? "" },
+        condition: raw.condition ?? "",
+        imageUrl: raw.image?.imageUrl ?? "",
+        url: raw.itemWebUrl ?? "",
     };
 }
 
-class ReverbService {
+class EbayService {
     private cache = new Map<string, { data: IListing[]; ts: Date }>();
 
     private get(key: string): IListing[] | null {
@@ -33,10 +42,10 @@ class ReverbService {
         const key = `${brand}||${model}`;
         const cached = this.get(key);
         if (cached) return cached;
-        const res = await axios.get(`${appConfig.apiAddress}/api/reverb`, {
+        const res = await axios.get(`${appConfig.apiAddress}/api/ebay`, {
             params: { query: `${brand} ${model}`, per_page: 50 },
         });
-        const raw: IReverbListing[] = Array.isArray(res.data) ? res.data : [];
+        const raw: IEbayRawListing[] = Array.isArray(res.data) ? res.data : [];
         const data = raw.map(toListing);
         this.set(key, data);
         return data;
@@ -46,14 +55,14 @@ class ReverbService {
         const key = `brand||${brand}`;
         const cached = this.get(key);
         if (cached) return cached;
-        const res = await axios.get(`${appConfig.apiAddress}/api/reverb`, {
+        const res = await axios.get(`${appConfig.apiAddress}/api/ebay`, {
             params: { query: brand, per_page: 50 },
         });
-        const raw: IReverbListing[] = Array.isArray(res.data) ? res.data : [];
+        const raw: IEbayRawListing[] = Array.isArray(res.data) ? res.data : [];
         const data = raw.map(toListing);
         this.set(key, data);
         return data;
     }
 }
 
-export const reverbService = new ReverbService();
+export const ebayService = new EbayService();

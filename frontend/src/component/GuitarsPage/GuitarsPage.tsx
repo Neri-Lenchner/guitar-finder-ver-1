@@ -1,7 +1,8 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IBrand, IGuitarModel, IReverbListing } from '../../models/guitar.model';
+import { IBrand, IGuitarModel, IListing } from '../../models/guitar.model';
 import { reverbService } from '../../services/reverb.service';
+import { ebayService } from '../../services/ebay.service';
 import { followedService } from '../../services/followed.service';
 import { authService } from '../../services/auth.service';
 import guitarsData from '../../data/guitars.json';
@@ -21,6 +22,19 @@ const TYPE_COLORS: Record<string, string> = {
     Classical: '#a78bfa',
 };
 
+const SOURCE_LABELS: Record<string, string> = {
+    reverb: 'Reverb',
+    ebay: 'eBay',
+};
+
+async function fetchAllListings(brand: string, model: string): Promise<IListing[]> {
+    const results = await Promise.allSettled([
+        reverbService.searchListings(brand, model),
+        ebayService.searchListings(brand, model),
+    ]);
+    return results.flatMap(r => (r.status === 'fulfilled' ? r.value : []));
+}
+
 function GuitarsPage(): JSX.Element {
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('search')?.toLowerCase().trim() ?? '';
@@ -34,9 +48,8 @@ function GuitarsPage(): JSX.Element {
 
     const [selectedBrand, setSelectedBrand] = useState<IBrand | null>(null);
     const [selectedModel, setSelectedModel] = useState<IGuitarModel | null>(null);
-    const [listings, setListings] = useState<IReverbListing[]>([]);
+    const [listings, setListings] = useState<IListing[]>([]);
     const [loadingListings, setLoadingListings] = useState(false);
-    const [listingsError, setListingsError] = useState('');
     const [modelImages, setModelImages] = useState<Record<string, string>>({});
     const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({});
     const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
@@ -56,7 +69,6 @@ function GuitarsPage(): JSX.Element {
         setSelectedBrand(null);
         setSelectedModel(null);
         setListings([]);
-        setListingsError('');
         setModelImages({});
     }, [searchQuery]);
 
@@ -67,10 +79,10 @@ function GuitarsPage(): JSX.Element {
     }, [selectedBrand]);
 
     useEffect(() => {
-        if (listings.length > 0 || listingsError) {
+        if (listings.length > 0) {
             reverbSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [listings, listingsError]);
+    }, [listings]);
 
     useEffect(() => {
         if (!user) return;
@@ -83,7 +95,6 @@ function GuitarsPage(): JSX.Element {
         setSelectedBrand(brand);
         setSelectedModel(null);
         setListings([]);
-        setListingsError('');
         setModelImages({});
 
         const modelsToLoad = searchQuery && !brand.name.toLowerCase().includes(searchQuery)
@@ -96,8 +107,8 @@ function GuitarsPage(): JSX.Element {
 
         await Promise.all(modelsToLoad.map(async (model) => {
             try {
-                const results = await reverbService.searchListings(brand.name, model.name);
-                const photo = results[0]?.photos?.[0]?._links?.thumbnail?.href;
+                const results = await fetchAllListings(brand.name, model.name);
+                const photo = results.find(l => l.imageUrl)?.imageUrl;
                 if (photo) setModelImages(prev => ({ ...prev, [model.name]: photo }));
             } catch { /* ignore */ } finally {
                 setLoadingImages(prev => ({ ...prev, [model.name]: false }));
@@ -105,9 +116,9 @@ function GuitarsPage(): JSX.Element {
         }));
     }
 
-    async function toggleFollow(listing: IReverbListing): Promise<void> {
+    async function toggleFollow(listing: IListing): Promise<void> {
         if (!user) return;
-        const id = String(listing.id);
+        const id = listing.id;
         if (followedIds.has(id)) {
             await followedService.unfollow(id);
             setFollowedIds(prev => { const s = new Set(prev); s.delete(id); return s; });
@@ -116,29 +127,24 @@ function GuitarsPage(): JSX.Element {
                 listingId: id,
                 title: listing.title,
                 price: { amount: listing.price?.amount ?? '', currency: listing.price?.currency ?? '' },
-                condition: listing.condition?.display_name ?? '',
-                imageUrl: listing.photos?.[0]?._links?.large_crop?.href ?? '',
-                reverbUrl: listing._links?.web?.href ?? '',
+                condition: listing.condition ?? '',
+                imageUrl: listing.imageUrl ?? '',
+                reverbUrl: listing.url ?? '',
+                source: listing.source,
             });
             setFollowedIds(prev => new Set(prev).add(id));
         }
     }
 
-    async function findOnReverb(model: IGuitarModel): Promise<void> {
+    async function findListings(model: IGuitarModel): Promise<void> {
         if (!selectedBrand) return;
         setSelectedModel(model);
         setListings([]);
-        setListingsError('');
         setCurrentPage(1);
         setLoadingListings(true);
-        try {
-            const results = await reverbService.searchListings(selectedBrand.name, model.name);
-            setListings(Array.isArray(results) ? results : []);
-        } catch {
-            setListingsError('Reverb API not available. Add REVERB_API_TOKEN to your .env to enable this feature.');
-        } finally {
-            setLoadingListings(false);
-        }
+        const results = await fetchAllListings(selectedBrand.name, model.name);
+        setListings(results);
+        setLoadingListings(false);
     }
 
     return (
@@ -147,7 +153,7 @@ function GuitarsPage(): JSX.Element {
             <div className="guitars-inner">
                 <div className="guitars-header">
                     <h1 className="guitars-title">Guitar <span>Catalog</span></h1>
-                    <p className="guitars-subtitle">Browse top manufacturers and their models. Click a model to find listings on Reverb.</p>
+                    <p className="guitars-subtitle">Browse top manufacturers and their models. Click a model to find listings on Reverb and eBay.</p>
                     {searchQuery && <p className="guitars-search-info">Showing results for: <strong>"{searchParams.get('search')}"</strong></p>}
                 </div>
 
@@ -184,8 +190,8 @@ function GuitarsPage(): JSX.Element {
                                         {model.type}
                                     </span>
                                     <span className="model-name">{model.name}</span>
-                                    <button className="model-reverb-btn" onClick={() => findOnReverb(model)}>
-                                        Find on Reverb
+                                    <button className="model-reverb-btn" onClick={() => findListings(model)}>
+                                        Find Listings
                                     </button>
                                 </div>
                             ))}
@@ -193,42 +199,41 @@ function GuitarsPage(): JSX.Element {
                     </div>
                 )}
 
-                {(loadingListings || listings.length > 0 || listingsError) && (
+                {(loadingListings || listings.length > 0) && (
                     <div className="reverb-section" ref={reverbSectionRef}>
                         <h2 className="reverb-title">
-                            Reverb Listings — {selectedBrand?.name} {selectedModel?.name}
+                            Listings — {selectedBrand?.name} {selectedModel?.name}
                         </h2>
 
-                        {loadingListings && <Spinner text="Searching Reverb..." />}
+                        {loadingListings && <Spinner text="Searching Reverb and eBay..." />}
 
-                        {!loadingListings && listingsError && (
-                            <p className="reverb-error">{listingsError}</p>
-                        )}
-
-                        {!loadingListings && listings.length === 0 && !listingsError && (
-                            <p className="reverb-empty">No listings found on Reverb for this model.</p>
+                        {!loadingListings && listings.length === 0 && (
+                            <p className="reverb-empty">No listings found for this model.</p>
                         )}
 
                         {!loadingListings && listings.length > 0 && (
                             <div className="reverb-grid">
                                 {listings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map(listing => (
-                                    <div key={listing.id} className="reverb-card">
+                                    <div key={`${listing.source}-${listing.id}`} className="reverb-card">
                                         <a
-                                            href={listing._links?.web?.href}
+                                            href={listing.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            {listing.photos?.[0]?._links?.large_crop?.href && (
+                                            {listing.imageUrl && (
                                                 <img
-                                                    src={listing.photos[0]._links.large_crop.href}
+                                                    src={listing.imageUrl}
                                                     alt={listing.title}
                                                     className="reverb-card-img"
                                                 />
                                             )}
                                         </a>
                                         <div className="reverb-card-body">
+                                            <span className={`reverb-source-badge reverb-source-badge--${listing.source}`}>
+                                                {SOURCE_LABELS[listing.source]}
+                                            </span>
                                             <a
-                                                href={listing._links?.web?.href}
+                                                href={listing.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="reverb-card-title"
@@ -240,15 +245,15 @@ function GuitarsPage(): JSX.Element {
                                                     {listing.price?.currency} {listing.price?.amount}
                                                 </span>
                                                 <span className="reverb-card-condition">
-                                                    {listing.condition?.display_name}
+                                                    {listing.condition}
                                                 </span>
                                             </div>
                                             {user && (
                                                 <button
-                                                    className={`reverb-follow-btn${followedIds.has(String(listing.id)) ? ' reverb-follow-btn--active' : ''}`}
+                                                    className={`reverb-follow-btn${followedIds.has(listing.id) ? ' reverb-follow-btn--active' : ''}`}
                                                     onClick={() => toggleFollow(listing)}
                                                 >
-                                                    {followedIds.has(String(listing.id)) ? 'Following' : 'Follow'}
+                                                    {followedIds.has(listing.id) ? 'Following' : 'Follow'}
                                                 </button>
                                             )}
                                         </div>

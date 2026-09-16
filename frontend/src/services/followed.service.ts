@@ -1,5 +1,6 @@
 import axios from "axios";
 import { appConfig } from "../utils/app-config";
+import { ListingSource } from "../models/guitar.model";
 
 export interface IFollowedListing {
     _id: string;
@@ -9,6 +10,7 @@ export interface IFollowedListing {
     condition: string;
     imageUrl: string;
     reverbUrl: string;
+    source: ListingSource;
     followedAt: string;
 }
 
