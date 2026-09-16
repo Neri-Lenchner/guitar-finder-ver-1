@@ -1,6 +1,7 @@
 import { JSX, useState, useEffect } from 'react';
 import { followedService, IFollowedListing } from '../../services/followed.service';
 import { authService } from '../../services/auth.service';
+import { SOURCE_LABELS } from '../../models/guitar.model';
 import guitarGod from '../../assets/guitar-god.png';
 import './WatchlistPage.css';
 
@@ -65,7 +66,7 @@ function WatchlistPage(): JSX.Element {
                                 <div className="watchlist-card-body">
                                     {listing.source && (
                                         <span className={`watchlist-source-badge watchlist-source-badge--${listing.source}`}>
-                                            {listing.source === 'ebay' ? 'eBay' : 'Reverb'}
+                                            {SOURCE_LABELS[listing.source]}
                                         </span>
                                     )}
                                     <a

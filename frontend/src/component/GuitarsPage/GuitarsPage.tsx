@@ -1,8 +1,9 @@
 import { JSX, useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IBrand, IGuitarModel, IListing } from '../../models/guitar.model';
+import { IBrand, IGuitarModel, IListing, SOURCE_LABELS } from '../../models/guitar.model';
 import { reverbService } from '../../services/reverb.service';
 import { ebayService } from '../../services/ebay.service';
+import { etsyService } from '../../services/etsy.service';
 import { followedService } from '../../services/followed.service';
 import { authService } from '../../services/auth.service';
 import guitarsData from '../../data/guitars.json';
@@ -22,15 +23,11 @@ const TYPE_COLORS: Record<string, string> = {
     Classical: '#a78bfa',
 };
 
-const SOURCE_LABELS: Record<string, string> = {
-    reverb: 'Reverb',
-    ebay: 'eBay',
-};
-
 async function fetchAllListings(brand: string, model: string): Promise<IListing[]> {
     const results = await Promise.allSettled([
         reverbService.searchListings(brand, model),
         ebayService.searchListings(brand, model),
+        etsyService.searchListings(brand, model),
     ]);
     return results.flatMap(r => (r.status === 'fulfilled' ? r.value : []));
 }
@@ -153,7 +150,7 @@ function GuitarsPage(): JSX.Element {
             <div className="guitars-inner">
                 <div className="guitars-header">
                     <h1 className="guitars-title">Guitar <span>Catalog</span></h1>
-                    <p className="guitars-subtitle">Browse top manufacturers and their models. Click a model to find listings on Reverb and eBay.</p>
+                    <p className="guitars-subtitle">Browse top manufacturers and their models. Click a model to find listings on Reverb, eBay, and Etsy.</p>
                     {searchQuery && <p className="guitars-search-info">Showing results for: <strong>"{searchParams.get('search')}"</strong></p>}
                 </div>
 
@@ -205,7 +202,7 @@ function GuitarsPage(): JSX.Element {
                             Listings — {selectedBrand?.name} {selectedModel?.name}
                         </h2>
 
-                        {loadingListings && <Spinner text="Searching Reverb and eBay..." />}
+                        {loadingListings && <Spinner text="Searching Reverb, eBay, and Etsy..." />}
 
                         {!loadingListings && listings.length === 0 && (
                             <p className="reverb-empty">No listings found for this model.</p>

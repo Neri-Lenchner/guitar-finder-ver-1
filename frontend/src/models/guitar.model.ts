@@ -27,7 +27,7 @@ export interface IReverbListing {
     _links: { web: { href: string } };
 }
 
-export type ListingSource = 'reverb' | 'ebay';
+export type ListingSource = 'reverb' | 'ebay' | 'etsy';
 
 export interface IListing {
     id: string;
@@ -38,3 +38,9 @@ export interface IListing {
     imageUrl: string;
     url: string;
 }
+
+export const SOURCE_LABELS: Record<ListingSource, string> = {
+    reverb: 'Reverb',
+    ebay: 'eBay',
+    etsy: 'Etsy',
+};

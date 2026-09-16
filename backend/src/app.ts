@@ -14,6 +14,7 @@ import { userController } from "./controllers/user.controller";
 import { storeController } from "./controllers/store.controller";
 import { reverbController } from "./controllers/reverb.controller";
 import { ebayController } from "./controllers/ebay.controller";
+import { etsyController } from "./controllers/etsy.controller";
 import { followedController } from "./controllers/followed.controller";
 import { statisticController } from "./controllers/statistic.controller";
 
@@ -41,6 +42,7 @@ class App {
         server.use(storeController.router);
         server.use(reverbController.router);
         server.use(ebayController.router);
+        server.use(etsyController.router);
         server.use(followedController.router);
         server.use(statisticController.router);
         server.use(errorMiddleware.serverError);

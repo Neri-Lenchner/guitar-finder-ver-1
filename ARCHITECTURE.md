@@ -12,21 +12,24 @@ Three services, one repo:
 
 ```
 ┌─────────────────────┐        ┌──────────────────────┐        ┌─────────────┐
-│  frontend            │        │  backend               │        │  MongoDB    │
-│  React 18 + Vite      │──────▶│  Express + TypeScript   │──────▶│  (Mongoose) │
-│  served by nginx      │  /api │  single Node process     │       └─────────────┘
+│  frontend            │──────▶│  backend               │──────▶│  MongoDB    │
+│  React 18 + Vite      │  /api │  Express + TypeScript   │       │  (Mongoose) │
+│  served by nginx      │       │  single Node process     │      └─────────────┘
 │  (Docker) or Vite dev │       │  (port 4000 internal)    │
 └─────────────────────┘        └──────────┬───────────────┘
-                                            │
-                    ┌───────────────────────┼───────────────────────────┬────────────────┐
-                    ▼                       ▼                           ▼                ▼
-            Reverb API              OpenAI API                 OpenStreetMap        Cloudinary
-      (marketplace listings)   (GuitarGod chat, gpt-4o-mini)  (Nominatim + Overpass, (avatar image
-      + eBay Buy Browse API                                    store search)          storage)
-      (2nd listing source,
-       code-complete, gated on
-       eBay dev approval)
+                                            │ calls out to six external APIs
+                                            ▼
 ```
+
+- **Reverb API** — marketplace listings; active.
+- **eBay Buy Browse API** — marketplace listings; code-complete but **inactive** — the
+  eBay developer account registration was rejected, integration on hold (see Known
+  gaps).
+- **Etsy Open API v3** — marketplace listings; code-complete; app registered and
+  awaiting Etsy's approval (see Known gaps).
+- **OpenAI API** — GuitarGod chat, `gpt-4o-mini`.
+- **OpenStreetMap** (Nominatim + Overpass) — store search.
+- **Cloudinary** — avatar image storage.
 
 - **Local dev (manual setup):** Vite dev server on `:5173` talking directly to the
   backend on `:4000`; MongoDB running locally or on Atlas.
@@ -67,7 +70,7 @@ In order, every request passes through:
 4. `/uploads` static file serving (legacy local-disk avatar storage; see 2.4).
 5. `loggerMiddleware.consoleLog` — request logging.
 6. `rateLimitMiddleware.general` on all `/api/*` routes (see 2.3).
-7. Feature routers, mounted in this order: auth, chat, user, store, reverb, eBay,
+7. Feature routers, mounted in this order: auth, chat, user, store, reverb, eBay, etsy,
    followed, statistic.
 8. `errorMiddleware.serverError` then `errorMiddleware.catchAll` — centralized error
    handling; controllers never write error responses themselves, they call `next(error)`
@@ -112,7 +115,8 @@ Two upload paths currently coexist:
 | Integration | Service file | Notes |
 | --- | --- | --- |
 | Reverb marketplace | `reverb.service.ts` | Listing search by query string. No caching in the backend service itself — caching happens in `statistic.service.ts` (stats) and on the frontend (5 min TTL). Requires `REVERB_API_TOKEN`; throws if unset. |
-| eBay marketplace | `ebay.service.ts` | Second listing source. Code-complete but gated on eBay developer account approval (`EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` unset in prod). OAuth2 client-credentials flow, in-memory token cache keyed by expiry. Returns `503` with a specific message when credentials are missing. |
+| eBay marketplace | `ebay.service.ts` | Listing source. Code-complete but inactive: `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset because the eBay developer account registration was rejected; not currently being pursued. OAuth2 client-credentials flow, in-memory token cache keyed by expiry. Returns `503` with a specific message when credentials are missing. |
+| Etsy marketplace | `etsy.service.ts` | Listing source. Code-complete; `ETSY_API_KEY` (format `keystring:sharedsecret`) unset in prod pending Etsy's approval of the registered app. Static `x-api-key` header, no OAuth. Appends "guitar" to the search keywords server-side since Etsy is a general marketplace, not gear-specific. Returns `503` with a specific message when the key is missing. |
 | OpenAI (GuitarGod chat) | `chat.service.ts` | `gpt-4o-mini`; system prompt hardcodes the "GuitarGod" persona, forwards client-supplied `history` as prior turns. No server-side persistence — history lives in the frontend (`chatState`, localStorage) and is replayed on every request. |
 | OpenStreetMap (store search) | `store.service.ts` | Two-step: geocode city via Nominatim, then query Overpass for `shop=musical_instrument` nodes/ways within 15km. Overpass has no SLA, so the service races three public mirrors with `Promise.any`. 10-minute in-memory cache keyed by city. |
 | Cloudinary (avatar storage) | `cloudinary.config.ts` | Configured once at module load from `CLOUDINARY_*` env vars. Used by `multer.config.ts` and directly in `user.controller.ts` for asset deletion. |
@@ -147,12 +151,16 @@ There is no scheduler — ingest is triggered manually/externally by calling the
   `App.tsx` renders the persistent chrome (`Header`, `Footer`, floating `ChatbotWidget`,
   `UserAvatar`) around whatever `Routing` renders.
 - **Services** (`services/`) — one per backend resource (`auth`, `chat`, `followed`,
-  `reverb`, `ebay`, `store`, `statistic`), each a thin axios wrapper. `reverb.service.ts`
-  and `followed.service.ts`-adjacent services hold their own 5-minute in-memory
-  `Map`-based cache, independent of the backend's caching.
+  `reverb`, `ebay`, `etsy`, `store`, `statistic`), each a thin axios wrapper. The three
+  listing services (`reverb`, `ebay`, `etsy`) each hold their own 5-minute in-memory
+  `Map`-based cache and normalize their provider's raw response shape into the shared
+  `IListing` type, independent of the backend's caching.
 - **Models** (`models/`) — TypeScript interfaces mirroring backend DTOs/schemas
   (`IUser`, `IListing`, `IMessage`, `IStore`), kept manually in sync (no shared/generated
-  types package between frontend and backend).
+  types package between frontend and backend). `IListing` is source-tagged
+  (`source: 'reverb' | 'ebay' | 'etsy'`) so `GuitarsPage` can merge all three into one
+  grid via `Promise.allSettled` — a source with no/invalid credentials just contributes
+  zero results instead of breaking the page.
 
 ### 3.2 State: three independent Redux stores, not one root store
 
@@ -191,7 +199,7 @@ backend persistence:
 | Collection | Model | Purpose | Notable constraints |
 | --- | --- | --- | --- |
 | `users` | `UserModel` | Account + profile | `email` unique; `password` is a bcrypt hash; `isAdmin` always server-set |
-| `followed-listings` | `FollowedListingModel` | Per-user watchlist entry; a denormalized snapshot of a listing, not live-synced | Compound unique index on `(userId, listingId)`; `source` distinguishes `reverb` vs `ebay` origin |
+| `followed-listings` | `FollowedListingModel` | Per-user watchlist entry; a denormalized snapshot of a listing, not live-synced | Compound unique index on `(userId, listingId)`; `source` distinguishes `reverb` / `ebay` / `etsy` origin |
 | `listing-stats` | `ListingStatModel` | Ingested snapshot of Reverb listings for the stats/analytics page | `listingId` unique, used as the upsert key on re-ingestion; indexed on `brand`, `condition`, `(brand, guitarModel)`, `price`, `ingestedAt` |
 
 Note that `followed-listings` and `listing-stats` both store **snapshots**, not live
@@ -204,9 +212,18 @@ was last run, not real-time market state.
 ## 5. Known gaps / in-flight work
 
 - **eBay integration** is code-complete (`ebay.controller.ts` / `ebay.service.ts` /
-  frontend `ebay.service.ts`) but inactive in production pending eBay developer account
-  approval — `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset, so `/api/ebay` currently
-  returns `503`.
+  frontend `ebay.service.ts`) but inactive: the eBay developer account registration was
+  rejected ("problems with the data provided or other irregularities" — a known,
+  widely-reported issue on eBay's community forums, not specific to this project).
+  `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset, so `/api/ebay` currently returns
+  `503`. Not currently being pursued further; eBay's account-support form for rejected
+  registrations (`developer.ebay.com/support/developer-account-support` → "My account
+  registration was rejected") is a known unused option if revisited.
+- **Etsy integration** is code-complete (`etsy.controller.ts` / `etsy.service.ts` /
+  frontend `etsy.service.ts`) and was pursued as the practical alternative to eBay. An
+  app ("guitarfinder") has been registered and is awaiting Etsy's approval —
+  `ETSY_API_KEY` is unset, so `/api/etsy` currently returns `503`. Once approved, set
+  `ETSY_API_KEY=keystring:sharedsecret` in the backend env.
 - **`POST /api/stats/ingest` has no auth or rate limiting** — anyone can trigger a full
   re-ingest of all brands, which fans out to dozens of Reverb API calls. Low risk today
   (no API cost exposure beyond Reverb's own limits) but worth gating before it's linked

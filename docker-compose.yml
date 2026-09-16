@@ -16,6 +16,9 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       REVERB_API_TOKEN: ${REVERB_API_TOKEN}
+      EBAY_CLIENT_ID: ${EBAY_CLIENT_ID}
+      EBAY_CLIENT_SECRET: ${EBAY_CLIENT_SECRET}
+      ETSY_API_KEY: ${ETSY_API_KEY}
     volumes:
       - uploads-data:/app/uploads
 

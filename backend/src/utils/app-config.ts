@@ -6,6 +6,7 @@ class AppConfig {
     public readonly reverbToken: string = process.env.REVERB_API_TOKEN || "";
     public readonly ebayClientId: string = process.env.EBAY_CLIENT_ID || "";
     public readonly ebayClientSecret: string = process.env.EBAY_CLIENT_SECRET || "";
+    public readonly etsyApiKey: string = process.env.ETSY_API_KEY || "";
     public readonly cloudinaryCloudName: string = process.env.CLOUDINARY_CLOUD_NAME!;
     public readonly cloudinaryApiKey: string = process.env.CLOUDINARY_API_KEY!;
     public readonly cloudinaryApiSecret: string = process.env.CLOUDINARY_API_SECRET!;

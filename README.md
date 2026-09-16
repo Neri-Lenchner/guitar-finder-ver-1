@@ -2,10 +2,11 @@
 
 A guitar discovery platform built around one idea: finding the right guitar should be
 effortless. GuitarFinder makes searching intuitive — go from a brand to the exact model
-you're after in a few clicks, browse live Reverb listings, compare real prices, and save
-guitars to your personal watchlist. Need help along the way? GuitarGod, the built-in AI
-guitar expert, is always there to guide you. Explore 40 iconic guitar brands, discover
-music stores around the world, and dig into live market analytics with interactive charts.
+you're after in a few clicks, browse live listings from Reverb, eBay, and Etsy side by side,
+compare real prices, and save guitars to your personal watchlist. Need help along the way?
+GuitarGod, the built-in AI guitar expert, is always there to guide you. Explore 40 iconic
+guitar brands, discover music stores around the world, and dig into live market analytics
+with interactive charts.
 
 **Live:** https://giutarfinder.up.railway.app
 
@@ -14,14 +15,14 @@ music stores around the world, and dig into live market analytics with interacti
 ## Features
 
 - **3D Brand Carousel** — spinning 3D carousel on the home page showcasing guitar brands
-- **Guitar Catalog** — browse 40 brands and their models with live Reverb listing images
-- **Reverb Integration** — real marketplace listings with price, condition, and photos
-- **My Guitars (Watchlist)** — save and manage followed Reverb listings, persisted to MongoDB
+- **Guitar Catalog** — browse 40 brands and their models with live listing images
+- **Multi-Marketplace Integration** — real listings merged from Reverb, eBay, and Etsy in one grid, each tagged with its source, with price, condition, and photos
+- **My Guitars (Watchlist)** — save and manage followed listings from any source, persisted to MongoDB
 - **Find Music Stores** — search music instrument stores worldwide via OpenStreetMap
 - **GuitarGod** — floating AI chat assistant powered by OpenAI, with full conversation context and chat history persistence
 - **Authentication** — register, login, profile editing with avatar upload
 - **Market Statistics** — live guitar market data from Reverb with bar/doughnut charts (avg price by brand, price distribution, top models, listings by condition)
-- **Client-side Caching** — 5-minute cache on Reverb and store API calls
+- **Client-side Caching** — 5-minute cache on Reverb/eBay/Etsy and store API calls
 - **Rate Limiting** — per-IP request limits on the API, with tighter limits on login/register and GuitarGod chat; thresholds are env-configurable so they can be tightened instantly during an attack, no redeploy needed
 - **Hardened HTTP Layer** — Helmet security headers on every response, plus a CORS allowlist restricting the API to known frontend origins
 - **PWA Support** — installable as a home screen app on mobile
@@ -40,7 +41,7 @@ music stores around the world, and dig into live market analytics with interacti
 | Auth | JWT |
 | Security | Helmet, CORS allowlist, express-rate-limit |
 | AI | OpenAI API |
-| Marketplace | Reverb API |
+| Marketplace | Reverb API, eBay Browse API, Etsy Open API v3 |
 | Maps | OpenStreetMap / Overpass API |
 | Charts | Chart.js, react-chartjs-2 |
 | Deployment | Docker, Docker Compose, nginx |
@@ -126,6 +127,8 @@ The app will be available at `http://localhost:80`.
 - MongoDB instance (local or Atlas)
 - OpenAI API key
 - Reverb personal access token (optional)
+- eBay Browse API production keys (optional)
+- Etsy Open API v3 key (optional)
 
 ### 1. Clone the repository
 
@@ -149,6 +152,9 @@ MONGODB_CONNECTION_STRING=mongodb://localhost:27017/guitar-finder
 JWT_SECRET_KEY=your_secret_key_here
 OPENAI_API_KEY=your_openai_key_here
 REVERB_API_TOKEN=your_reverb_token_here
+EBAY_CLIENT_ID=your_ebay_client_id_here
+EBAY_CLIENT_SECRET=your_ebay_client_secret_here
+ETSY_API_KEY=your_etsy_keystring:your_etsy_shared_secret
 ```
 
 Start the backend:
@@ -177,6 +183,8 @@ The app will be available at `http://localhost:5173`.
 | `JWT_SECRET_KEY` | Yes | Secret key for signing JWTs |
 | `OPENAI_API_KEY` | Yes | OpenAI API key for GuitarGod |
 | `REVERB_API_TOKEN` | No | Reverb personal access token for listings |
+| `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` | No | eBay Browse API production keys for listings |
+| `ETSY_API_KEY` | No | Etsy Open API v3 key, formatted `keystring:sharedsecret`, for listings |
 | `PORT` | No | Backend port (default: 4000) |
 | `GENERAL_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Requests per window per IP across the API (default: 300 / 15 min) |
 | `AUTH_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Login/register attempts per window per IP (default: 10 / 15 min) |
@@ -196,6 +204,8 @@ The app will be available at `http://localhost:5173`.
 | PUT | `/api/users/:id` | Yes | Update profile |
 | GET | `/api/stores?city=...` | No | Find music stores by city |
 | GET | `/api/reverb?query=...` | No | Search Reverb listings |
+| GET | `/api/ebay?query=...` | No | Search eBay listings |
+| GET | `/api/etsy?query=...` | No | Search Etsy listings |
 | POST | `/api/chat` | Yes | Send message to GuitarGod |
 | GET | `/api/followed` | Yes | Get user's followed listings |
 | POST | `/api/followed` | Yes | Follow a listing |
