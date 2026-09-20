@@ -133,8 +133,8 @@ Two upload paths currently coexist:
    time in parallel. Each listing's title is matched against the brand's known model
    names, then upserted into the `listing-stats` collection via `bulkWrite` — so
    re-running ingest is idempotent per `listingId`.
-2. **Read** (`GET /api/stats`) — five Mongo aggregation pipelines run in parallel
-   (by-brand, by-condition, top models, price histogram, by-brand-and-condition) plus a
+2. **Read** (`GET /api/stats`) — four Mongo aggregation pipelines run in parallel
+   (by-brand, by-condition, top models, price histogram) plus a
    10-minute in-process cache (invalidated on every ingest) so the stats page doesn't
    hammer Mongo on every load.
 

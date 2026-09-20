@@ -28,18 +28,11 @@ export interface IPriceHistogramBucket {
     count: number;
 }
 
-export interface IBrandConditionStat {
-    brand: string;
-    condition: string;
-    count: number;
-}
-
 export interface IGuitarStats {
     totalListings: number;
     byBrand: IBrandStat[];
     byCondition: IConditionStat[];
     topModels: IModelStat[];
     priceHistogram: IPriceHistogramBucket[];
-    byBrandAndCondition: IBrandConditionStat[];
     lastUpdated: Date | null;
 }

@@ -57,7 +57,7 @@ class StatisticService {
             return this.statsCache.data;
         }
 
-        const [byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, latest] = await Promise.all([
+        const [byBrand, byCondition, topModels, priceHistogram, latest] = await Promise.all([
             ListingStatModel.aggregate([
                 { $group: { _id: "$brand", count: { $sum: 1 }, avgPrice: { $avg: "$price" }, minPrice: { $min: "$price" }, maxPrice: { $max: "$price" } } },
                 { $sort: { count: -1 } },
@@ -102,16 +102,11 @@ class StatisticService {
                     },
                 },
             ]),
-            ListingStatModel.aggregate([
-                { $group: { _id: { brand: "$brand", condition: "$condition" }, count: { $sum: 1 } } },
-                { $sort: { "_id.brand": 1, count: -1 } },
-                { $project: { _id: 0, brand: "$_id.brand", condition: "$_id.condition", count: 1 } },
-            ]),
             ListingStatModel.findOne().sort({ ingestedAt: -1 }).select("ingestedAt"),
         ]);
 
         const totalListings = byBrand.reduce((s: number, b: { count: number }) => s + b.count, 0);
-        const data: IGuitarStats = { totalListings, byBrand, byCondition, topModels, priceHistogram, byBrandAndCondition, lastUpdated: latest?.ingestedAt ?? null };
+        const data: IGuitarStats = { totalListings, byBrand, byCondition, topModels, priceHistogram, lastUpdated: latest?.ingestedAt ?? null };
         this.statsCache = { data, ts: Date.now() };
         return data;
     }
