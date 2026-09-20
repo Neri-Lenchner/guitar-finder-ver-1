@@ -95,6 +95,9 @@ starts listening.
     legitimate users who just logged in a lot).
   - `chat` — tighter, applied only to `/api/chat`, since each request costs an OpenAI
     call.
+  - `ingest` — tightest (default 3 per 15 min), applied only to `/api/stats/ingest`
+    (also admin-gated — see 2.6), since each call fans out to dozens of Reverb API
+    calls.
 
 ### 2.4 File uploads (transitional state)
 
@@ -125,7 +128,8 @@ Two upload paths currently coexist:
 
 `statistic.service.ts` is a two-phase batch/read system, not live aggregation:
 
-1. **Ingest** (`POST /api/stats/ingest`, no auth — see Known gaps): given a list of
+1. **Ingest** (`POST /api/stats/ingest`, admin-only — `authMiddleware.validateAdmin` +
+   the `ingest` rate limit tier, see 2.3): given a list of
    `{ brand, models[] }`, fetches up to 50 Reverb listings per brand, 10 brands at a
    time in parallel. Each listing's title is matched against the brand's known model
    names, then upserted into the `listing-stats` collection via `bulkWrite` — so
@@ -224,10 +228,10 @@ was last run, not real-time market state.
   app ("guitarfinder") has been registered and is awaiting Etsy's approval —
   `ETSY_API_KEY` is unset, so `/api/etsy` currently returns `503`. Once approved, set
   `ETSY_API_KEY=keystring:sharedsecret` in the backend env.
-- **`POST /api/stats/ingest` has no auth or rate limiting** — anyone can trigger a full
-  re-ingest of all brands, which fans out to dozens of Reverb API calls. Low risk today
-  (no API cost exposure beyond Reverb's own limits) but worth gating before it's linked
-  from any public UI control.
+- ~~`POST /api/stats/ingest` had no auth or dedicated rate limit~~ — fixed: now gated
+  behind `authMiddleware.validateAdmin` plus its own `rateLimitMiddleware.ingest` tier
+  (`INGEST_RATE_LIMIT_MAX`/`_WINDOW_MS`, default 3 per 15 min per IP), same pattern as
+  `auth`/`chat`.
 - **Profile update can throw `ERR_HTTP2_PROTOCOL_ERROR`** on an expired token or an
   oversized image upload — not yet root-caused/fixed.
 - **Legacy local-disk `uploads/` path** (section 2.4) is dead weight now that Cloudinary

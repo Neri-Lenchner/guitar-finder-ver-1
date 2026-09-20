@@ -29,6 +29,15 @@ class RateLimitMiddleware {
         statusCode: StatusCode.TooManyRequests,
         message: { message: "You're chatting with GuitarGod too fast, please slow down." },
     });
+
+    public readonly ingest = rateLimit({
+        windowMs: appConfig.ingestRateLimitWindowMs,
+        max: appConfig.ingestRateLimitMax,
+        standardHeaders: true,
+        legacyHeaders: false,
+        statusCode: StatusCode.TooManyRequests,
+        message: { message: "Stats ingest was triggered too recently, please wait before re-running it." },
+    });
 }
 
 export const rateLimitMiddleware = new RateLimitMiddleware();

@@ -189,6 +189,7 @@ The app will be available at `http://localhost:5173`.
 | `GENERAL_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Requests per window per IP across the API (default: 300 / 15 min) |
 | `AUTH_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | Login/register attempts per window per IP (default: 10 / 15 min) |
 | `CHAT_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | GuitarGod messages per window per IP (default: 20 / 15 min) |
+| `INGEST_RATE_LIMIT_MAX` / `_WINDOW_MS` | No | `/api/stats/ingest` calls per window per IP (default: 3 / 15 min) |
 | `CORS_ALLOWED_ORIGINS` | No | Comma-separated list of origins allowed to call the API |
 
 > **Note:** The `.env` file is in `.gitignore` and should never be committed.
@@ -211,7 +212,7 @@ The app will be available at `http://localhost:5173`.
 | POST | `/api/followed` | Yes | Follow a listing |
 | DELETE | `/api/followed/:listingId` | Yes | Unfollow a listing |
 | GET | `/api/stats` | No | Get aggregated market statistics |
-| POST | `/api/stats/ingest` | No | Fetch and store Reverb listings for all brands |
+| POST | `/api/stats/ingest` | Admin | Fetch and store Reverb listings for all brands |
 
 ---
 

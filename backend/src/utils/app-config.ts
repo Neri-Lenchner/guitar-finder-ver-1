@@ -17,6 +17,8 @@ class AppConfig {
     public readonly authRateLimitMax: number = parseInt(process.env.AUTH_RATE_LIMIT_MAX || "10");
     public readonly chatRateLimitWindowMs: number = parseInt(process.env.CHAT_RATE_LIMIT_WINDOW_MS || "900000");
     public readonly chatRateLimitMax: number = parseInt(process.env.CHAT_RATE_LIMIT_MAX || "20");
+    public readonly ingestRateLimitWindowMs: number = parseInt(process.env.INGEST_RATE_LIMIT_WINDOW_MS || "900000");
+    public readonly ingestRateLimitMax: number = parseInt(process.env.INGEST_RATE_LIMIT_MAX || "3");
 
     public readonly allowedOrigins: string[] = (
         process.env.CORS_ALLOWED_ORIGINS ||

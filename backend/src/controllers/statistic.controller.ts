@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 import { statisticService } from "../services/statistic.service";
+import { authMiddleware } from "../middleware/auth.middleware";
+import { rateLimitMiddleware } from "../middleware/rate-limit.middleware";
 
 class StatisticController {
     public readonly router = express.Router();
 
     constructor() {
-        this.router.post("/api/stats/ingest", this.ingest);
+        this.router.post("/api/stats/ingest", authMiddleware.validateAdmin, rateLimitMiddleware.ingest, this.ingest);
         this.router.get("/api/stats", this.getStats);
     }
 
