@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IStore, IOverpassTags, IOverpassElement, IOverpassResponse } from "../dto/store.dto";
 
-const OVERPASS_MIRRORS = [
+const OVERPASS_MIRRORS: string[] = [
     "https://overpass.kumi.systems/api/interpreter",
     "https://overpass.openstreetmap.fr/api/interpreter",
     "https://overpass-api.de/api/interpreter",
@@ -17,13 +17,13 @@ async function overpassPost(query: string): Promise<IOverpassResponse> {
     );
 }
 
-const STORE_TTL = 10 * 60 * 1000;
+const STORE_TTL: number = 10 * 60 * 1000;
 
 class StoreService {
     private cache = new Map<string, { data: IStore[]; ts: number }>();
 
     public async searchByCity(city: string): Promise<IStore[]> {
-        const key = city.trim().toLowerCase();
+        const key: string = city.trim().toLowerCase();
         const entry = this.cache.get(key);
         if (entry && Date.now() - entry.ts < STORE_TTL) return entry.data;
         // 1. Geocode city to lat/lon via Nominatim

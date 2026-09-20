@@ -23,7 +23,7 @@ class StatisticService {
                     const price: number = parseFloat(listing.price?.amount ?? "0");
                     if (!price) return [];
                     const title: string = listing.title ?? "";
-                    const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
+                    const guitarModel: string = models.find(model => title.toLowerCase().includes(model.toLowerCase())) ?? "";
                     if (guitarModel) matched++;
                     count++;
                     return [{
