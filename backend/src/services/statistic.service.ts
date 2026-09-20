@@ -2,25 +2,25 @@ import { reverbService } from "./reverb.service";
 import { ListingStatModel } from "../models/listing-stat.model";
 import { IIngestBrand, IGuitarStats } from "../dto/statistic.dto";
 
-const STATS_TTL = 10 * 60 * 1000;
+const STATS_TTL: number = 10 * 60 * 1000;
 
 class StatisticService {
     private statsCache: { data: IGuitarStats; ts: number } | null = null;
 
     public async ingest(brands: IIngestBrand[]): Promise<{ count: number; matched: number }> {
         this.statsCache = null;
-        let count = 0;
-        let matched = 0;
-        for (let i = 0; i < brands.length; i += 10) {
-            const chunk = brands.slice(i, i + 10);
+        let count: number = 0;
+        let matched: number = 0;
+        for (let i: number = 0; i < brands.length; i += 10) {
+            const chunk: IIngestBrand[] = brands.slice(i, i + 10);
             const results = await Promise.all(
-                chunk.map(({ brand, models }) =>
+                chunk.map(({ brand, models }: IIngestBrand) =>
                     reverbService.searchListings(brand, 50).then(listings => ({ brand, models, listings }))
                 )
             );
             for (const { brand, models, listings } of results) {
                 const ops = listings.flatMap(listing => {
-                    const price = parseFloat(listing.price?.amount ?? "0");
+                    const price: number = parseFloat(listing.price?.amount ?? "0");
                     if (!price) return [];
                     const title: string = listing.title ?? "";
                     const guitarModel: string = models.find(m => title.toLowerCase().includes(m.toLowerCase())) ?? "";
