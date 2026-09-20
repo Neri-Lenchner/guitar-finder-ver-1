@@ -23,10 +23,9 @@ Three services, one repo:
 
 - **Reverb API** — marketplace listings; active.
 - **eBay Buy Browse API** — marketplace listings; code-complete but **inactive** — the
-  eBay developer account registration was rejected, integration on hold (see Known
-  gaps).
-- **Etsy Open API v3** — marketplace listings; code-complete; app registered and
-  awaiting Etsy's approval (see Known gaps).
+  eBay developer account registration was rejected, appeal pending (see Known gaps).
+- **Etsy Open API v3** — marketplace listings; code-complete but **inactive** — the
+  registered app was banned (see Known gaps).
 - **OpenAI API** — GuitarGod chat, `gpt-4o-mini`.
 - **OpenStreetMap** (Nominatim + Overpass) — store search.
 - **Cloudinary** — avatar image storage.
@@ -118,8 +117,8 @@ Two upload paths currently coexist:
 | Integration | Service file | Notes |
 | --- | --- | --- |
 | Reverb marketplace | `reverb.service.ts` | Listing search by query string. No caching in the backend service itself — caching happens in `statistic.service.ts` (stats) and on the frontend (5 min TTL). Requires `REVERB_API_TOKEN`; throws if unset. |
-| eBay marketplace | `ebay.service.ts` | Listing source. Code-complete but inactive: `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset because the eBay developer account registration was rejected; not currently being pursued. OAuth2 client-credentials flow, in-memory token cache keyed by expiry. Returns `503` with a specific message when credentials are missing. |
-| Etsy marketplace | `etsy.service.ts` | Listing source. Code-complete; `ETSY_API_KEY` (format `keystring:sharedsecret`) unset in prod pending Etsy's approval of the registered app. Static `x-api-key` header, no OAuth. Appends "guitar" to the search keywords server-side since Etsy is a general marketplace, not gear-specific. Returns `503` with a specific message when the key is missing. |
+| eBay marketplace | `ebay.service.ts` | Listing source. Code-complete but inactive: `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset because the eBay developer account registration was rejected; appeal submitted 2026-09-17, awaiting reply. OAuth2 client-credentials flow, in-memory token cache keyed by expiry. Returns `503` with a specific message when credentials are missing. |
+| Etsy marketplace | `etsy.service.ts` | Listing source. Code-complete but inactive: `ETSY_API_KEY` is unset because the registered app was banned, not currently being pursued further. Static `x-api-key` header, no OAuth. Appends "guitar" to the search keywords server-side since Etsy is a general marketplace, not gear-specific. Returns `503` with a specific message when the key is missing. |
 | OpenAI (GuitarGod chat) | `chat.service.ts` | `gpt-4o-mini`; system prompt hardcodes the "GuitarGod" persona, forwards client-supplied `history` as prior turns. No server-side persistence — history lives in the frontend (`chatState`, localStorage) and is replayed on every request. |
 | OpenStreetMap (store search) | `store.service.ts` | Two-step: geocode city via Nominatim, then query Overpass for `shop=musical_instrument` nodes/ways within 15km. Overpass has no SLA, so the service races three public mirrors with `Promise.any`. 10-minute in-memory cache keyed by city. |
 | Cloudinary (avatar storage) | `cloudinary.config.ts` | Configured once at module load from `CLOUDINARY_*` env vars. Used by `multer.config.ts` and directly in `user.controller.ts` for asset deletion. |
@@ -218,16 +217,17 @@ was last run, not real-time market state.
 - **eBay integration** is code-complete (`ebay.controller.ts` / `ebay.service.ts` /
   frontend `ebay.service.ts`) but inactive: the eBay developer account registration was
   rejected ("problems with the data provided or other irregularities" — a known,
-  widely-reported issue on eBay's community forums, not specific to this project).
-  `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are unset, so `/api/ebay` currently returns
-  `503`. Not currently being pursued further; eBay's account-support form for rejected
-  registrations (`developer.ebay.com/support/developer-account-support` → "My account
-  registration was rejected") is a known unused option if revisited.
+  widely-reported issue on eBay's community forums, not specific to this project). An
+  appeal was submitted via eBay's account-support form
+  (`developer.ebay.com/support/developer-account-support` → "My account registration
+  was rejected") on 2026-09-17 and is awaiting a reply. `EBAY_CLIENT_ID`/
+  `EBAY_CLIENT_SECRET` remain unset until that resolves, so `/api/ebay` currently
+  returns `503`.
 - **Etsy integration** is code-complete (`etsy.controller.ts` / `etsy.service.ts` /
-  frontend `etsy.service.ts`) and was pursued as the practical alternative to eBay. An
-  app ("guitarfinder") has been registered and is awaiting Etsy's approval —
-  `ETSY_API_KEY` is unset, so `/api/etsy` currently returns `503`. Once approved, set
-  `ETSY_API_KEY=keystring:sharedsecret` in the backend env.
+  frontend `etsy.service.ts`) and was pursued as the practical alternative to eBay, but
+  the registered app ("guitarfinder") was banned rather than approved. `ETSY_API_KEY` is
+  unset, so `/api/etsy` currently returns `503`. Not currently being pursued further
+  unless a new app registration is attempted under different terms.
 - ~~`POST /api/stats/ingest` had no auth or dedicated rate limit~~ — fixed: now gated
   behind `authMiddleware.validateAdmin` plus its own `rateLimitMiddleware.ingest` tier
   (`INGEST_RATE_LIMIT_MAX`/`_WINDOW_MS`, default 3 per 15 min per IP), same pattern as

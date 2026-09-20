@@ -2,13 +2,17 @@
 
 A guitar discovery platform built around one idea: finding the right guitar should be
 effortless. GuitarFinder makes searching intuitive — go from a brand to the exact model
-you're after in a few clicks, browse live listings from Reverb, eBay, and Etsy side by side,
-compare real prices, and save guitars to your personal watchlist. Need help along the way?
-GuitarGod, the built-in AI guitar expert, is always there to guide you. Explore 40 iconic
-guitar brands, discover music stores around the world, and dig into live market analytics
-with interactive charts.
+you're after in a few clicks, browse live Reverb listings, compare real prices, and save
+guitars to your personal watchlist. Need help along the way? GuitarGod, the built-in AI
+guitar expert, is always there to guide you. Explore 40 iconic guitar brands, discover
+music stores around the world, and dig into live market analytics with interactive charts.
 
 **Live:** https://giutarfinder.up.railway.app
+
+> **Marketplace status:** Reverb is live. eBay and Etsy are integrated in code
+> (`/api/ebay`, `/api/etsy`) but not active in production — eBay's developer account
+> was rejected (appeal submitted, awaiting reply) and Etsy's app was banned. See
+> [ARCHITECTURE.md](./ARCHITECTURE.md#5-known-gaps--in-flight-work) for details.
 
 ---
 
