@@ -17,14 +17,14 @@ class AuthController {
         try {
             const userData = new UserModel(request.body);
             if (request.file) userData.profileImage = request.file.path;
-            const token = await authService.register(userData);
+            const token: string = await authService.register(userData);
             response.status(StatusCode.Created).json(token);
         } catch (error) { next(error); }
     }
 
     public async login(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
-            const token = await authService.login(request.body);
+            const token: string = await authService.login(request.body);
             response.json(token);
         } catch (error) { next(error); }
     }
