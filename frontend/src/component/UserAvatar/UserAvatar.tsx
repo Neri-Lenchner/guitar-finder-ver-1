@@ -20,12 +20,18 @@ function UserAvatar(): JSX.Element {
     if (pathname === '/chatbot') return <></>;
 
     return (
-        <div className={`user-avatar-fixed${user ? ' user-avatar-fixed--visible' : ''}`} onClick={() => user && navigate('/edit-profile')}>
+        <button
+            type="button"
+            className={`user-avatar-fixed${user ? ' user-avatar-fixed--visible' : ''}`}
+            onClick={() => user && navigate('/edit-profile')}
+            disabled={!user}
+            aria-label="Edit profile"
+        >
             <img
                 src={user?.profileImage ? (user.profileImage.startsWith('http') ? user.profileImage : `${appConfig.apiAddress}/uploads/${user.profileImage}`) : guitarGod}
-                alt={user?.firstName ?? ''}
+                alt=""
             />
-        </div>
+        </button>
     );
 }
 

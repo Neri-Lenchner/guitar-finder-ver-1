@@ -60,8 +60,9 @@ function HomeCarousel(): JSX.Element {
                         const style = BRAND_STYLES[brand.id] ?? { bg: '#1a1a2e', text: '#ffffff', accent: '#02a31d' };
                         const logo = BRAND_LOGOS[brand.id];
                         return (
-                            <div
+                            <button
                                 key={brand.id}
+                                type="button"
                                 className="carousel-3d-item"
                                 style={{ '--position': i + 1 } as React.CSSProperties}
                                 onClick={() => navigate(`/guitars?search=${encodeURIComponent(brand.name)}`)}
@@ -78,7 +79,7 @@ function HomeCarousel(): JSX.Element {
                                         Browse
                                     </span>
                                 </div>
-                            </div>
+                            </button>
                         );
                     })}
                 </div>
