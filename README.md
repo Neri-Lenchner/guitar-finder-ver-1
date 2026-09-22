@@ -97,7 +97,9 @@ guitar-finder/
 
 ## Docker (Recommended)
 
-The easiest way to run the full stack is with Docker Compose.
+The easiest way to run the full stack is with Docker Compose. See
+[RAILWAY.md](./RAILWAY.md) for how production deployment differs from this, and
+[CLOUDINARY.md](./CLOUDINARY.md) for how avatar uploads work.
 
 ### Prerequisites
 

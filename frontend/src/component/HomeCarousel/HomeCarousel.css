@@ -67,6 +67,13 @@
     to   { transform: perspective(1200px) rotateX(-16deg) rotateY(360deg); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .carousel-3d-slider {
+        animation: none;
+        transform: perspective(1200px) rotateX(-16deg) rotateY(0deg);
+    }
+}
+
 /* Each item placed on the circular ring */
 .carousel-3d-item {
     position: absolute;

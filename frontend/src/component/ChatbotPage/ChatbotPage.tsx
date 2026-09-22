@@ -73,6 +73,9 @@ function ChatbotPage(): JSX.Element {
 
     const sendPrompt = useCallback((prompt: string) => { void sendMessage(prompt); }, [sendMessage]);
 
+    const lastMessage = messages[messages.length - 1];
+    const lastBotReply = lastMessage?.sender === 'bot' ? lastMessage.text : '';
+
     function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>): void {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
@@ -92,6 +95,7 @@ function ChatbotPage(): JSX.Element {
             className="chatbot-page-wrapper"
             style={{ backgroundImage: `url(${commandCenter})` }}>
         <div className="chatbot-page">
+            <div className="sr-only" aria-live="polite">{lastBotReply}</div>
             <div className="chatbot-page-header">
                 <div className="chatbot-header-content">
                     <h1>
@@ -166,11 +170,11 @@ function ChatbotPage(): JSX.Element {
         </div>
         <div className="chatbot-prompts-side">
             <div className="chatbot-prompts-inner">
-                <h3 className="chatbot-prompts-title">Ask GuitarGod<br /><span>שאל את גיטראל</span></h3>
+                <h3 className="chatbot-prompts-title">Ask GuitarGod<br /><span lang="he">שאל את גיטראל</span></h3>
                 {SUGGESTED_PROMPTS.map(p => (
                     <div key={p.en} className="chatbot-prompt-btn">
                         <button type="button" className="chatbot-prompt-lang" onClick={() => sendPrompt(p.en)}>{p.en}</button>
-                        <button type="button" className="chatbot-prompt-lang chatbot-prompt-he" onClick={() => sendPrompt(p.he)}>{p.he}</button>
+                        <button type="button" className="chatbot-prompt-lang chatbot-prompt-he" lang="he" onClick={() => sendPrompt(p.he)}>{p.he}</button>
                     </div>
                 ))}
             </div>

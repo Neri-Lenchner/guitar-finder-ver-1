@@ -27,8 +27,10 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+    environment:
+      BACKEND_ORIGIN: http://backend:4000
     ports:
-      - "80:80"
+      - "80:8080"
 
 volumes:
   mongo-data:

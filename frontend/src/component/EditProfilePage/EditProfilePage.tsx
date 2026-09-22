@@ -79,11 +79,15 @@ function EditProfilePage(): JSX.Element {
                             />
                         </label>
                     </div>
+                    <label htmlFor="edit-profile-first-name" className="sr-only">First Name</label>
                     <input
+                        id="edit-profile-first-name"
                         type="text"
                         placeholder="First Name" {...register('firstName', { required: true })}
                     />
+                    <label htmlFor="edit-profile-last-name" className="sr-only">Last Name</label>
                     <input
+                        id="edit-profile-last-name"
                         type="text"
                         placeholder="Last Name" {...register('lastName', { required: true })}
                     />

@@ -57,12 +57,16 @@ function RegisterPage(): JSX.Element {
                             />
                         </label>
                     </div>
-                    <input type="text" placeholder="First Name" {...register('firstName', { required: true })} />
-                    <input type="text" placeholder="Last Name" {...register('lastName', { required: true })} />
-                    <input type="email" placeholder="Email" {...register('email', { required: true })} />
+                    <label htmlFor="register-first-name" className="sr-only">First Name</label>
+                    <input id="register-first-name" type="text" placeholder="First Name" {...register('firstName', { required: true })} />
+                    <label htmlFor="register-last-name" className="sr-only">Last Name</label>
+                    <input id="register-last-name" type="text" placeholder="Last Name" {...register('lastName', { required: true })} />
+                    <label htmlFor="register-email" className="sr-only">Email</label>
+                    <input id="register-email" type="email" placeholder="Email" {...register('email', { required: true })} />
                     <div className="password-wrapper">
-                        <input type={showPassword ? 'text' : 'password'} placeholder="Password" {...register('password', { required: true })} />
-                        <button type="button" className="password-toggle" onClick={() => setShowPassword(v => !v)}>
+                        <label htmlFor="register-password" className="sr-only">Password</label>
+                        <input id="register-password" type={showPassword ? 'text' : 'password'} placeholder="Password" {...register('password', { required: true })} />
+                        <button type="button" className="password-toggle" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(v => !v)}>
                             {showPassword ? (
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>

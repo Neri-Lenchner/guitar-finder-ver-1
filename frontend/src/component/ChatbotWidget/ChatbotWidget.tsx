@@ -36,6 +36,9 @@ function ChatbotWidget(): JSX.Element | null {
 
     if (!user || location.pathname === '/chatbot') return null;
 
+    const lastMessage = messages[messages.length - 1];
+    const lastBotReply = lastMessage?.sender === 'bot' ? lastMessage.text : '';
+
     const userAvatar: string = user.profileImage
         ? (user.profileImage.startsWith('http')
             ? user.profileImage
@@ -45,6 +48,7 @@ function ChatbotWidget(): JSX.Element | null {
     return (
         <>
         <div className="chatbot-widget">
+            <div className="sr-only" aria-live="polite">{lastBotReply}</div>
             {isOpen && (
                 <div className="widget-panel">
                     <div className="widget-header">

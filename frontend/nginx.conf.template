@@ -1,0 +1,28 @@
+server {
+    listen 8080;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Proxy API and uploads to the backend. BACKEND_ORIGIN is substituted at container
+    # start (see Dockerfile's default + docker-compose.yml's override) so the same
+    # template targets the Railway production backend in prod and the local `backend`
+    # container in Docker Compose.
+    location /api/ {
+        proxy_pass ${BACKEND_ORIGIN}/api/;
+        proxy_ssl_server_name on;
+        proxy_set_header Host $proxy_host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /uploads/ {
+        proxy_pass ${BACKEND_ORIGIN}/uploads/;
+        proxy_ssl_server_name on;
+        proxy_set_header Host $proxy_host;
+    }
+
+    # SPA fallback — all routes serve index.html
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

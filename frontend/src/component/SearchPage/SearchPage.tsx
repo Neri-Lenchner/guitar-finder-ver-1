@@ -48,7 +48,9 @@ function SearchPage(): JSX.Element {
                 <h1 className="search-title">Find <span>Music</span> Stores Worldwide</h1>
                 <p className="search-subtitle">Search for music stores near you by city</p>
                 <div className="search-bar">
+                    <label htmlFor="search-city" className="sr-only">City</label>
                     <input
+                        id="search-city"
                         type="text"
                         placeholder="Enter a city (e.g. London, Tel Aviv...)"
                         value={city}

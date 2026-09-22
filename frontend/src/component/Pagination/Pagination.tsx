@@ -35,7 +35,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: Pag
     }, [isMobile, currentPage, totalPages]);
 
     return (
-        <div className="pagination">
+        <nav className="pagination" aria-label="Pagination">
             <span className="pagination-info">Page {currentPage} of {totalPages}</span>
             <ul className="pagination-ul">
                 <li>
@@ -56,6 +56,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: Pag
                             <button
                                 className={`pagination-btn${currentPage === page ? ' pagination-btn--active' : ''}`}
                                 onClick={() => onPageChange(page)}
+                                aria-current={currentPage === page ? 'page' : undefined}
                             >
                                 {page}
                             </button>
@@ -73,7 +74,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: Pag
                     </button>
                 </li>
             </ul>
-        </div>
+        </nav>
     );
 }
 

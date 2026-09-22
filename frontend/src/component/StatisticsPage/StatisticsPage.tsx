@@ -140,56 +140,95 @@ function StatisticsPage(): JSX.Element {
 
                         <div className="stats-charts-row">
                             <div className="stats-chart-box">
-                                <Bar
-                                    data={{
-                                        labels: stats.byBrand.slice(0, 10).map(b => b.brand),
-                                        datasets: [{
-                                            label: 'Avg Price (USD)',
-                                            data: stats.byBrand.slice(0, 10).map(b => b.avgPrice),
-                                            backgroundColor: COLORS,
-                                        }],
-                                    }}
-                                    options={darkChartOptions('Average Price by Brand (Top 10)')}
-                                />
+                                <div role="img" aria-label="Bar chart: average price by brand, top 10 brands">
+                                    <Bar
+                                        data={{
+                                            labels: stats.byBrand.slice(0, 10).map(b => b.brand),
+                                            datasets: [{
+                                                label: 'Avg Price (USD)',
+                                                data: stats.byBrand.slice(0, 10).map(b => b.avgPrice),
+                                                backgroundColor: COLORS,
+                                            }],
+                                        }}
+                                        options={darkChartOptions('Average Price by Brand (Top 10)')}
+                                    />
+                                </div>
+                                <table className="sr-only">
+                                    <caption>Average price by brand (top 10)</caption>
+                                    <thead>
+                                        <tr><th>Brand</th><th>Avg Price</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.byBrand.slice(0, 10).map(b => (
+                                            <tr key={b.brand}><td>{b.brand}</td><td>${b.avgPrice.toLocaleString()}</td></tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                             <div className="stats-chart-box stats-chart-doughnut">
-                                <Doughnut
-                                    data={{
-                                        labels: stats.byCondition.map(c => c.condition || 'Unknown'),
-                                        datasets: [{
-                                            data: stats.byCondition.map(c => c.count),
-                                            backgroundColor: COLORS,
-                                            borderColor: 'rgba(0,0,0,0.3)',
-                                            borderWidth: 1,
-                                        }],
-                                    }}
-                                    options={{
-                                        responsive: true,
-                                        plugins: {
-                                            legend: { position: 'bottom', labels: { color: '#e8e8f0', boxWidth: 12 } },
-                                            title: { display: true, text: 'Listings by Condition', color: '#e8e8f0', font: { size: 14 } },
-                                        },
-                                    }}
-                                />
+                                <div role="img" aria-label="Doughnut chart: number of listings by condition">
+                                    <Doughnut
+                                        data={{
+                                            labels: stats.byCondition.map(c => c.condition || 'Unknown'),
+                                            datasets: [{
+                                                data: stats.byCondition.map(c => c.count),
+                                                backgroundColor: COLORS,
+                                                borderColor: 'rgba(0,0,0,0.3)',
+                                                borderWidth: 1,
+                                            }],
+                                        }}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: { position: 'bottom', labels: { color: '#e8e8f0', boxWidth: 12 } },
+                                                title: { display: true, text: 'Listings by Condition', color: '#e8e8f0', font: { size: 14 } },
+                                            },
+                                        }}
+                                    />
+                                </div>
+                                <table className="sr-only">
+                                    <caption>Listings by condition</caption>
+                                    <thead>
+                                        <tr><th>Condition</th><th>Count</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.byCondition.map(c => (
+                                            <tr key={c.condition || 'Unknown'}><td>{c.condition || 'Unknown'}</td><td>{c.count}</td></tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         <div className="stats-charts-row">
                             <div className="stats-chart-box">
-                                <Bar
-                                    data={{
-                                        labels: stats.priceHistogram.map(b => b.range),
-                                        datasets: [{
-                                            label: 'Number of Listings',
-                                            data: stats.priceHistogram.map(b => b.count),
-                                            backgroundColor: '#02a31d',
-                                        }],
-                                    }}
-                                    options={darkChartOptions('Price Distribution')}
-                                />
+                                <div role="img" aria-label="Bar chart: number of listings by price range">
+                                    <Bar
+                                        data={{
+                                            labels: stats.priceHistogram.map(b => b.range),
+                                            datasets: [{
+                                                label: 'Number of Listings',
+                                                data: stats.priceHistogram.map(b => b.count),
+                                                backgroundColor: '#02a31d',
+                                            }],
+                                        }}
+                                        options={darkChartOptions('Price Distribution')}
+                                    />
+                                </div>
+                                <table className="sr-only">
+                                    <caption>Price distribution</caption>
+                                    <thead>
+                                        <tr><th>Price Range</th><th>Count</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.priceHistogram.map(b => (
+                                            <tr key={b.range}><td>{b.range}</td><td>{b.count}</td></tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                             <div className="stats-chart-box stats-models-table-box">
-                                <h3 className="stats-table-title">Top Sold Guitar Models</h3>
+                                <h2 className="stats-table-title">Top Sold Guitar Models</h2>
                                 <table className="stats-models-table">
                                     <thead>
                                         <tr>
@@ -217,17 +256,30 @@ function StatisticsPage(): JSX.Element {
 
                         <div className="stats-charts-row stats-charts-row--full">
                             <div className="stats-chart-box">
-                                <Bar
-                                    data={{
-                                        labels: stats.byBrand.map(b => b.brand),
-                                        datasets: [{
-                                            label: 'Listings Count',
-                                            data: stats.byBrand.map(b => b.count),
-                                            backgroundColor: COLORS,
-                                        }],
-                                    }}
-                                    options={darkChartOptions('Total Listings by Brand')}
-                                />
+                                <div role="img" aria-label="Bar chart: total number of listings by brand">
+                                    <Bar
+                                        data={{
+                                            labels: stats.byBrand.map(b => b.brand),
+                                            datasets: [{
+                                                label: 'Listings Count',
+                                                data: stats.byBrand.map(b => b.count),
+                                                backgroundColor: COLORS,
+                                            }],
+                                        }}
+                                        options={darkChartOptions('Total Listings by Brand')}
+                                    />
+                                </div>
+                                <table className="sr-only">
+                                    <caption>Total listings by brand</caption>
+                                    <thead>
+                                        <tr><th>Brand</th><th>Count</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {stats.byBrand.map(b => (
+                                            <tr key={b.brand}><td>{b.brand}</td><td>{b.count}</td></tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </>

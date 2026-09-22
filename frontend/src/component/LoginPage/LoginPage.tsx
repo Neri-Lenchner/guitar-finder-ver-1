@@ -30,10 +30,12 @@ function LoginPage(): JSX.Element {
                 <div className="login-card">
                     <h2>Login</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
-                        <input type="email" placeholder="Email" {...register('email', { required: true })} />
+                        <label htmlFor="login-email" className="sr-only">Email</label>
+                        <input id="login-email" type="email" placeholder="Email" {...register('email', { required: true })} />
                         <div className="password-wrapper">
-                            <input type={showPassword ? 'text' : 'password'} placeholder="Password" {...register('password', { required: true })} />
-                            <button type="button" className="password-toggle" onClick={() => setShowPassword(v => !v)}>
+                            <label htmlFor="login-password" className="sr-only">Password</label>
+                            <input id="login-password" type={showPassword ? 'text' : 'password'} placeholder="Password" {...register('password', { required: true })} />
+                            <button type="button" className="password-toggle" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(v => !v)}>
                                 {showPassword ? (
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>

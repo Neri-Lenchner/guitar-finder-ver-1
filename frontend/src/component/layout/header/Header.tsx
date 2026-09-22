@@ -59,7 +59,9 @@ function Header(): JSX.Element {
             {user && (
                 <div className="header-search">
                     <div className="header-search-input-wrapper">
+                        <label htmlFor="header-search-desktop" className="sr-only">Search brand or model</label>
                         <input
+                            id="header-search-desktop"
                             type="text"
                             className="header-search-input"
                             placeholder="Search brand or model..."
@@ -85,7 +87,9 @@ function Header(): JSX.Element {
                 {user && (
                     <div className="header-search-mobile">
                         <div className="header-search-input-wrapper">
+                            <label htmlFor="header-search-mobile" className="sr-only">Search brand or model</label>
                             <input
+                                id="header-search-mobile"
                                 type="text"
                                 className="header-search-input"
                                 placeholder="Search brand or model..."

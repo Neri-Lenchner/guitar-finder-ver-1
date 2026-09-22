@@ -7,7 +7,7 @@ interface SpinnerProps {
 
 function Spinner({ text = 'Loading...' }: SpinnerProps): JSX.Element {
     return (
-        <div className="spinner-container">
+        <div className="spinner-container" role="status" aria-live="polite">
             <div className="spinner" />
             <p className="spinner-text">{text}</p>
         </div>

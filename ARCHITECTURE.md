@@ -2,7 +2,9 @@
 
 This document describes how GuitarFinder is put together: the runtime topology, the
 backend request pipeline, the frontend state model, the external integrations, and the
-data model. See [README.md](./README.md) for features, setup, and the API endpoint list.
+data model. See [README.md](./README.md) for features, setup, and the API endpoint
+list; [CLOUDINARY.md](./CLOUDINARY.md) for the avatar upload pipeline; and
+[RAILWAY.md](./RAILWAY.md) for production deployment details.
 
 ---
 
@@ -32,15 +34,20 @@ Three services, one repo:
 
 - **Local dev (manual setup):** Vite dev server on `:5173` talking directly to the
   backend on `:4000`; MongoDB running locally or on Atlas.
-- **Local dev (Docker Compose):** `nginx` (frontend container) on `:80` proxies `/api`
-  to the `backend` container on its internal network; `mongodb` is a `mongo:7` container
-  with a named volume. See `docker-compose.yml`.
+- **Local dev (Docker Compose):** `nginx` (frontend container) listens on `8080`
+  internally, mapped to host `:80`; `mongodb` is a `mongo:7` container with a named
+  volume. See `docker-compose.yml`. `nginx`'s `/api` and `/uploads` proxy target is
+  env-driven (`BACKEND_ORIGIN`, rendered into the config via nginx's built-in envsubst
+  templating at container start — see `frontend/nginx.conf.template`): Compose sets it
+  to `http://backend:4000` so the frontend container talks to the local `backend`
+  container over Docker's internal network, while the Dockerfile's own default targets
+  the production Railway backend for the Railway-built image.
 - **Production (Railway):** two separate Railway services — backend
   (`guitar-finder-ver-1`) and frontend (`GF`, public at
   `https://giutarfinder.up.railway.app`) — each deployed independently of the other,
   both built from this repo. Railway terminates TLS and proxies to the backend, which is why `app.ts` sets
   `server.set("trust proxy", 1)` (so `express-rate-limit` sees the real client IP, not
-  Railway's).
+  Railway's). Full deployment details in [RAILWAY.md](./RAILWAY.md).
 
 ---
 
@@ -121,7 +128,7 @@ Two upload paths currently coexist:
 | Etsy marketplace | `etsy.service.ts` | Listing source. Code-complete but inactive: `ETSY_API_KEY` is unset because the registered app was banned, not currently being pursued further. Static `x-api-key` header, no OAuth. Appends "guitar" to the search keywords server-side since Etsy is a general marketplace, not gear-specific. Returns `503` with a specific message when the key is missing. |
 | OpenAI (GuitarGod chat) | `chat.service.ts` | `gpt-4o-mini`; system prompt hardcodes the "GuitarGod" persona, forwards client-supplied `history` as prior turns. No server-side persistence — history lives in the frontend (`chatState`, localStorage) and is replayed on every request. |
 | OpenStreetMap (store search) | `store.service.ts` | Two-step: geocode city via Nominatim, then query Overpass for `shop=musical_instrument` nodes/ways within 15km. Overpass has no SLA, so the service races three public mirrors with `Promise.any`. 10-minute in-memory cache keyed by city. |
-| Cloudinary (avatar storage) | `cloudinary.config.ts` | Configured once at module load from `CLOUDINARY_*` env vars. Used by `multer.config.ts` and directly in `user.controller.ts` for asset deletion. |
+| Cloudinary (avatar storage) | `cloudinary.config.ts` | Configured once at module load from `CLOUDINARY_*` env vars. Used by `multer.config.ts` and directly in `user.controller.ts` for asset deletion. Full pipeline in [CLOUDINARY.md](./CLOUDINARY.md). |
 
 ### 2.6 Statistics pipeline
 
@@ -214,6 +221,17 @@ was last run, not real-time market state.
 
 ## 5. Known gaps / in-flight work
 
+- ~~`docker-compose.yml` frontend port mapping (`80:80`) didn't match nginx's actual
+  listen port~~ — fixed: now `80:8080`, matching the nginx template's `listen 8080;`.
+- ~~Docker Compose's `backend`/`mongodb` containers weren't reachable from the
+  frontend~~ — fixed: `nginx.conf` is now `nginx.conf.template`, rendered at container
+  start via nginx's built-in envsubst templating, with the proxy target moved to a
+  `${BACKEND_ORIGIN}` variable. The Dockerfile defaults it to the production Railway
+  backend URL; `docker-compose.yml` overrides it to `http://backend:4000` for local dev.
+  `NGINX_ENVSUBST_FILTER=^BACKEND_ORIGIN$` scopes the substitution to just that
+  variable, so nginx's own `$remote_addr`/`$uri`/`$proxy_host` tokens in the template
+  aren't touched (unfiltered envsubst would blank any `$name` token with no matching
+  env var, which is a well-known way to silently break an nginx config like this one).
 - **eBay integration** is code-complete (`ebay.controller.ts` / `ebay.service.ts` /
   frontend `ebay.service.ts`) but inactive: the eBay developer account registration was
   rejected ("problems with the data provided or other irregularities" — a known,
