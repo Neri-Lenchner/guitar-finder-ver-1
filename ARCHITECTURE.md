@@ -102,7 +102,7 @@ starts listening.
   - `chat` — tighter, applied only to `/api/chat`, since each request costs an OpenAI
     call.
   - `ingest` — tightest (default 3 per 15 min), applied only to `/api/stats/ingest`
-    (also admin-gated — see 2.6), since each call fans out to dozens of Reverb API
+    (also requires login — see 2.6), since each call fans out to dozens of Reverb API
     calls.
 
 ### 2.4 File uploads (transitional state)
@@ -134,8 +134,9 @@ Two upload paths currently coexist:
 
 `statistic.service.ts` is a two-phase batch/read system, not live aggregation:
 
-1. **Ingest** (`POST /api/stats/ingest`, admin-only — `authMiddleware.validateAdmin` +
-   the `ingest` rate limit tier, see 2.3): given a list of
+1. **Ingest** (`POST /api/stats/ingest`, requires login — `authMiddleware.validateToken` +
+   the `ingest` rate limit tier, see 2.3; any logged-in user can trigger it, not just
+   admins): given a list of
    `{ brand, models[] }`, fetches up to 50 Reverb listings per brand, 10 brands at a
    time in parallel. Each listing's title is matched against the brand's known model
    names, then upserted into the `listing-stats` collection via `bulkWrite` — so
@@ -246,10 +247,13 @@ was last run, not real-time market state.
   the registered app ("guitarfinder") was banned rather than approved. `ETSY_API_KEY` is
   unset, so `/api/etsy` currently returns `503`. Not currently being pursued further
   unless a new app registration is attempted under different terms.
-- ~~`POST /api/stats/ingest` had no auth or dedicated rate limit~~ — fixed: now gated
-  behind `authMiddleware.validateAdmin` plus its own `rateLimitMiddleware.ingest` tier
+- ~~`POST /api/stats/ingest` had no auth or dedicated rate limit~~ — fixed: now requires
+  login (`authMiddleware.validateToken`) plus its own `rateLimitMiddleware.ingest` tier
   (`INGEST_RATE_LIMIT_MAX`/`_WINDOW_MS`, default 3 per 15 min per IP), same pattern as
-  `auth`/`chat`.
+  `auth`/`chat`. Was briefly admin-only (`authMiddleware.validateAdmin`), but no account
+  — including the app owner's own — had a way to become admin (no self-serve or manual
+  promotion path exists anywhere in the app, only a direct MongoDB edit), so it was
+  loosened to "any logged-in user" instead.
 - **Profile update can throw `ERR_HTTP2_PROTOCOL_ERROR`** on an expired token or an
   oversized image upload — not yet root-caused/fixed.
 - **Legacy local-disk `uploads/` path** (section 2.4) is dead weight now that Cloudinary

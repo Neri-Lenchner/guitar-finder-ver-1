@@ -8,7 +8,7 @@ class StatisticController {
     public readonly router = express.Router();
 
     constructor() {
-        this.router.post("/api/stats/ingest", authMiddleware.validateAdmin, rateLimitMiddleware.ingest, this.ingest);
+        this.router.post("/api/stats/ingest", authMiddleware.validateToken, rateLimitMiddleware.ingest, this.ingest);
         this.router.get("/api/stats", this.getStats);
     }
 
