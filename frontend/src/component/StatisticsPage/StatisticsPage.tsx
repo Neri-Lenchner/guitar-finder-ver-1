@@ -75,8 +75,8 @@ function StatisticsPage(): JSX.Element {
             const fresh = await statisticService.getStats();
             setStats(fresh);
             setIngestMsg('Data updated successfully.');
-        } catch {
-            setIngestMsg('Update failed. Make sure the Reverb token is configured.');
+        } catch (error: any) {
+            setIngestMsg(error.response?.data?.message || 'Update failed.');
         } finally {
             setIngesting(false);
         }
