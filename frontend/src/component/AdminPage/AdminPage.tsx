@@ -1,14 +1,17 @@
 import { JSX, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { authService } from '../../services/auth.service';
-import { adminService, IAdminUser } from '../../services/admin.service';
+import { adminService, IAdminUser, IIntegrationStatus } from '../../services/admin.service';
 import { statisticService, IGuitarStats } from '../../services/statistic.service';
 import { appConfig } from '../../utils/app-config';
+import { SOURCE_LABELS, ListingSource } from '../../models/guitar.model';
 import guitarGod from '../../assets/guitar-god.png';
 import defaultAvatar from '../../assets/default-avatar.png';
 import AlertModal from '../AlertModal/AlertModal';
 import Spinner from '../Spinner/Spinner';
 import './AdminPage.css';
+
+const INTEGRATION_SOURCES: ListingSource[] = ['reverb', 'ebay', 'etsy'];
 
 function avatarSrc(user: IAdminUser): string {
     if (!user.profileImage) return defaultAvatar;
@@ -19,19 +22,27 @@ function AdminPage(): JSX.Element {
     const currentUser = authService.getLoggedInUser();
     const [users, setUsers] = useState<IAdminUser[]>([]);
     const [stats, setStats] = useState<IGuitarStats | null>(null);
+    const [integrations, setIntegrations] = useState<IIntegrationStatus | null>(null);
     const [loading, setLoading] = useState(true);
     const [alertMsg, setAlertMsg] = useState('');
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         if (!currentUser?.isAdmin) { setLoading(false); return; }
-        Promise.all([adminService.getUsers(), statisticService.getStats()])
-            .then(([usersData, statsData]) => {
+        Promise.all([adminService.getUsers(), statisticService.getStats(), adminService.getIntegrationStatus()])
+            .then(([usersData, statsData, integrationsData]) => {
                 setUsers(usersData);
                 setStats(statsData);
+                setIntegrations(integrationsData);
             })
             .catch(() => setAlertMsg('Failed to load admin data.'))
             .finally(() => setLoading(false));
     }, []);
+
+    const filteredUsers = users.filter(u => {
+        const haystack = `${u.firstName} ${u.lastName} ${u.email}`.toLowerCase();
+        return haystack.includes(search.trim().toLowerCase());
+    });
 
     async function handleToggleAdmin(user: IAdminUser): Promise<void> {
         try {
@@ -94,7 +105,26 @@ function AdminPage(): JSX.Element {
                     </div>
                 )}
 
+                {integrations && (
+                    <div className="admin-integrations-row">
+                        {INTEGRATION_SOURCES.map(source => (
+                            <span key={source} className={`admin-integration-badge${integrations[source] ? ' admin-integration-badge--ok' : ' admin-integration-badge--missing'}`}>
+                                {integrations[source] ? '✓' : '✗'} {SOURCE_LABELS[source]}
+                            </span>
+                        ))}
+                    </div>
+                )}
+
                 <h2 className="admin-section-title">Users</h2>
+                <label htmlFor="admin-user-search" className="sr-only">Search users by name or email</label>
+                <input
+                    id="admin-user-search"
+                    type="text"
+                    className="admin-user-search"
+                    placeholder="Search by name or email..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                />
                 <div className="admin-users-table-wrap">
                     <table className="admin-users-table">
                         <thead>
@@ -108,7 +138,7 @@ function AdminPage(): JSX.Element {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map(u => (
+                            {filteredUsers.map(u => (
                                 <tr key={u._id}>
                                     <td><img src={avatarSrc(u)} alt="" className="admin-user-avatar" /></td>
                                     <td>{u.firstName} {u.lastName}</td>

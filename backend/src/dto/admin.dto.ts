@@ -7,3 +7,9 @@ export interface IAdminUser {
     profileImage: string | null;
     createdAt: Date;
 }
+
+export interface IIntegrationStatus {
+    reverb: boolean;
+    ebay: boolean;
+    etsy: boolean;
+}

@@ -1,12 +1,21 @@
 import { UserModel } from "../models/user.model";
 import { FollowedListingModel } from "../models/followed-listing.model";
 import { ValidationError, NotFoundError } from "../models/client-error";
-import { IAdminUser } from "../dto/admin.dto";
+import { IAdminUser, IIntegrationStatus } from "../dto/admin.dto";
+import { appConfig } from "../utils/app-config";
 
 class AdminService {
     public async getAllUsers(): Promise<IAdminUser[]> {
         const users = await UserModel.find().select("-password").sort({ createdAt: -1 }).lean();
         return users as unknown as IAdminUser[];
+    }
+
+    public getIntegrationStatus(): IIntegrationStatus {
+        return {
+            reverb: !!appConfig.reverbToken,
+            ebay: !!appConfig.ebayClientId && !!appConfig.ebayClientSecret,
+            etsy: !!appConfig.etsyApiKey,
+        };
     }
 
     public async setAdminStatus(targetId: string, isAdmin: boolean, requesterId: string): Promise<IAdminUser> {

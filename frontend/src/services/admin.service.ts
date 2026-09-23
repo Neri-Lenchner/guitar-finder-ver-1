@@ -11,9 +11,20 @@ export interface IAdminUser {
     createdAt: string;
 }
 
+export interface IIntegrationStatus {
+    reverb: boolean;
+    ebay: boolean;
+    etsy: boolean;
+}
+
 class AdminService {
     public async getUsers(): Promise<IAdminUser[]> {
         const res = await axios.get(`${appConfig.apiAddress}/api/admin/users`);
+        return res.data;
+    }
+
+    public async getIntegrationStatus(): Promise<IIntegrationStatus> {
+        const res = await axios.get(`${appConfig.apiAddress}/api/admin/integrations`);
         return res.data;
     }
 

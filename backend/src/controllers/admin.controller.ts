@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { Types } from "mongoose";
 import { adminService } from "../services/admin.service";
 import { authMiddleware } from "../middleware/auth.middleware";
 import { StatusCode } from "../models/enums";
@@ -15,6 +16,7 @@ class AdminController {
 
     public constructor() {
         this.router.get("/api/admin/users", authMiddleware.validateAdmin, this.getUsers);
+        this.router.get("/api/admin/integrations", authMiddleware.validateAdmin, this.getIntegrations);
         this.router.put("/api/admin/users/:id/admin-status", authMiddleware.validateAdmin, this.setAdminStatus);
         this.router.delete("/api/admin/users/:id", authMiddleware.validateAdmin, this.deleteUser);
     }
@@ -26,6 +28,10 @@ class AdminController {
         } catch (error) { next(error); }
     };
 
+    private getIntegrations = (request: Request, response: Response): void => {
+        response.json(adminService.getIntegrationStatus());
+    };
+
     private setAdminStatus = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
         try {
             const { isAdmin } = request.body;
@@ -34,6 +40,10 @@ class AdminController {
                 return;
             }
             const targetId = request.params.id as string;
+            if (!Types.ObjectId.isValid(targetId)) {
+                response.status(StatusCode.BadRequest).json({ message: "Invalid user id" });
+                return;
+            }
             const user = await adminService.setAdminStatus(targetId, isAdmin, getUserId(request));
             response.json(user);
         } catch (error) { next(error); }
@@ -42,6 +52,10 @@ class AdminController {
     private deleteUser = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
         try {
             const targetId = request.params.id as string;
+            if (!Types.ObjectId.isValid(targetId)) {
+                response.status(StatusCode.BadRequest).json({ message: "Invalid user id" });
+                return;
+            }
             await adminService.deleteUser(targetId, getUserId(request));
             response.sendStatus(StatusCode.NoContent);
         } catch (error) { next(error); }
