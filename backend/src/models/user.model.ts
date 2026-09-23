@@ -8,6 +8,7 @@ export interface IUserModel extends Document {
     password: string;
     isAdmin: boolean;
     profileImage: string | null;
+    createdAt: Date;
 }
 
 export const UserSchema = new Schema<IUserModel>({
@@ -41,6 +42,6 @@ export const UserSchema = new Schema<IUserModel>({
         type: String,
         default: null,
     },
-});
+}, { timestamps: true });
 
 export const UserModel = model<IUserModel>("UserModel", UserSchema, "users");

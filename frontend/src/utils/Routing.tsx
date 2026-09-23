@@ -10,6 +10,7 @@ import SearchPage from '../component/SearchPage/SearchPage';
 import GuitarsPage from '../component/GuitarsPage/GuitarsPage';
 import WatchlistPage from '../component/WatchlistPage/WatchlistPage';
 import StatisticsPage from '../component/StatisticsPage/StatisticsPage';
+import AdminPage from '../component/AdminPage/AdminPage';
 import PrivateRoute from '../component/PrivateRoute';
 
 function Routing(): JSX.Element {
@@ -23,6 +24,7 @@ function Routing(): JSX.Element {
             <Route path="/guitars" element={<PrivateRoute child={<GuitarsPage />} />} />
             <Route path="/watchlist" element={<PrivateRoute child={<WatchlistPage />} />} />
             <Route path="/stats" element={<PrivateRoute child={<StatisticsPage />} />} />
+            <Route path="/admin" element={<PrivateRoute child={<AdminPage />} />} />
             <Route path="/edit-profile" element={<PrivateRoute child={<EditProfilePage />} />} />
             <Route path="/about" element={<FooterPage />} />
             <Route path="/contact" element={<FooterPage />} />

@@ -17,6 +17,7 @@ import { ebayController } from "./controllers/ebay.controller";
 import { etsyController } from "./controllers/etsy.controller";
 import { followedController } from "./controllers/followed.controller";
 import { statisticController } from "./controllers/statistic.controller";
+import { adminController } from "./controllers/admin.controller";
 
 class App {
     public async start(): Promise<void> {
@@ -45,6 +46,7 @@ class App {
         server.use(etsyController.router);
         server.use(followedController.router);
         server.use(statisticController.router);
+        server.use(adminController.router);
         server.use(errorMiddleware.serverError);
         server.use(errorMiddleware.catchAll);
         server.listen(appConfig.port, () =>
