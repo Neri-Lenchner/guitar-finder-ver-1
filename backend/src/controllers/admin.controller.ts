@@ -6,7 +6,7 @@ import { authMiddleware } from "../middleware/auth.middleware";
 import { StatusCode } from "../models/enums";
 
 function getUserId(request: Request): string {
-    const token = request.headers.authorization?.substring(7) ?? "";
+    const token: string = request.headers.authorization?.substring(7) ?? "";
     const payload = jwt.decode(token) as { _id: string };
     return payload._id;
 }
